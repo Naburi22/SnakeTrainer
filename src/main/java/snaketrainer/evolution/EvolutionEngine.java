@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import snaketrainer.agent.WeightedAgent;
 import snaketrainer.evolution.evaluation.FitnessEvaluator;
 import snaketrainer.evolution.evaluation.FitnessResult;
@@ -29,7 +28,7 @@ public class EvolutionEngine {
     public EvolutionEngine(EvolutionConfig config, Random random) {
         this.config = config;
         this.random = random;
-        this.logger = new EvolutionLogger("evolution_log.txt");
+        this.logger = new EvolutionLogger("./logs/evolution_log.txt");
     }
 
     public GenerationResult run() {
