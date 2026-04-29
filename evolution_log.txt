@@ -1,0 +1,3058 @@
+==================================================
+GENERACION 1
+==================================================
+Agente #1
+Puntuacion: 28
+Pasos: 787
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,898462
+  DistanciaCuerpo: -0,935209
+  LibertadLocal: -0,887663
+  EspacioAccesible: -0,472220
+  MejoraComida: -0,631773
+  ComidaEnFrente: 0,974413
+  ComidaAlcanzable: -0,559192
+  SeguirRecto: 0,486455
+  ColaAlcanzable: 0,309925
+
+Agente #2
+Puntuacion: 2
+Pasos: 277
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,151713
+  DistanciaCuerpo: -0,597712
+  LibertadLocal: 0,379991
+  EspacioAccesible: -0,877980
+  MejoraComida: 0,961815
+  ComidaEnFrente: 0,620451
+  ComidaAlcanzable: -0,464321
+  SeguirRecto: -0,647946
+  ColaAlcanzable: 0,570977
+
+Agente #3
+Puntuacion: 2
+Pasos: 289
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,153297
+  DistanciaCuerpo: -0,906449
+  LibertadLocal: 0,802749
+  EspacioAccesible: 0,523356
+  MejoraComida: 0,761070
+  ComidaEnFrente: 0,226926
+  ComidaAlcanzable: 0,441381
+  SeguirRecto: 0,632555
+  ColaAlcanzable: 0,854585
+
+Agente #4
+Puntuacion: 1
+Pasos: 211
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,227143
+  DistanciaCuerpo: 0,166069
+  LibertadLocal: -0,854817
+  EspacioAccesible: -0,278714
+  MejoraComida: 0,594795
+  ComidaEnFrente: 0,952284
+  ComidaAlcanzable: -0,587095
+  SeguirRecto: -0,812811
+  ColaAlcanzable: -0,180254
+
+Agente #5
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,100096
+  DistanciaCuerpo: -0,383171
+  LibertadLocal: 0,964345
+  EspacioAccesible: -0,327677
+  MejoraComida: -0,165535
+  ComidaEnFrente: 0,617121
+  ComidaAlcanzable: 0,101782
+  SeguirRecto: -0,351140
+  ColaAlcanzable: -0,308187
+
+Agente #6
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,161718
+  DistanciaCuerpo: 0,452302
+  LibertadLocal: -0,381566
+  EspacioAccesible: 0,008960
+  MejoraComida: 0,428828
+  ComidaEnFrente: -0,790375
+  ComidaAlcanzable: -0,346813
+  SeguirRecto: 0,728809
+  ColaAlcanzable: -0,812315
+
+Agente #7
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,422274
+  DistanciaCuerpo: 0,296902
+  LibertadLocal: 0,080681
+  EspacioAccesible: 0,531147
+  MejoraComida: -0,910811
+  ComidaEnFrente: 0,346301
+  ComidaAlcanzable: 0,093460
+  SeguirRecto: 0,422254
+  ColaAlcanzable: -0,228448
+
+Agente #8
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,464062
+  DistanciaCuerpo: 0,235099
+  LibertadLocal: -0,991259
+  EspacioAccesible: 0,664147
+  MejoraComida: -0,704274
+  ComidaEnFrente: 0,580375
+  ComidaAlcanzable: 0,077052
+  SeguirRecto: -0,872605
+  ColaAlcanzable: -0,607341
+
+Agente #9
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,379530
+  DistanciaCuerpo: -0,146284
+  LibertadLocal: 0,888459
+  EspacioAccesible: 0,973399
+  MejoraComida: 0,933617
+  ComidaEnFrente: -0,828273
+  ComidaAlcanzable: -0,168379
+  SeguirRecto: -0,708025
+  ColaAlcanzable: -0,721929
+
+Agente #10
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,431589
+  DistanciaCuerpo: -0,831306
+  LibertadLocal: 0,236901
+  EspacioAccesible: -0,665758
+  MejoraComida: -0,507452
+  ComidaEnFrente: -0,185758
+  ComidaAlcanzable: -0,335378
+  SeguirRecto: -0,090684
+  ColaAlcanzable: -0,527597
+
+Agente #11
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,457673
+  DistanciaCuerpo: -0,498750
+  LibertadLocal: 0,208264
+  EspacioAccesible: 0,832588
+  MejoraComida: -0,184049
+  ComidaEnFrente: -0,407844
+  ComidaAlcanzable: -0,632844
+  SeguirRecto: -0,653444
+  ColaAlcanzable: 0,057337
+
+Agente #12
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,640958
+  DistanciaCuerpo: 0,925375
+  LibertadLocal: -0,927166
+  EspacioAccesible: -0,433395
+  MejoraComida: 0,466707
+  ComidaEnFrente: 0,124991
+  ComidaAlcanzable: 0,546910
+  SeguirRecto: -0,701594
+  ColaAlcanzable: 0,906784
+
+Agente #13
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,541278
+  DistanciaCuerpo: -0,512933
+  LibertadLocal: -0,729529
+  EspacioAccesible: 0,173332
+  MejoraComida: -0,016347
+  ComidaEnFrente: -0,778764
+  ComidaAlcanzable: 0,505041
+  SeguirRecto: 0,535206
+  ColaAlcanzable: 0,576054
+
+Agente #14
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,356638
+  DistanciaCuerpo: 0,512470
+  LibertadLocal: 0,969661
+  EspacioAccesible: -0,361584
+  MejoraComida: 0,328397
+  ComidaEnFrente: -0,523743
+  ComidaAlcanzable: 0,960516
+  SeguirRecto: -0,534928
+  ColaAlcanzable: -0,039531
+
+Agente #15
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,468649
+  DistanciaCuerpo: 0,881410
+  LibertadLocal: 0,754400
+  EspacioAccesible: 0,791911
+  MejoraComida: -0,660398
+  ComidaEnFrente: -0,080042
+  ComidaAlcanzable: 0,629687
+  SeguirRecto: 0,296838
+  ColaAlcanzable: 0,942936
+
+Agente #16
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,362346
+  DistanciaCuerpo: 0,163222
+  LibertadLocal: -0,491473
+  EspacioAccesible: 0,748721
+  MejoraComida: 0,961259
+  ComidaEnFrente: -0,707651
+  ComidaAlcanzable: 0,698211
+  SeguirRecto: 0,202922
+  ColaAlcanzable: 0,779927
+
+Agente #17
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,559741
+  DistanciaCuerpo: -0,438741
+  LibertadLocal: 0,273839
+  EspacioAccesible: 0,817503
+  MejoraComida: 0,133983
+  ComidaEnFrente: -0,540856
+  ComidaAlcanzable: -0,326333
+  SeguirRecto: 0,847980
+  ColaAlcanzable: 0,896678
+
+Agente #18
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,923808
+  DistanciaCuerpo: -0,645143
+  LibertadLocal: 0,594288
+  EspacioAccesible: 0,774836
+  MejoraComida: -0,148287
+  ComidaEnFrente: -0,945228
+  ComidaAlcanzable: -0,388846
+  SeguirRecto: -0,047601
+  ColaAlcanzable: 0,598122
+
+Agente #19
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,420024
+  DistanciaCuerpo: -0,232519
+  LibertadLocal: 0,128419
+  EspacioAccesible: 0,069866
+  MejoraComida: -0,277103
+  ComidaEnFrente: 0,921171
+  ComidaAlcanzable: 0,068230
+  SeguirRecto: -0,657593
+  ColaAlcanzable: 0,669609
+
+Agente #20
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,147542
+  DistanciaCuerpo: 0,420802
+  LibertadLocal: 0,857230
+  EspacioAccesible: -0,522564
+  MejoraComida: -0,734321
+  ComidaEnFrente: -0,547970
+  ComidaAlcanzable: -0,353413
+  SeguirRecto: -0,611619
+  ColaAlcanzable: -0,867060
+
+
+==================================================
+GENERACION 2
+==================================================
+Agente #1
+Puntuacion: 44
+Pasos: 983
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,199729
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #2
+Puntuacion: 13
+Pasos: 353
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,898462
+  DistanciaCuerpo: -0,935209
+  LibertadLocal: -0,887663
+  EspacioAccesible: -0,472220
+  MejoraComida: -0,631773
+  ComidaEnFrente: 0,974413
+  ComidaAlcanzable: -0,559192
+  SeguirRecto: 0,486455
+  ColaAlcanzable: 0,309925
+
+Agente #3
+Puntuacion: 7
+Pasos: 420
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,291243
+  DistanciaCuerpo: -0,638240
+  LibertadLocal: 0,519582
+  EspacioAccesible: 0,583697
+  MejoraComida: -0,346288
+  ComidaEnFrente: 0,223665
+  ComidaAlcanzable: 0,081675
+  SeguirRecto: 0,257308
+  ColaAlcanzable: 0,209659
+
+Agente #4
+Puntuacion: 1
+Pasos: 239
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,149590
+  DistanciaCuerpo: 0,236069
+  LibertadLocal: 0,856681
+  EspacioAccesible: -0,425623
+  MejoraComida: -0,569495
+  ComidaEnFrente: 0,195577
+  ComidaAlcanzable: 0,316639
+  SeguirRecto: 0,077694
+  ColaAlcanzable: -0,512197
+
+Agente #5
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,123876
+  DistanciaCuerpo: -0,310010
+  LibertadLocal: -0,009927
+  EspacioAccesible: 0,251769
+  MejoraComida: 0,539265
+  ComidaEnFrente: -0,667541
+  ComidaAlcanzable: -0,072670
+  SeguirRecto: 0,685880
+  ColaAlcanzable: 0,192008
+
+Agente #6
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,102503
+  DistanciaCuerpo: 0,207884
+  LibertadLocal: -0,152387
+  EspacioAccesible: 0,575688
+  MejoraComida: -0,398208
+  ComidaEnFrente: 0,327881
+  ComidaAlcanzable: 0,219525
+  SeguirRecto: 0,361303
+  ColaAlcanzable: 0,650502
+
+Agente #7
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,499220
+  DistanciaCuerpo: -0,310622
+  LibertadLocal: 0,744430
+  EspacioAccesible: 0,219352
+  MejoraComida: 0,313038
+  ComidaEnFrente: -0,785302
+  ComidaAlcanzable: 0,456574
+  SeguirRecto: 0,194166
+  ColaAlcanzable: 0,144126
+
+Agente #8
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,428075
+  DistanciaCuerpo: -0,167632
+  LibertadLocal: -0,661062
+  EspacioAccesible: 0,562046
+  MejoraComida: -0,628992
+  ComidaEnFrente: 0,298831
+  ComidaAlcanzable: 0,143252
+  SeguirRecto: -0,490159
+  ColaAlcanzable: 0,015974
+
+Agente #9
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,096688
+  DistanciaCuerpo: -0,350170
+  LibertadLocal: 0,251639
+  EspacioAccesible: -0,255452
+  MejoraComida: -0,085291
+  ComidaEnFrente: 0,634039
+  ComidaAlcanzable: -0,268823
+  SeguirRecto: -0,654923
+  ColaAlcanzable: 0,658196
+
+Agente #10
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,641571
+  DistanciaCuerpo: -0,416102
+  LibertadLocal: 0,245699
+  EspacioAccesible: 0,622034
+  MejoraComida: -0,273978
+  ComidaEnFrente: -0,625080
+  ComidaAlcanzable: -0,347521
+  SeguirRecto: -0,141957
+  ColaAlcanzable: 0,638443
+
+Agente #11
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,909811
+  DistanciaCuerpo: -0,705661
+  LibertadLocal: -0,540541
+  EspacioAccesible: -0,144506
+  MejoraComida: -0,532342
+  ComidaEnFrente: 0,949681
+  ComidaAlcanzable: -0,242152
+  SeguirRecto: -0,056873
+  ColaAlcanzable: 0,427757
+
+Agente #12
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,185061
+  DistanciaCuerpo: -0,342998
+  LibertadLocal: 0,769794
+  EspacioAccesible: 0,546580
+  MejoraComida: -0,093159
+  ComidaEnFrente: -0,102191
+  ComidaAlcanzable: 0,519672
+  SeguirRecto: 0,440516
+  ColaAlcanzable: 0,939932
+
+Agente #13
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,445189
+  DistanciaCuerpo: 0,373084
+  LibertadLocal: 0,250105
+  EspacioAccesible: -0,370096
+  MejoraComida: -0,007822
+  ComidaEnFrente: -0,717811
+  ComidaAlcanzable: 0,814674
+  SeguirRecto: -0,258088
+  ColaAlcanzable: 0,217104
+
+Agente #14
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,284209
+  DistanciaCuerpo: -0,089482
+  LibertadLocal: 0,318764
+  EspacioAccesible: 0,170202
+  MejoraComida: 0,021246
+  ComidaEnFrente: -0,416303
+  ComidaAlcanzable: -0,586372
+  SeguirRecto: -0,558333
+  ColaAlcanzable: 0,047937
+
+Agente #15
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,557446
+  DistanciaCuerpo: 0,516817
+  LibertadLocal: -0,980201
+  EspacioAccesible: -0,044702
+  MejoraComida: -0,257622
+  ComidaEnFrente: 0,211222
+  ComidaAlcanzable: 0,457579
+  SeguirRecto: -0,716180
+  ColaAlcanzable: 0,801469
+
+Agente #16
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,270594
+  DistanciaCuerpo: 0,250245
+  LibertadLocal: 0,036541
+  EspacioAccesible: 0,457940
+  MejoraComida: 0,006003
+  ComidaEnFrente: -0,453610
+  ComidaAlcanzable: -0,693678
+  SeguirRecto: -0,053124
+  ColaAlcanzable: -0,581939
+
+Agente #17
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,499813
+  DistanciaCuerpo: 0,661916
+  LibertadLocal: -1,000000
+  EspacioAccesible: -0,191086
+  MejoraComida: -0,338696
+  ComidaEnFrente: 0,572963
+  ComidaAlcanzable: 0,535564
+  SeguirRecto: -0,680336
+  ColaAlcanzable: 0,326488
+
+Agente #18
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,151998
+  DistanciaCuerpo: -0,108560
+  LibertadLocal: 0,721767
+  EspacioAccesible: 0,527474
+  MejoraComida: -0,331244
+  ComidaEnFrente: 0,282088
+  ComidaAlcanzable: 0,101222
+  SeguirRecto: 0,459915
+  ColaAlcanzable: -0,014350
+
+Agente #19
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,134648
+  DistanciaCuerpo: -0,014248
+  LibertadLocal: 0,638383
+  EspacioAccesible: -0,420781
+  MejoraComida: -0,337128
+  ComidaEnFrente: -0,499315
+  ComidaAlcanzable: -0,588365
+  SeguirRecto: -0,643497
+  ColaAlcanzable: -0,754938
+
+Agente #20
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,166950
+  DistanciaCuerpo: 0,258682
+  LibertadLocal: 0,969279
+  EspacioAccesible: -0,352750
+  MejoraComida: 0,304706
+  ComidaEnFrente: -0,582469
+  ComidaAlcanzable: 0,676760
+  SeguirRecto: 0,158843
+  ColaAlcanzable: 0,089502
+
+
+==================================================
+GENERACION 3
+==================================================
+Agente #1
+Puntuacion: 116
+Pasos: 3966
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,524719
+  DistanciaCuerpo: -0,694863
+  LibertadLocal: -0,054785
+  EspacioAccesible: 0,425408
+  MejoraComida: -0,200039
+  ComidaEnFrente: 0,650135
+  ComidaAlcanzable: 0,293633
+  SeguirRecto: 0,398737
+  ColaAlcanzable: 0,483051
+
+Agente #2
+Puntuacion: 77
+Pasos: 2259
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,199729
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #3
+Puntuacion: 50
+Pasos: 1235
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,199729
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #4
+Puntuacion: 44
+Pasos: 980
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,977382
+  DistanciaCuerpo: -0,450695
+  LibertadLocal: -0,315495
+  EspacioAccesible: -0,107135
+  MejoraComida: 0,318174
+  ComidaEnFrente: 0,913573
+  ComidaAlcanzable: -0,277512
+  SeguirRecto: 0,464801
+  ColaAlcanzable: 0,372142
+
+Agente #5
+Puntuacion: 28
+Pasos: 775
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,900981
+  DistanciaCuerpo: -0,869175
+  LibertadLocal: -0,560086
+  EspacioAccesible: -0,203306
+  MejoraComida: -0,585124
+  ComidaEnFrente: 0,957767
+  ComidaAlcanzable: -0,533873
+  SeguirRecto: 0,372861
+  ColaAlcanzable: 0,363040
+
+Agente #6
+Puntuacion: 26
+Pasos: 872
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,426263
+  DistanciaCuerpo: -0,567532
+  LibertadLocal: 0,665215
+  EspacioAccesible: -0,432204
+  MejoraComida: -0,615253
+  ComidaEnFrente: 0,713405
+  ComidaAlcanzable: -0,543995
+  SeguirRecto: 0,356545
+  ColaAlcanzable: 0,040549
+
+Agente #7
+Puntuacion: 23
+Pasos: 693
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,898462
+  DistanciaCuerpo: -0,935209
+  LibertadLocal: -0,887663
+  EspacioAccesible: -0,472220
+  MejoraComida: -0,532076
+  ComidaEnFrente: 0,974413
+  ComidaAlcanzable: -0,559192
+  SeguirRecto: 0,486455
+  ColaAlcanzable: 0,309925
+
+Agente #8
+Puntuacion: 22
+Pasos: 571
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,701523
+  DistanciaCuerpo: -0,297795
+  LibertadLocal: -0,091183
+  EspacioAccesible: -0,465958
+  MejoraComida: -0,599350
+  ComidaEnFrente: 0,761588
+  ComidaAlcanzable: -0,195322
+  SeguirRecto: 0,292209
+  ColaAlcanzable: 0,014533
+
+Agente #9
+Puntuacion: 13
+Pasos: 859
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,288844
+  DistanciaCuerpo: -0,220700
+  LibertadLocal: 0,765237
+  EspacioAccesible: 0,376823
+  MejoraComida: -0,452156
+  ComidaEnFrente: 0,197924
+  ComidaAlcanzable: 0,312665
+  SeguirRecto: 0,191261
+  ColaAlcanzable: -0,499764
+
+Agente #10
+Puntuacion: 3
+Pasos: 272
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,243272
+  DistanciaCuerpo: -0,209496
+  LibertadLocal: 0,313327
+  EspacioAccesible: -0,178583
+  MejoraComida: 0,190836
+  ComidaEnFrente: 0,948732
+  ComidaAlcanzable: 0,203476
+  SeguirRecto: 0,165191
+  ColaAlcanzable: -0,098743
+
+Agente #11
+Puntuacion: 1
+Pasos: 250
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,218036
+  DistanciaCuerpo: -0,316402
+  LibertadLocal: -0,004986
+  EspacioAccesible: 0,032776
+  MejoraComida: -0,013591
+  ComidaEnFrente: 0,432659
+  ComidaAlcanzable: 0,339657
+  SeguirRecto: 0,497269
+  ColaAlcanzable: 0,539966
+
+Agente #12
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,186268
+  DistanciaCuerpo: -0,268723
+  LibertadLocal: 0,177042
+  EspacioAccesible: -0,242161
+  MejoraComida: -0,462564
+  ComidaEnFrente: 0,621650
+  ComidaAlcanzable: -0,136054
+  SeguirRecto: -0,502801
+  ColaAlcanzable: 0,253891
+
+Agente #13
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,279918
+  DistanciaCuerpo: -0,079952
+  LibertadLocal: 0,594072
+  EspacioAccesible: -0,332278
+  MejoraComida: -0,324958
+  ComidaEnFrente: -0,096877
+  ComidaAlcanzable: -0,135353
+  SeguirRecto: -0,024845
+  ColaAlcanzable: -0,198388
+
+Agente #14
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,159786
+  DistanciaCuerpo: 0,384102
+  LibertadLocal: 0,547006
+  EspacioAccesible: -0,162077
+  MejoraComida: -0,477641
+  ComidaEnFrente: 0,209890
+  ComidaAlcanzable: 0,424497
+  SeguirRecto: -0,541580
+  ColaAlcanzable: 0,278939
+
+Agente #15
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,295415
+  DistanciaCuerpo: -0,195312
+  LibertadLocal: -0,027113
+  EspacioAccesible: 0,067758
+  MejoraComida: -0,206185
+  ComidaEnFrente: 0,561627
+  ComidaAlcanzable: -0,145614
+  SeguirRecto: -0,497847
+  ColaAlcanzable: 0,654862
+
+Agente #16
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,209492
+  DistanciaCuerpo: -0,802153
+  LibertadLocal: -0,970063
+  EspacioAccesible: -0,158613
+  MejoraComida: -0,597495
+  ComidaEnFrente: 0,625726
+  ComidaAlcanzable: -0,020213
+  SeguirRecto: -0,664283
+  ColaAlcanzable: 0,366385
+
+Agente #17
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,408630
+  DistanciaCuerpo: 0,243482
+  LibertadLocal: 0,212389
+  EspacioAccesible: 0,434200
+  MejoraComida: 0,034549
+  ComidaEnFrente: -0,179161
+  ComidaAlcanzable: -0,059026
+  SeguirRecto: 0,256111
+  ColaAlcanzable: -0,190802
+
+Agente #18
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,066199
+  DistanciaCuerpo: -0,572941
+  LibertadLocal: -0,405503
+  EspacioAccesible: -0,462803
+  MejoraComida: -0,352539
+  ComidaEnFrente: 0,673250
+  ComidaAlcanzable: -0,316288
+  SeguirRecto: -0,484173
+  ColaAlcanzable: 0,547574
+
+Agente #19
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,012259
+  DistanciaCuerpo: 0,251559
+  LibertadLocal: 1,000000
+  EspacioAccesible: -0,359784
+  MejoraComida: -0,029556
+  ComidaEnFrente: -0,125958
+  ComidaAlcanzable: 0,567360
+  SeguirRecto: 0,157334
+  ColaAlcanzable: -0,390337
+
+Agente #20
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,116881
+  DistanciaCuerpo: -0,042887
+  LibertadLocal: -0,039315
+  EspacioAccesible: -0,083787
+  MejoraComida: -0,628038
+  ComidaEnFrente: 0,290175
+  ComidaAlcanzable: 0,314190
+  SeguirRecto: 0,000986
+  ColaAlcanzable: -0,212898
+
+
+==================================================
+GENERACION 4
+==================================================
+Agente #1
+Puntuacion: 133
+Pasos: 4704
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,524719
+  DistanciaCuerpo: -0,694863
+  LibertadLocal: -0,054785
+  EspacioAccesible: 0,425408
+  MejoraComida: -0,200039
+  ComidaEnFrente: 0,650135
+  ComidaAlcanzable: 0,293633
+  SeguirRecto: 0,398737
+  ColaAlcanzable: 0,483051
+
+Agente #2
+Puntuacion: 101
+Pasos: 3255
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,464361
+  DistanciaCuerpo: -0,394892
+  LibertadLocal: -0,052815
+  EspacioAccesible: 0,193108
+  MejoraComida: -0,020991
+  ComidaEnFrente: 0,509576
+  ComidaAlcanzable: 0,305553
+  SeguirRecto: 0,459334
+  ColaAlcanzable: 0,489114
+
+Agente #3
+Puntuacion: 99
+Pasos: 3137
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,956321
+  DistanciaCuerpo: -0,820497
+  LibertadLocal: 0,100512
+  EspacioAccesible: 0,240488
+  MejoraComida: 0,316639
+  ComidaEnFrente: 1,000000
+  ComidaAlcanzable: 0,155232
+  SeguirRecto: 0,478764
+  ColaAlcanzable: 0,388173
+
+Agente #4
+Puntuacion: 82
+Pasos: 2218
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,199729
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #5
+Puntuacion: 79
+Pasos: 2201
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,199729
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #6
+Puntuacion: 74
+Pasos: 2059
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,896313
+  DistanciaCuerpo: -0,935056
+  LibertadLocal: -0,250960
+  EspacioAccesible: 0,074173
+  MejoraComida: -0,326079
+  ComidaEnFrente: 0,973590
+  ComidaAlcanzable: 0,074594
+  SeguirRecto: 0,494854
+  ColaAlcanzable: 0,397006
+
+Agente #7
+Puntuacion: 73
+Pasos: 2132
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,477895
+  DistanciaCuerpo: -0,585102
+  LibertadLocal: -0,030546
+  EspacioAccesible: 0,016614
+  MejoraComida: -0,606993
+  ComidaEnFrente: 0,691718
+  ComidaAlcanzable: 0,225027
+  SeguirRecto: 0,371648
+  ColaAlcanzable: 0,258796
+
+Agente #8
+Puntuacion: 71
+Pasos: 1960
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,892865
+  DistanciaCuerpo: -0,935173
+  LibertadLocal: -0,576153
+  EspacioAccesible: 0,373945
+  MejoraComida: -0,497418
+  ComidaEnFrente: 0,974321
+  ComidaAlcanzable: -0,029555
+  SeguirRecto: 0,494445
+  ColaAlcanzable: 0,368268
+
+Agente #9
+Puntuacion: 70
+Pasos: 1855
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,922393
+  DistanciaCuerpo: -0,636685
+  LibertadLocal: -0,014717
+  EspacioAccesible: -0,001443
+  MejoraComida: 0,317702
+  ComidaEnFrente: 0,935201
+  ComidaAlcanzable: 0,093850
+  SeguirRecto: 0,478909
+  ColaAlcanzable: 0,386666
+
+Agente #10
+Puntuacion: 66
+Pasos: 1872
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,792686
+  DistanciaCuerpo: -0,929600
+  LibertadLocal: 0,465425
+  EspacioAccesible: 0,291269
+  MejoraComida: -0,048960
+  ComidaEnFrente: 0,828467
+  ComidaAlcanzable: 0,113788
+  SeguirRecto: 0,489852
+  ColaAlcanzable: 0,161476
+
+Agente #11
+Puntuacion: 59
+Pasos: 1478
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,164579
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,224170
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,551898
+
+Agente #12
+Puntuacion: 53
+Pasos: 1302
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,784695
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,199729
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #13
+Puntuacion: 44
+Pasos: 1108
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,675076
+  DistanciaCuerpo: -0,773398
+  LibertadLocal: -0,027881
+  EspacioAccesible: 0,396888
+  MejoraComida: 0,015875
+  ComidaEnFrente: 0,758532
+  ComidaAlcanzable: 0,292422
+  SeguirRecto: 0,401485
+  ColaAlcanzable: 0,461116
+
+Agente #14
+Puntuacion: 38
+Pasos: 913
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,977382
+  DistanciaCuerpo: -0,450695
+  LibertadLocal: -0,255332
+  EspacioAccesible: -0,107135
+  MejoraComida: 0,318174
+  ComidaEnFrente: 0,913573
+  ComidaAlcanzable: -0,277512
+  SeguirRecto: 0,464801
+  ColaAlcanzable: 0,372142
+
+Agente #15
+Puntuacion: 37
+Pasos: 1234
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,492181
+  DistanciaCuerpo: -0,849697
+  LibertadLocal: -0,796161
+  EspacioAccesible: -0,447028
+  MejoraComida: -0,541800
+  ComidaEnFrente: 0,942143
+  ComidaAlcanzable: -0,551922
+  SeguirRecto: 0,396412
+  ColaAlcanzable: 0,099658
+
+Agente #16
+Puntuacion: 28
+Pasos: 953
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,426263
+  DistanciaCuerpo: -0,567532
+  LibertadLocal: 0,665215
+  EspacioAccesible: -0,432204
+  MejoraComida: -0,615253
+  ComidaEnFrente: 0,713405
+  ComidaAlcanzable: -0,543995
+  SeguirRecto: 0,328442
+  ColaAlcanzable: 0,040549
+
+Agente #17
+Puntuacion: 20
+Pasos: 903
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,120008
+  DistanciaCuerpo: -0,395628
+  LibertadLocal: 0,750278
+  EspacioAccesible: 0,383449
+  MejoraComida: -0,306045
+  ComidaEnFrente: 0,540036
+  ComidaAlcanzable: 0,307153
+  SeguirRecto: 0,315185
+  ColaAlcanzable: 0,033771
+
+Agente #18
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: -0,254272
+  DistanciaCuerpo: -0,214900
+  LibertadLocal: 0,444409
+  EspacioAccesible: -0,260154
+  MejoraComida: -0,336365
+  ComidaEnFrente: -0,007488
+  ComidaAlcanzable: -0,135354
+  SeguirRecto: -0,287221
+  ColaAlcanzable: -0,101330
+
+Agente #19
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,083076
+  DistanciaCuerpo: -0,267876
+  LibertadLocal: -0,025475
+  EspacioAccesible: 0,411388
+  MejoraComida: -0,293555
+  ComidaEnFrente: 0,123935
+  ComidaAlcanzable: 0,170482
+  SeguirRecto: 0,115611
+  ColaAlcanzable: 0,235523
+
+Agente #20
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,298529
+  DistanciaCuerpo: -0,396756
+  LibertadLocal: -0,313715
+  EspacioAccesible: -0,010587
+  MejoraComida: 0,062252
+  ComidaEnFrente: 0,793132
+  ComidaAlcanzable: -0,169228
+  SeguirRecto: -0,341273
+  ColaAlcanzable: 0,631672
+
+
+==================================================
+GENERACION 5
+==================================================
+Agente #1
+Puntuacion: 133
+Pasos: 4191
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,894821
+  DistanciaCuerpo: -0,934912
+  LibertadLocal: -0,209799
+  EspacioAccesible: 0,243887
+  MejoraComida: -0,059706
+  ComidaEnFrente: 0,940498
+  ComidaAlcanzable: 0,179754
+  SeguirRecto: 0,559387
+  ColaAlcanzable: 0,403650
+
+Agente #2
+Puntuacion: 124
+Pasos: 3584
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889159
+  DistanciaCuerpo: -0,934628
+  LibertadLocal: 0,217699
+  EspacioAccesible: 0,388677
+  MejoraComida: 0,311888
+  ComidaEnFrente: 0,973381
+  ComidaAlcanzable: 0,361991
+  SeguirRecto: 0,501093
+  ColaAlcanzable: 0,409077
+
+Agente #3
+Puntuacion: 100
+Pasos: 2660
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,931874
+  DistanciaCuerpo: -0,914153
+  LibertadLocal: 0,109469
+  EspacioAccesible: 0,348731
+  MejoraComida: 0,314109
+  ComidaEnFrente: 0,985449
+  ComidaAlcanzable: 0,165228
+  SeguirRecto: 0,490667
+  ColaAlcanzable: 0,397610
+
+Agente #4
+Puntuacion: 96
+Pasos: 2919
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,925730
+  DistanciaCuerpo: -0,872461
+  LibertadLocal: 0,011380
+  EspacioAccesible: 0,327620
+  MejoraComida: 0,002353
+  ComidaEnFrente: 0,978139
+  ComidaAlcanzable: 0,036443
+  SeguirRecto: 0,491803
+  ColaAlcanzable: 0,234992
+
+Agente #5
+Puntuacion: 88
+Pasos: 2544
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,773261
+  DistanciaCuerpo: -0,896355
+  LibertadLocal: -0,140261
+  EspacioAccesible: 0,390548
+  MejoraComida: -0,456230
+  ComidaEnFrente: 1,000000
+  ComidaAlcanzable: 0,149207
+  SeguirRecto: 0,444287
+  ColaAlcanzable: 0,396464
+
+Agente #6
+Puntuacion: 87
+Pasos: 2908
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,629295
+  DistanciaCuerpo: -0,912726
+  LibertadLocal: -0,008725
+  EspacioAccesible: 0,220259
+  MejoraComida: -0,016657
+  ComidaEnFrente: 0,872511
+  ComidaAlcanzable: 0,208600
+  SeguirRecto: 0,301714
+  ColaAlcanzable: 0,390248
+
+Agente #7
+Puntuacion: 82
+Pasos: 2110
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,674720
+  DistanciaCuerpo: -0,597004
+  LibertadLocal: -0,019902
+  EspacioAccesible: 0,022155
+  MejoraComida: 0,221508
+  ComidaEnFrente: 0,865572
+  ComidaAlcanzable: 0,209505
+  SeguirRecto: 0,461857
+  ColaAlcanzable: 0,253451
+
+Agente #8
+Puntuacion: 78
+Pasos: 2124
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,524719
+  DistanciaCuerpo: -0,694863
+  LibertadLocal: -0,054785
+  EspacioAccesible: 0,425408
+  MejoraComida: -0,200039
+  ComidaEnFrente: 0,650135
+  ComidaAlcanzable: 0,293633
+  SeguirRecto: 0,398737
+  ColaAlcanzable: 0,483051
+
+Agente #9
+Puntuacion: 71
+Pasos: 1711
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,877476
+  DistanciaCuerpo: -0,805786
+  LibertadLocal: -0,043916
+  EspacioAccesible: 0,395872
+  MejoraComida: 0,270027
+  ComidaEnFrente: 0,956798
+  ComidaAlcanzable: 0,223602
+  SeguirRecto: 0,459460
+  ColaAlcanzable: 0,469207
+
+Agente #10
+Puntuacion: 70
+Pasos: 1712
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,913529
+  DistanciaCuerpo: -0,918236
+  LibertadLocal: 0,157525
+  EspacioAccesible: 0,243513
+  MejoraComida: 0,316075
+  ComidaEnFrente: 1,000000
+  ComidaAlcanzable: 0,162892
+  SeguirRecto: 0,480356
+  ColaAlcanzable: 0,401764
+
+Agente #11
+Puntuacion: 69
+Pasos: 1967
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,524719
+  DistanciaCuerpo: -0,591809
+  LibertadLocal: -0,054785
+  EspacioAccesible: 0,425408
+  MejoraComida: -0,200039
+  ComidaEnFrente: 0,650135
+  ComidaAlcanzable: 0,293633
+  SeguirRecto: 0,398737
+  ColaAlcanzable: 0,483051
+
+Agente #12
+Puntuacion: 68
+Pasos: 1914
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,657819
+  DistanciaCuerpo: -0,616502
+  LibertadLocal: 0,010044
+  EspacioAccesible: 0,001944
+  MejoraComida: 0,277633
+  ComidaEnFrente: 0,776174
+  ComidaAlcanzable: 0,182890
+  SeguirRecto: 0,474600
+  ColaAlcanzable: 0,297103
+
+Agente #13
+Puntuacion: 60
+Pasos: 1428
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,257491
+  DistanciaCuerpo: -0,567396
+  LibertadLocal: 0,536091
+  EspacioAccesible: 0,390240
+  MejoraComida: -0,181481
+  ComidaEnFrente: 0,615791
+  ComidaAlcanzable: 0,292445
+  SeguirRecto: 0,364767
+  ColaAlcanzable: 0,108074
+
+Agente #14
+Puntuacion: 60
+Pasos: 1670
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,521380
+  DistanciaCuerpo: -0,809895
+  LibertadLocal: 0,038092
+  EspacioAccesible: 0,326451
+  MejoraComida: 0,283683
+  ComidaEnFrente: 0,830954
+  ComidaAlcanzable: 0,211091
+  SeguirRecto: 0,498266
+  ColaAlcanzable: 0,431126
+
+Agente #15
+Puntuacion: 54
+Pasos: 1693
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,496225
+  DistanciaCuerpo: -0,460586
+  LibertadLocal: -0,052827
+  EspacioAccesible: 0,422823
+  MejoraComida: -0,090353
+  ComidaEnFrente: 0,528142
+  ComidaAlcanzable: 0,302834
+  SeguirRecto: 0,451712
+  ColaAlcanzable: 0,485162
+
+Agente #16
+Puntuacion: 47
+Pasos: 1306
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,784866
+  DistanciaCuerpo: -0,934182
+  LibertadLocal: 0,461979
+  EspacioAccesible: 0,321396
+  MejoraComida: -0,008548
+  ComidaEnFrente: 0,881097
+  ComidaAlcanzable: 0,116899
+  SeguirRecto: 0,495527
+  ColaAlcanzable: 0,212573
+
+Agente #17
+Puntuacion: 23
+Pasos: 734
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,830859
+  DistanciaCuerpo: -0,878112
+  LibertadLocal: -0,600862
+  EspacioAccesible: 0,086820
+  MejoraComida: -0,506346
+  ComidaEnFrente: 0,958141
+  ComidaAlcanzable: -0,482191
+  SeguirRecto: 0,474051
+  ColaAlcanzable: 0,318285
+
+Agente #18
+Puntuacion: 22
+Pasos: 635
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,489658
+  DistanciaCuerpo: -0,831055
+  LibertadLocal: -0,150572
+  EspacioAccesible: -0,280337
+  MejoraComida: -0,548810
+  ComidaEnFrente: 0,870758
+  ComidaAlcanzable: -0,329319
+  SeguirRecto: 0,384298
+  ColaAlcanzable: 0,121598
+
+Agente #19
+Puntuacion: 21
+Pasos: 609
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,513733
+  DistanciaCuerpo: -0,729135
+  LibertadLocal: -0,689680
+  EspacioAccesible: -0,366387
+  MejoraComida: -0,330775
+  ComidaEnFrente: 0,785666
+  ComidaAlcanzable: -0,097406
+  SeguirRecto: 0,398673
+  ColaAlcanzable: 0,391177
+
+Agente #20
+Puntuacion: 0
+Pasos: 200
+Causa de fin: Demasiados pasos sin comer
+Vector de pesos:
+  DistanciaPared: 0,464361
+  DistanciaCuerpo: -0,394892
+  LibertadLocal: -0,052815
+  EspacioAccesible: 0,193108
+  MejoraComida: -0,085888
+  ComidaEnFrente: 0,370703
+  ComidaAlcanzable: 0,305553
+  SeguirRecto: 0,459334
+  ColaAlcanzable: 0,489114
+
+
+==================================================
+GENERACION 6
+==================================================
+Agente #1
+Puntuacion: 112
+Pasos: 3856
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,910506
+  DistanciaCuerpo: -0,932962
+  LibertadLocal: 0,077493
+  EspacioAccesible: 0,330131
+  MejoraComida: 0,104038
+  ComidaEnFrente: 0,949450
+  ComidaAlcanzable: 0,172615
+  SeguirRecto: 0,513009
+  ColaAlcanzable: 0,400931
+
+Agente #2
+Puntuacion: 111
+Pasos: 3624
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,784372
+  DistanciaCuerpo: -0,904794
+  LibertadLocal: -0,168879
+  EspacioAccesible: 0,234079
+  MejoraComida: -0,518562
+  ComidaEnFrente: 0,967827
+  ComidaAlcanzable: 0,155063
+  SeguirRecto: 0,464832
+  ColaAlcanzable: 0,398679
+
+Agente #3
+Puntuacion: 110
+Pasos: 3699
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,733760
+  DistanciaCuerpo: -0,771766
+  LibertadLocal: -0,057584
+  EspacioAccesible: 0,422135
+  MejoraComida: -0,438623
+  ComidaEnFrente: 0,709319
+  ComidaAlcanzable: 0,191428
+  SeguirRecto: 0,413712
+  ColaAlcanzable: 0,460016
+
+Agente #4
+Puntuacion: 107
+Pasos: 3430
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,894821
+  DistanciaCuerpo: -0,934912
+  LibertadLocal: -0,209799
+  EspacioAccesible: 0,243887
+  MejoraComida: -0,059706
+  ComidaEnFrente: 0,940498
+  ComidaAlcanzable: 0,179754
+  SeguirRecto: 0,559387
+  ColaAlcanzable: 0,403650
+
+Agente #5
+Puntuacion: 105
+Pasos: 3007
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,881895
+  DistanciaCuerpo: -0,927260
+  LibertadLocal: -0,071213
+  EspacioAccesible: 0,390343
+  MejoraComida: 0,011188
+  ComidaEnFrente: 0,996832
+  ComidaAlcanzable: 0,289952
+  SeguirRecto: 0,487560
+  ColaAlcanzable: 0,397963
+
+Agente #6
+Puntuacion: 91
+Pasos: 2373
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,581290
+  DistanciaCuerpo: -0,925584
+  LibertadLocal: 0,021306
+  EspacioAccesible: 0,251621
+  MejoraComida: 0,272978
+  ComidaEnFrente: 0,915098
+  ComidaAlcanzable: 0,335130
+  SeguirRecto: 0,441260
+  ColaAlcanzable: 0,398888
+
+Agente #7
+Puntuacion: 90
+Pasos: 2898
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,757925
+  DistanciaCuerpo: -0,654911
+  LibertadLocal: -0,121582
+  EspacioAccesible: 0,316297
+  MejoraComida: -0,143693
+  ComidaEnFrente: 0,876086
+  ComidaAlcanzable: 0,205282
+  SeguirRecto: 0,449272
+  ColaAlcanzable: 0,279761
+
+Agente #8
+Puntuacion: 89
+Pasos: 2488
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,872676
+  DistanciaCuerpo: -0,914247
+  LibertadLocal: -0,314193
+  EspacioAccesible: 0,386213
+  MejoraComida: -0,350708
+  ComidaEnFrente: 0,988525
+  ComidaAlcanzable: 0,178137
+  SeguirRecto: 0,473631
+  ColaAlcanzable: 0,403093
+
+Agente #9
+Puntuacion: 80
+Pasos: 2159
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,848860
+  DistanciaCuerpo: -0,930058
+  LibertadLocal: -0,074386
+  EspacioAccesible: 0,348458
+  MejoraComida: 0,252017
+  ComidaEnFrente: 0,961214
+  ComidaAlcanzable: 0,263301
+  SeguirRecto: 0,439485
+  ColaAlcanzable: 0,395033
+
+Agente #10
+Puntuacion: 75
+Pasos: 2056
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,923406
+  DistanciaCuerpo: -0,916487
+  LibertadLocal: 0,120241
+  EspacioAccesible: 0,328388
+  MejoraComida: 0,282389
+  ComidaEnFrente: 0,992367
+  ComidaAlcanzable: -0,015354
+  SeguirRecto: 0,481646
+  ColaAlcanzable: 0,400829
+
+Agente #11
+Puntuacion: 73
+Pasos: 2044
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889733
+  DistanciaCuerpo: -0,923590
+  LibertadLocal: 0,112020
+  EspacioAccesible: 0,369259
+  MejoraComida: 0,313617
+  ComidaEnFrente: 0,983090
+  ComidaAlcanzable: 0,170919
+  SeguirRecto: 0,496833
+  ColaAlcanzable: 0,398806
+
+Agente #12
+Puntuacion: 72
+Pasos: 2091
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,871889
+  DistanciaCuerpo: -0,882433
+  LibertadLocal: 0,005004
+  EspacioAccesible: 0,357913
+  MejoraComida: -0,314342
+  ComidaEnFrente: 0,988842
+  ComidaAlcanzable: 0,109958
+  SeguirRecto: 0,465700
+  ColaAlcanzable: 0,271070
+
+Agente #13
+Puntuacion: 70
+Pasos: 2225
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,769367
+  DistanciaCuerpo: -0,734130
+  LibertadLocal: -0,056138
+  EspacioAccesible: 0,410923
+  MejoraComida: -0,272019
+  ComidaEnFrente: 0,853159
+  ComidaAlcanzable: 0,269866
+  SeguirRecto: 0,436564
+  ColaAlcanzable: 0,437465
+
+Agente #14
+Puntuacion: 67
+Pasos: 1921
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,769045
+  DistanciaCuerpo: -0,911874
+  LibertadLocal: 0,008773
+  EspacioAccesible: 0,292475
+  MejoraComida: -0,006700
+  ComidaEnFrente: 0,956322
+  ComidaAlcanzable: 0,070393
+  SeguirRecto: 0,413808
+  ColaAlcanzable: 0,373868
+
+Agente #15
+Puntuacion: 64
+Pasos: 1644
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,791628
+  DistanciaCuerpo: -0,887383
+  LibertadLocal: -0,011623
+  EspacioAccesible: 0,298016
+  MejoraComida: -0,140276
+  ComidaEnFrente: 0,648777
+  ComidaAlcanzable: 0,261494
+  SeguirRecto: 0,532316
+  ColaAlcanzable: 0,254040
+
+Agente #16
+Puntuacion: 64
+Pasos: 1822
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,873735
+  DistanciaCuerpo: -0,882154
+  LibertadLocal: -0,063082
+  EspacioAccesible: 0,348731
+  MejoraComida: -0,301803
+  ComidaEnFrente: 0,986021
+  ComidaAlcanzable: 0,124693
+  SeguirRecto: 0,457042
+  ColaAlcanzable: 0,380376
+
+Agente #17
+Puntuacion: 63
+Pasos: 1629
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,738835
+  DistanciaCuerpo: -0,809916
+  LibertadLocal: -0,179158
+  EspacioAccesible: 0,149838
+  MejoraComida: 0,191008
+  ComidaEnFrente: 0,796763
+  ComidaAlcanzable: 0,180181
+  SeguirRecto: 0,536129
+  ColaAlcanzable: 0,326762
+
+Agente #18
+Puntuacion: 60
+Pasos: 1632
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,634362
+  DistanciaCuerpo: -0,787951
+  LibertadLocal: -0,018108
+  EspacioAccesible: 0,141396
+  MejoraComida: 0,144932
+  ComidaEnFrente: 0,869755
+  ComidaAlcanzable: 0,209449
+  SeguirRecto: 0,317095
+  ColaAlcanzable: 0,383323
+
+Agente #19
+Puntuacion: 58
+Pasos: 1391
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,344814
+  DistanciaCuerpo: -0,764994
+  LibertadLocal: 0,020428
+  EspacioAccesible: 0,391190
+  MejoraComida: -0,101409
+  ComidaEnFrente: 0,935632
+  ComidaAlcanzable: 0,254408
+  SeguirRecto: 0,419514
+  ColaAlcanzable: 0,360602
+
+Agente #20
+Puntuacion: 39
+Pasos: 798
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,543540
+  DistanciaCuerpo: -0,832104
+  LibertadLocal: 0,029274
+  EspacioAccesible: 0,326963
+  MejoraComida: 0,029907
+  ComidaEnFrente: 0,897651
+  ComidaAlcanzable: 0,047973
+  SeguirRecto: 0,493557
+  ColaAlcanzable: 0,411193
+
+
+==================================================
+GENERACION 7
+==================================================
+Agente #1
+Puntuacion: 146
+Pasos: 5084
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,883258
+  DistanciaCuerpo: -0,934344
+  LibertadLocal: -0,198362
+  EspacioAccesible: 0,347338
+  MejoraComida: -0,042569
+  ComidaEnFrente: 0,991834
+  ComidaAlcanzable: 0,201276
+  SeguirRecto: 0,595185
+  ColaAlcanzable: 0,403411
+
+Agente #2
+Puntuacion: 123
+Pasos: 4061
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,910506
+  DistanciaCuerpo: -0,932962
+  LibertadLocal: 0,077493
+  EspacioAccesible: 0,330131
+  MejoraComida: 0,104038
+  ComidaEnFrente: 0,949450
+  ComidaAlcanzable: 0,172615
+  SeguirRecto: 0,513009
+  ColaAlcanzable: 0,400931
+
+Agente #3
+Puntuacion: 121
+Pasos: 3745
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,861942
+  DistanciaCuerpo: -0,934250
+  LibertadLocal: -0,128513
+  EspacioAccesible: 0,248160
+  MejoraComida: -0,136030
+  ComidaEnFrente: 0,896724
+  ComidaAlcanzable: 0,182526
+  SeguirRecto: 0,535199
+  ColaAlcanzable: 0,316183
+
+Agente #4
+Puntuacion: 114
+Pasos: 3737
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,874229
+  DistanciaCuerpo: -0,742048
+  LibertadLocal: -0,120369
+  EspacioAccesible: 0,319083
+  MejoraComida: -0,196673
+  ComidaEnFrente: 0,970188
+  ComidaAlcanzable: 0,270604
+  SeguirRecto: 0,474021
+  ColaAlcanzable: 0,398541
+
+Agente #5
+Puntuacion: 110
+Pasos: 3732
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,846696
+  DistanciaCuerpo: -0,922384
+  LibertadLocal: -0,158131
+  EspacioAccesible: 0,258438
+  MejoraComida: -0,098196
+  ComidaEnFrente: 0,942038
+  ComidaAlcanzable: 0,213952
+  SeguirRecto: 0,450149
+  ColaAlcanzable: 0,401846
+
+Agente #6
+Puntuacion: 93
+Pasos: 2838
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,789535
+  DistanciaCuerpo: -0,876683
+  LibertadLocal: 0,035962
+  EspacioAccesible: 0,339676
+  MejoraComida: 0,049798
+  ComidaEnFrente: 0,729934
+  ComidaAlcanzable: 0,184362
+  SeguirRecto: 0,476812
+  ColaAlcanzable: 0,429744
+
+Agente #7
+Puntuacion: 91
+Pasos: 2839
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,808592
+  DistanciaCuerpo: -0,915229
+  LibertadLocal: -0,198832
+  EspacioAccesible: 0,238942
+  MejoraComida: -0,367667
+  ComidaEnFrente: 0,940896
+  ComidaAlcanzable: 0,179515
+  SeguirRecto: 0,519083
+  ColaAlcanzable: 0,402096
+
+Agente #8
+Puntuacion: 91
+Pasos: 3010
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,888040
+  DistanciaCuerpo: -0,934779
+  LibertadLocal: -0,174834
+  EspacioAccesible: 0,347307
+  MejoraComida: -0,008499
+  ComidaEnFrente: 0,982735
+  ComidaAlcanzable: 0,232404
+  SeguirRecto: 0,544347
+  ColaAlcanzable: 0,402910
+
+Agente #9
+Puntuacion: 90
+Pasos: 2332
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,910506
+  DistanciaCuerpo: -0,932962
+  LibertadLocal: 0,077493
+  EspacioAccesible: 0,181380
+  MejoraComida: 0,104038
+  ComidaEnFrente: 0,949450
+  ComidaAlcanzable: 0,172615
+  SeguirRecto: 0,513009
+  ColaAlcanzable: 0,400931
+
+Agente #10
+Puntuacion: 77
+Pasos: 1979
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,810925
+  DistanciaCuerpo: -0,715350
+  LibertadLocal: -0,017575
+  EspacioAccesible: 0,319168
+  MejoraComida: 0,034127
+  ComidaEnFrente: 0,920525
+  ComidaAlcanzable: 0,256847
+  SeguirRecto: 0,445952
+  ColaAlcanzable: 0,370371
+
+Agente #11
+Puntuacion: 77
+Pasos: 2073
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,858712
+  DistanciaCuerpo: -0,907955
+  LibertadLocal: -0,172422
+  EspacioAccesible: 0,336402
+  MejoraComida: -0,476306
+  ComidaEnFrente: 0,968757
+  ComidaAlcanzable: 0,176813
+  SeguirRecto: 0,465319
+  ColaAlcanzable: 0,245421
+
+Agente #12
+Puntuacion: 70
+Pasos: 1647
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,613234
+  DistanciaCuerpo: -0,929649
+  LibertadLocal: 0,032116
+  EspacioAccesible: 0,284723
+  MejoraComida: 0,187356
+  ComidaEnFrente: 0,946351
+  ComidaAlcanzable: 0,197043
+  SeguirRecto: 0,492096
+  ColaAlcanzable: 0,400201
+
+Agente #13
+Puntuacion: 70
+Pasos: 1735
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,855235
+  DistanciaCuerpo: -0,920519
+  LibertadLocal: 0,025274
+  EspacioAccesible: 0,237549
+  MejoraComida: -0,315391
+  ComidaEnFrente: 0,952819
+  ComidaAlcanzable: 0,163496
+  SeguirRecto: 0,477311
+  ColaAlcanzable: 0,400119
+
+Agente #14
+Puntuacion: 60
+Pasos: 1593
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,748978
+  DistanciaCuerpo: -0,780962
+  LibertadLocal: -0,023791
+  EspacioAccesible: 0,231511
+  MejoraComida: 0,000716
+  ComidaEnFrente: 0,747011
+  ComidaAlcanzable: 0,183328
+  SeguirRecto: 0,506030
+  ColaAlcanzable: 0,409074
+
+Agente #15
+Puntuacion: 59
+Pasos: 1371
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,919223
+  DistanciaCuerpo: -0,919423
+  LibertadLocal: 0,063465
+  EspacioAccesible: 0,286417
+  MejoraComida: 0,257020
+  ComidaEnFrente: 0,966675
+  ComidaAlcanzable: 0,043451
+  SeguirRecto: 0,508863
+  ColaAlcanzable: 0,401929
+
+Agente #16
+Puntuacion: 58
+Pasos: 1621
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,765278
+  DistanciaCuerpo: -0,782374
+  LibertadLocal: -0,084409
+  EspacioAccesible: 0,368691
+  MejoraComida: -0,067419
+  ComidaEnFrente: 0,907714
+  ComidaAlcanzable: 0,268346
+  SeguirRecto: 0,474669
+  ColaAlcanzable: 0,395672
+
+Agente #17
+Puntuacion: 51
+Pasos: 1396
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,816189
+  DistanciaCuerpo: -0,932962
+  LibertadLocal: 0,077493
+  EspacioAccesible: 0,330131
+  MejoraComida: 0,104038
+  ComidaEnFrente: 0,949450
+  ComidaAlcanzable: 0,172615
+  SeguirRecto: 0,346367
+  ColaAlcanzable: 0,400931
+
+Agente #18
+Puntuacion: 50
+Pasos: 1209
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,794449
+  DistanciaCuerpo: -1,000000
+  LibertadLocal: 0,018843
+  EspacioAccesible: 0,301108
+  MejoraComida: 0,050882
+  ComidaEnFrente: 0,684962
+  ComidaAlcanzable: 0,256429
+  SeguirRecto: 0,530140
+  ColaAlcanzable: 0,387510
+
+Agente #19
+Puntuacion: 45
+Pasos: 1005
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,868983
+  DistanciaCuerpo: -0,928578
+  LibertadLocal: 0,022025
+  EspacioAccesible: 0,356671
+  MejoraComida: 0,283083
+  ComidaEnFrente: 1,000000
+  ComidaAlcanzable: 0,249875
+  SeguirRecto: 0,482842
+  ColaAlcanzable: 0,397658
+
+Agente #20
+Puntuacion: 40
+Pasos: 884
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,786581
+  DistanciaCuerpo: -0,930517
+  LibertadLocal: -0,058459
+  EspacioAccesible: 0,246679
+  MejoraComida: -0,041426
+  ComidaEnFrente: 0,918304
+  ComidaAlcanzable: 0,270592
+  SeguirRecto: 0,485911
+  ColaAlcanzable: 0,477454
+
+
+==================================================
+GENERACION 8
+==================================================
+Agente #1
+Puntuacion: 115
+Pasos: 3714
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,883258
+  DistanciaCuerpo: -0,934344
+  LibertadLocal: -0,198362
+  EspacioAccesible: 0,347338
+  MejoraComida: -0,042569
+  ComidaEnFrente: 0,991834
+  ComidaAlcanzable: 0,201276
+  SeguirRecto: 0,595185
+  ColaAlcanzable: 0,403411
+
+Agente #2
+Puntuacion: 114
+Pasos: 3746
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,861942
+  DistanciaCuerpo: -0,934250
+  LibertadLocal: -0,128513
+  EspacioAccesible: 0,248160
+  MejoraComida: -0,136030
+  ComidaEnFrente: 0,896724
+  ComidaAlcanzable: 0,182526
+  SeguirRecto: 0,535199
+  ColaAlcanzable: 0,316183
+
+Agente #3
+Puntuacion: 104
+Pasos: 3340
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,813963
+  DistanciaCuerpo: -0,882262
+  LibertadLocal: -0,138538
+  EspacioAccesible: 0,246193
+  MejoraComida: -0,210995
+  ComidaEnFrente: 0,969750
+  ComidaAlcanzable: 0,226954
+  SeguirRecto: 0,490911
+  ColaAlcanzable: 0,401972
+
+Agente #4
+Puntuacion: 102
+Pasos: 3442
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,888565
+  DistanciaCuerpo: -0,933896
+  LibertadLocal: -0,026481
+  EspacioAccesible: 0,333868
+  MejoraComida: 0,066018
+  ComidaEnFrente: 0,954111
+  ComidaAlcanzable: 0,189304
+  SeguirRecto: 0,585740
+  ColaAlcanzable: 0,402111
+
+Agente #5
+Puntuacion: 96
+Pasos: 2780
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,848182
+  DistanciaCuerpo: -0,882271
+  LibertadLocal: 0,075170
+  EspacioAccesible: 0,331728
+  MejoraComida: 0,080845
+  ComidaEnFrente: 0,761820
+  ComidaAlcanzable: 0,178665
+  SeguirRecto: 0,507125
+  ColaAlcanzable: 0,418834
+
+Agente #6
+Puntuacion: 91
+Pasos: 2535
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,910506
+  DistanciaCuerpo: -0,932962
+  LibertadLocal: 0,175166
+  EspacioAccesible: 0,330131
+  MejoraComida: 0,104038
+  ComidaEnFrente: 0,949450
+  ComidaAlcanzable: 0,172615
+  SeguirRecto: 0,513009
+  ColaAlcanzable: 0,314912
+
+Agente #7
+Puntuacion: 88
+Pasos: 2600
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,855640
+  DistanciaCuerpo: -0,920582
+  LibertadLocal: -0,164911
+  EspacioAccesible: 0,314763
+  MejoraComida: -0,436473
+  ComidaEnFrente: 0,951534
+  ComidaAlcanzable: 0,213806
+  SeguirRecto: 0,318686
+  ColaAlcanzable: 0,268720
+
+Agente #8
+Puntuacion: 85
+Pasos: 2476
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,880519
+  DistanciaCuerpo: -0,920379
+  LibertadLocal: -0,233784
+  EspacioAccesible: 0,262869
+  MejoraComida: 0,413831
+  ComidaEnFrente: 0,949127
+  ComidaAlcanzable: 0,121478
+  SeguirRecto: 0,643689
+  ColaAlcanzable: 0,401854
+
+Agente #9
+Puntuacion: 78
+Pasos: 2339
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,894451
+  DistanciaCuerpo: -0,770472
+  LibertadLocal: -0,076860
+  EspacioAccesible: 0,317526
+  MejoraComida: -0,026312
+  ComidaEnFrente: 0,897352
+  ComidaAlcanzable: 0,180376
+  SeguirRecto: 0,525344
+  ColaAlcanzable: 0,335721
+
+Agente #10
+Puntuacion: 73
+Pasos: 2242
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,878159
+  DistanciaCuerpo: -0,934308
+  LibertadLocal: -0,220384
+  EspacioAccesible: 0,297256
+  MejoraComida: -0,103606
+  ComidaEnFrente: 0,965443
+  ComidaAlcanzable: 0,199668
+  SeguirRecto: 0,574816
+  ColaAlcanzable: 0,353069
+
+Agente #11
+Puntuacion: 72
+Pasos: 1756
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,861245
+  DistanciaCuerpo: -0,745616
+  LibertadLocal: -0,181034
+  EspacioAccesible: 0,331231
+  MejoraComida: -0,041559
+  ComidaEnFrente: 0,937081
+  ComidaAlcanzable: 0,237390
+  SeguirRecto: 0,459924
+  ColaAlcanzable: 0,400278
+
+Agente #12
+Puntuacion: 70
+Pasos: 2077
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,891232
+  DistanciaCuerpo: -0,934111
+  LibertadLocal: -0,096946
+  EspacioAccesible: 0,286159
+  MejoraComida: -0,193038
+  ComidaEnFrente: 0,962702
+  ComidaAlcanzable: 0,178755
+  SeguirRecto: 0,562907
+  ColaAlcanzable: 0,403088
+
+Agente #13
+Puntuacion: 63
+Pasos: 1802
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,870996
+  DistanciaCuerpo: -0,817232
+  LibertadLocal: -0,157819
+  EspacioAccesible: 0,311992
+  MejoraComida: -0,087212
+  ComidaEnFrente: 0,961498
+  ComidaAlcanzable: 0,252525
+  SeguirRecto: 0,453317
+  ColaAlcanzable: 0,400664
+
+Agente #14
+Puntuacion: 58
+Pasos: 1788
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,794266
+  DistanciaCuerpo: -0,901478
+  LibertadLocal: -0,103177
+  EspacioAccesible: 0,255253
+  MejoraComida: -0,119976
+  ComidaEnFrente: 0,700007
+  ComidaAlcanzable: 0,179718
+  SeguirRecto: 0,482740
+  ColaAlcanzable: 0,402888
+
+Agente #15
+Puntuacion: 57
+Pasos: 1327
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,810925
+  DistanciaCuerpo: -0,715350
+  LibertadLocal: -0,017575
+  EspacioAccesible: 0,319168
+  MejoraComida: 0,034127
+  ComidaEnFrente: 0,920525
+  ComidaAlcanzable: 0,443414
+  SeguirRecto: 0,462385
+  ColaAlcanzable: 0,370371
+
+Agente #16
+Puntuacion: 54
+Pasos: 1277
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,896941
+  DistanciaCuerpo: -0,933401
+  LibertadLocal: -0,050366
+  EspacioAccesible: 0,331152
+  MejoraComida: 0,060088
+  ComidaEnFrente: 0,978831
+  ComidaAlcanzable: 0,172684
+  SeguirRecto: 0,521211
+  ColaAlcanzable: 0,402240
+
+Agente #17
+Puntuacion: 52
+Pasos: 1589
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,865706
+  DistanciaCuerpo: -0,806488
+  LibertadLocal: -0,139606
+  EspacioAccesible: 0,321538
+  MejoraComida: -0,006200
+  ComidaEnFrente: 0,957287
+  ComidaAlcanzable: 0,246728
+  SeguirRecto: 0,446144
+  ColaAlcanzable: 0,384605
+
+Agente #18
+Puntuacion: 50
+Pasos: 1175
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,863576
+  DistanciaCuerpo: -0,931711
+  LibertadLocal: -0,183377
+  EspacioAccesible: 0,263663
+  MejoraComida: -0,052849
+  ComidaEnFrente: 0,984136
+  ComidaAlcanzable: 0,210033
+  SeguirRecto: 0,502910
+  ColaAlcanzable: 0,402619
+
+Agente #19
+Puntuacion: 48
+Pasos: 1145
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,705205
+  DistanciaCuerpo: -0,872806
+  LibertadLocal: 0,026626
+  EspacioAccesible: 0,336418
+  MejoraComida: 0,045566
+  ComidaEnFrente: 0,784433
+  ComidaAlcanzable: 0,194568
+  SeguirRecto: 0,451553
+  ColaAlcanzable: 0,378539
+
+Agente #20
+Puntuacion: 47
+Pasos: 1347
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,884825
+  DistanciaCuerpo: -0,934587
+  LibertadLocal: -0,198045
+  EspacioAccesible: 0,347333
+  MejoraComida: -0,026921
+  ComidaEnFrente: 1,000000
+  ComidaAlcanzable: 0,206412
+  SeguirRecto: 0,566356
+  ColaAlcanzable: 0,403407
+
+
+==================================================
+GENERACION 9
+==================================================
+Agente #1
+Puntuacion: 146
+Pasos: 4893
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,860944
+  DistanciaCuerpo: -0,931299
+  LibertadLocal: -0,104754
+  EspacioAccesible: 0,344982
+  MejoraComida: 0,058558
+  ComidaEnFrente: 0,809555
+  ComidaAlcanzable: 0,180266
+  SeguirRecto: 0,592551
+  ColaAlcanzable: 0,408542
+
+Agente #2
+Puntuacion: 117
+Pasos: 3811
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,884947
+  DistanciaCuerpo: -0,934215
+  LibertadLocal: -0,090521
+  EspacioAccesible: 0,341013
+  MejoraComida: -0,035802
+  ComidaEnFrente: 0,973391
+  ComidaAlcanzable: 0,190191
+  SeguirRecto: 0,589666
+  ColaAlcanzable: 0,402477
+
+Agente #3
+Puntuacion: 109
+Pasos: 3207
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,888565
+  DistanciaCuerpo: -0,933896
+  LibertadLocal: -0,026481
+  EspacioAccesible: 0,333868
+  MejoraComida: 0,066018
+  ComidaEnFrente: 0,954111
+  ComidaAlcanzable: 0,189304
+  SeguirRecto: 0,585740
+  ColaAlcanzable: 0,402111
+
+Agente #4
+Puntuacion: 102
+Pasos: 2954
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,883258
+  DistanciaCuerpo: -0,934344
+  LibertadLocal: -0,198362
+  EspacioAccesible: 0,347338
+  MejoraComida: -0,042569
+  ComidaEnFrente: 0,991834
+  ComidaAlcanzable: 0,244636
+  SeguirRecto: 0,595185
+  ColaAlcanzable: 0,403411
+
+Agente #5
+Puntuacion: 98
+Pasos: 2566
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,852128
+  DistanciaCuerpo: -0,887760
+  LibertadLocal: -0,211717
+  EspacioAccesible: 0,297325
+  MejoraComida: -0,035199
+  ComidaEnFrente: 0,886290
+  ComidaAlcanzable: 0,184347
+  SeguirRecto: 0,541334
+  ColaAlcanzable: 0,400136
+
+Agente #6
+Puntuacion: 87
+Pasos: 2199
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,885751
+  DistanciaCuerpo: -0,735876
+  LibertadLocal: -0,193123
+  EspacioAccesible: 0,465801
+  MejoraComida: 0,020368
+  ComidaEnFrente: 0,963498
+  ComidaAlcanzable: 0,196937
+  SeguirRecto: 0,614863
+  ColaAlcanzable: 0,402318
+
+Agente #7
+Puntuacion: 83
+Pasos: 2557
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,873572
+  DistanciaCuerpo: -0,791177
+  LibertadLocal: -0,126236
+  EspacioAccesible: 0,281807
+  MejoraComida: -0,043072
+  ComidaEnFrente: 0,776773
+  ComidaAlcanzable: 0,181539
+  SeguirRecto: 0,528634
+  ColaAlcanzable: 0,317894
+
+Agente #8
+Puntuacion: 75
+Pasos: 2193
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,883258
+  DistanciaCuerpo: -0,934344
+  LibertadLocal: -0,198362
+  EspacioAccesible: 0,347338
+  MejoraComida: -0,042569
+  ComidaEnFrente: 0,991834
+  ComidaAlcanzable: 0,297054
+  SeguirRecto: 0,595185
+  ColaAlcanzable: 0,403411
+
+Agente #9
+Puntuacion: 72
+Pasos: 1742
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889200
+  DistanciaCuerpo: -0,838575
+  LibertadLocal: -0,037569
+  EspacioAccesible: 0,328620
+  MejoraComida: 0,062200
+  ComidaEnFrente: 0,929321
+  ComidaAlcanzable: 0,195738
+  SeguirRecto: 0,530583
+  ColaAlcanzable: 0,247869
+
+Agente #10
+Puntuacion: 71
+Pasos: 2166
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,871112
+  DistanciaCuerpo: -0,933971
+  LibertadLocal: -0,049367
+  EspacioAccesible: 0,308013
+  MejoraComida: -0,017680
+  ComidaEnFrente: 0,939020
+  ComidaAlcanzable: 0,186083
+  SeguirRecto: 0,556590
+  ColaAlcanzable: 0,369187
+
+Agente #11
+Puntuacion: 68
+Pasos: 1752
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,903800
+  DistanciaCuerpo: -0,887493
+  LibertadLocal: 0,130622
+  EspacioAccesible: 0,331502
+  MejoraComida: 0,097916
+  ComidaEnFrente: 0,885343
+  ComidaAlcanzable: 0,324856
+  SeguirRecto: 0,508684
+  ColaAlcanzable: 0,386080
+
+Agente #12
+Puntuacion: 66
+Pasos: 1901
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,857831
+  DistanciaCuerpo: -0,922022
+  LibertadLocal: -0,167281
+  EspacioAccesible: 0,313957
+  MejoraComida: -0,284956
+  ComidaEnFrente: 0,964857
+  ComidaAlcanzable: 0,210446
+  SeguirRecto: 0,451161
+  ColaAlcanzable: 0,342664
+
+Agente #13
+Puntuacion: 64
+Pasos: 1655
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,873013
+  DistanciaCuerpo: -0,934332
+  LibertadLocal: -0,191170
+  EspacioAccesible: 0,280659
+  MejoraComida: -0,105578
+  ComidaEnFrente: 0,977356
+  ComidaAlcanzable: 0,186029
+  SeguirRecto: 0,592578
+  ColaAlcanzable: 0,365541
+
+Agente #14
+Puntuacion: 60
+Pasos: 1382
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,884669
+  DistanciaCuerpo: -0,933944
+  LibertadLocal: -0,192316
+  EspacioAccesible: 0,263605
+  MejoraComida: 0,016830
+  ComidaEnFrente: 0,813778
+  ComidaAlcanzable: 0,197191
+  SeguirRecto: 0,660708
+  ColaAlcanzable: 0,402133
+
+Agente #15
+Puntuacion: 59
+Pasos: 1624
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,826828
+  DistanciaCuerpo: -1,000000
+  LibertadLocal: -0,207656
+  EspacioAccesible: 0,251877
+  MejoraComida: -0,029091
+  ComidaEnFrente: 0,964914
+  ComidaAlcanzable: 0,142223
+  SeguirRecto: 0,620417
+  ColaAlcanzable: 0,358923
+
+Agente #16
+Puntuacion: 58
+Pasos: 1479
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,880466
+  DistanciaCuerpo: -0,933896
+  LibertadLocal: -0,115113
+  EspacioAccesible: 0,300428
+  MejoraComida: 0,062237
+  ComidaEnFrente: 0,923326
+  ComidaAlcanzable: 0,185725
+  SeguirRecto: 0,387347
+  ColaAlcanzable: 0,396903
+
+Agente #17
+Puntuacion: 58
+Pasos: 1737
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,856336
+  DistanciaCuerpo: -0,916736
+  LibertadLocal: -0,011876
+  EspacioAccesible: 0,259329
+  MejoraComida: -0,132125
+  ComidaEnFrente: 0,802403
+  ComidaAlcanzable: 0,181339
+  SeguirRecto: 0,329728
+  ColaAlcanzable: 0,400801
+
+Agente #18
+Puntuacion: 45
+Pasos: 1392
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,835823
+  DistanciaCuerpo: -0,758469
+  LibertadLocal: -0,137803
+  EspacioAccesible: 0,109537
+  MejoraComida: -0,158898
+  ComidaEnFrente: 0,915983
+  ComidaAlcanzable: 0,191546
+  SeguirRecto: 0,500103
+  ColaAlcanzable: 0,390481
+
+Agente #19
+Puntuacion: 44
+Pasos: 1176
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,892253
+  DistanciaCuerpo: -0,920777
+  LibertadLocal: -0,220210
+  EspacioAccesible: 0,298108
+  MejoraComida: 0,190038
+  ComidaEnFrente: 0,949313
+  ComidaAlcanzable: 0,157238
+  SeguirRecto: 0,569196
+  ColaAlcanzable: 0,363471
+
+Agente #20
+Puntuacion: 38
+Pasos: 1081
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,883258
+  DistanciaCuerpo: -0,934344
+  LibertadLocal: -0,198362
+  EspacioAccesible: 0,347338
+  MejoraComida: -0,042569
+  ComidaEnFrente: 0,991834
+  ComidaAlcanzable: 0,201276
+  SeguirRecto: 0,595185
+  ColaAlcanzable: 0,403411
+
+
+==================================================
+GENERACION 10
+==================================================
+Agente #1
+Puntuacion: 130
+Pasos: 4389
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,886374
+  DistanciaCuerpo: -0,934254
+  LibertadLocal: -0,159468
+  EspacioAccesible: 0,341047
+  MejoraComida: 0,005936
+  ComidaEnFrente: 0,982771
+  ComidaAlcanzable: 0,245249
+  SeguirRecto: 0,593791
+  ColaAlcanzable: 0,402403
+
+Agente #2
+Puntuacion: 126
+Pasos: 4419
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,853262
+  DistanciaCuerpo: -0,855946
+  LibertadLocal: -0,208315
+  EspacioAccesible: 0,349412
+  MejoraComida: -0,002580
+  ComidaEnFrente: 0,948076
+  ComidaAlcanzable: 0,192354
+  SeguirRecto: 0,590207
+  ColaAlcanzable: 0,400516
+
+Agente #3
+Puntuacion: 118
+Pasos: 3643
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,873172
+  DistanciaCuerpo: -0,934227
+  LibertadLocal: -0,191570
+  EspacioAccesible: 0,264926
+  MejoraComida: -0,009284
+  ComidaEnFrente: 0,827927
+  ComidaAlcanzable: 0,195226
+  SeguirRecto: 0,451084
+  ColaAlcanzable: 0,389743
+
+Agente #4
+Puntuacion: 116
+Pasos: 3507
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,885711
+  DistanciaCuerpo: -0,894588
+  LibertadLocal: -0,118941
+  EspacioAccesible: 0,348634
+  MejoraComida: -0,005351
+  ComidaEnFrente: 0,972081
+  ComidaAlcanzable: 0,350432
+  SeguirRecto: 0,591649
+  ColaAlcanzable: 0,402365
+
+Agente #5
+Puntuacion: 97
+Pasos: 2939
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,885870
+  DistanciaCuerpo: -0,934106
+  LibertadLocal: -0,136577
+  EspacioAccesible: 0,339600
+  MejoraComida: -0,013302
+  ComidaEnFrente: 0,966266
+  ComidaAlcanzable: 0,189878
+  SeguirRecto: 0,586073
+  ColaAlcanzable: 0,402438
+
+Agente #6
+Puntuacion: 95
+Pasos: 2614
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,864026
+  DistanciaCuerpo: -0,883302
+  LibertadLocal: -0,120782
+  EspacioAccesible: 0,290027
+  MejoraComida: 0,013492
+  ComidaEnFrente: 0,776878
+  ComidaAlcanzable: 0,181294
+  SeguirRecto: 0,572941
+  ColaAlcanzable: 0,331528
+
+Agente #7
+Puntuacion: 94
+Pasos: 2517
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,884996
+  DistanciaCuerpo: -0,832271
+  LibertadLocal: -0,107303
+  EspacioAccesible: 0,422944
+  MejoraComida: -0,020151
+  ComidaEnFrente: 0,967709
+  ComidaAlcanzable: 0,191398
+  SeguirRecto: 0,596470
+  ColaAlcanzable: 0,402344
+
+Agente #8
+Puntuacion: 91
+Pasos: 2471
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,879788
+  DistanciaCuerpo: -0,824483
+  LibertadLocal: -0,128221
+  EspacioAccesible: 0,302740
+  MejoraComida: 0,035216
+  ComidaEnFrente: 0,939076
+  ComidaAlcanzable: 0,183930
+  SeguirRecto: 0,461372
+  ColaAlcanzable: 0,339925
+
+Agente #9
+Puntuacion: 87
+Pasos: 2483
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,862187
+  DistanciaCuerpo: -0,918151
+  LibertadLocal: -0,107924
+  EspacioAccesible: 0,313291
+  MejoraComida: -0,137174
+  ComidaEnFrente: 0,905616
+  ComidaAlcanzable: 0,185180
+  SeguirRecto: 0,543149
+  ColaAlcanzable: 0,401471
+
+Agente #10
+Puntuacion: 76
+Pasos: 2084
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,858064
+  DistanciaCuerpo: -0,916591
+  LibertadLocal: -0,200084
+  EspacioAccesible: 0,308085
+  MejoraComida: -0,039722
+  ComidaEnFrente: 0,909648
+  ComidaAlcanzable: 0,214112
+  SeguirRecto: 0,490595
+  ColaAlcanzable: 0,402781
+
+Agente #11
+Puntuacion: 75
+Pasos: 2243
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,875986
+  DistanciaCuerpo: -0,895408
+  LibertadLocal: -0,111870
+  EspacioAccesible: 0,328527
+  MejoraComida: -0,039140
+  ComidaEnFrente: 0,930614
+  ComidaAlcanzable: 0,189563
+  SeguirRecto: 0,588977
+  ColaAlcanzable: 0,400014
+
+Agente #12
+Puntuacion: 62
+Pasos: 1759
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,882455
+  DistanciaCuerpo: -0,823907
+  LibertadLocal: -0,120245
+  EspacioAccesible: 0,149516
+  MejoraComida: -0,037988
+  ComidaEnFrente: 0,779673
+  ComidaAlcanzable: 0,182202
+  SeguirRecto: 0,759208
+  ColaAlcanzable: 0,480436
+
+Agente #13
+Puntuacion: 60
+Pasos: 1623
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,889132
+  DistanciaCuerpo: -0,910896
+  LibertadLocal: -0,034115
+  EspacioAccesible: 0,333266
+  MejoraComida: 0,064913
+  ComidaEnFrente: 0,916368
+  ComidaAlcanzable: 0,193714
+  SeguirRecto: 0,391507
+  ColaAlcanzable: 0,344333
+
+Agente #14
+Puntuacion: 59
+Pasos: 1497
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,888975
+  DistanciaCuerpo: -0,893307
+  LibertadLocal: -0,069170
+  EspacioAccesible: 0,339059
+  MejoraComida: 0,079396
+  ComidaEnFrente: 1,000000
+  ComidaAlcanzable: 0,199300
+  SeguirRecto: 0,578768
+  ColaAlcanzable: 0,395457
+
+Agente #15
+Puntuacion: 58
+Pasos: 1371
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,755745
+  DistanciaCuerpo: -0,928123
+  LibertadLocal: -0,159802
+  EspacioAccesible: 0,337493
+  MejoraComida: -0,024202
+  ComidaEnFrente: 0,898702
+  ComidaAlcanzable: 0,316125
+  SeguirRecto: 0,497798
+  ColaAlcanzable: 0,403306
+
+Agente #16
+Puntuacion: 54
+Pasos: 1373
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,860170
+  DistanciaCuerpo: -0,925106
+  LibertadLocal: -0,128599
+  EspacioAccesible: 0,301772
+  MejoraComida: -0,021553
+  ComidaEnFrente: 0,833778
+  ComidaAlcanzable: 0,184158
+  SeguirRecto: 0,543896
+  ColaAlcanzable: 0,402086
+
+Agente #17
+Puntuacion: 52
+Pasos: 1417
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,862194
+  DistanciaCuerpo: -0,818900
+  LibertadLocal: -0,023116
+  EspacioAccesible: 0,285793
+  MejoraComida: 0,037996
+  ComidaEnFrente: 0,702547
+  ComidaAlcanzable: 0,180955
+  SeguirRecto: 0,547494
+  ColaAlcanzable: 0,390122
+
+Agente #18
+Puntuacion: 45
+Pasos: 1064
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,883801
+  DistanciaCuerpo: -0,934076
+  LibertadLocal: -0,053549
+  EspacioAccesible: 0,342648
+  MejoraComida: 0,010255
+  ComidaEnFrente: 0,968334
+  ComidaAlcanzable: 0,381069
+  SeguirRecto: 0,588840
+  ColaAlcanzable: 0,403093
+
+Agente #19
+Puntuacion: 44
+Pasos: 1108
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,885496
+  DistanciaCuerpo: -0,796049
+  LibertadLocal: -0,195188
+  EspacioAccesible: 0,441290
+  MejoraComida: 0,015571
+  ComidaEnFrente: 0,987019
+  ComidaAlcanzable: 0,223877
+  SeguirRecto: 0,612018
+  ColaAlcanzable: 0,403008
+
+Agente #20
+Puntuacion: 42
+Pasos: 980
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,860944
+  DistanciaCuerpo: -0,931299
+  LibertadLocal: -0,104754
+  EspacioAccesible: 0,344982
+  MejoraComida: 0,058558
+  ComidaEnFrente: 0,809555
+  ComidaAlcanzable: 0,180266
+  SeguirRecto: 0,592551
+  ColaAlcanzable: 0,408542
+
+
+==================================================
+MEJOR AGENTE GLOBAL
+==================================================
+Generaciones totales: 10
+Puntuacion: 146
+Pasos: 4893
+Causa de fin: Muerte
+Vector de pesos:
+  DistanciaPared: 0,860944
+  DistanciaCuerpo: -0,931299
+  LibertadLocal: -0,104754
+  EspacioAccesible: 0,344982
+  MejoraComida: 0,058558
+  ComidaEnFrente: 0,809555
+  ComidaAlcanzable: 0,180266
+  SeguirRecto: 0,592551
+  ColaAlcanzable: 0,408542
+
