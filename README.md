@@ -172,7 +172,7 @@ Interfaz gráfica:
 
 ---
 
-### 🧠 Diseño general
+### Diseño general
 
 El proyecto sigue una arquitectura por capas:
 

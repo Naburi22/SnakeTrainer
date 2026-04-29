@@ -35,7 +35,6 @@ public class SnakeWindow extends JFrame {
     private static final int COLS = 20;
     private static final int CELL_SIZE = 28;
     private static final int VISUAL_DELAY_MS = 90;
-    private static final int MAX_STEPS_WITHOUT_APPLE = 200;
     private static final int INPUT_COLUMNS = 8;
 
     private final SnakeGame visualGame;
@@ -57,7 +56,6 @@ public class SnakeWindow extends JFrame {
 
     private Timer visualTimer;
     private SnakeAgent currentAgent;
-    private int visualStepsWithoutApple;
     private int lastVisualScore;
 
     private final JButton manualWeightsButton;
@@ -286,7 +284,6 @@ public class SnakeWindow extends JFrame {
         }
 
         visualGame.reset();
-        visualStepsWithoutApple = 0;
         lastVisualScore = visualGame.getScore();
 
         updateLabels();
@@ -299,12 +296,6 @@ public class SnakeWindow extends JFrame {
                 return;
             }
 
-            if (visualStepsWithoutApple >= MAX_STEPS_WITHOUT_APPLE) {
-                visualTimer.stop();
-                statusLabel.setText("Estado: partida terminada por ineficiencia");
-                return;
-            }
-
             Cell[][] board = visualGame.getBoardMatrix();
             Direction decision = currentAgent.decideMove(board, visualGame.getDirection(), visualGame.getScore());
 
@@ -312,9 +303,6 @@ public class SnakeWindow extends JFrame {
 
             if (visualGame.getScore() > lastVisualScore) {
                 lastVisualScore = visualGame.getScore();
-                visualStepsWithoutApple = 0;
-            } else {
-                visualStepsWithoutApple++;
             }
 
             updateLabels();
