@@ -28,7 +28,7 @@ public class EvolutionEngine {
     public EvolutionEngine(EvolutionConfig config, Random random) {
         this.config = config;
         this.random = random;
-        this.logger = new EvolutionLogger("./logs/evolution_log.txt");
+        this.logger = new EvolutionLogger("./logs/evolution_log.md");
     }
 
     public GenerationResult run() {
