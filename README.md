@@ -239,7 +239,10 @@ Criterio:
 Condición de parada:
 
 - Muerte
-- 200 pasos sin comer
+- limiteSinComer = limiteBase + puntuacion * incrementoPorManzana
+  - limiteBase: 200
+  - incrementoPorManzana: 40
+  - limiteSinComer: 600
 
 Selección:
 Torneo
@@ -278,31 +281,3 @@ javac -d out (Get-ChildItem -Recurse -Filter *.java src/main/java | ForEach-Obje
 
 Ejecutar:
 java -cp out snaketrainer.Main
-
-## Mejoras futuras
-
-- Ajuste dinámico de mutación
-- Nuevas features
-- Mejor evaluación
-- Visualización avanzada
-- Persistencia de agentes
-
-### Metaevaluación de features
-
-Ejecutar múltiples evoluciones variando features para determinar su relevancia.
-
-Objetivo:
-
-- Identificar features útiles
-- Eliminar redundantes
-- Optimizar representación
-
-Métodos:
-
-- Comparación entre ejecuciones
-- Análisis de pesos
-- Eliminación progresiva
-
-## Objetivo
-
-Explorar computación evolutiva en Snake.
