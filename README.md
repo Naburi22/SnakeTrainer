@@ -73,12 +73,10 @@ SnakeTrainerComplete/
 │ ├── SnakeTrainer.java
 │ └── TrainingResult.java
 │
-├── ui/
-│ ├── SnakeBoardPanel.java
-│ ├── SnakeWindow.java
-│ └── LoadingAnimation.java
-└── logs/
-  └── evolution_log.txt
+└── ui/
+├── SnakeBoardPanel.java
+├── SnakeWindow.java
+└── LoadingAnimation.java
 ```
 
 ---
