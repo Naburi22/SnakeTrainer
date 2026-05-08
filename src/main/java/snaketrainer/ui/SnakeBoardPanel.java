@@ -10,6 +10,7 @@ import snaketrainer.model.Cell;
 public class SnakeBoardPanel extends JPanel {
     private final SnakeGame game;
     private final int cellSize;
+    private Cell[][] overrideBoard;
 
     public SnakeBoardPanel(SnakeGame game, int cellSize) {
         this.game = game;
@@ -23,7 +24,9 @@ public class SnakeBoardPanel extends JPanel {
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-        Cell[][] board = game.getBoardMatrix();
+        Cell[][] board = overrideBoard != null
+        ? overrideBoard
+        : game.getBoardMatrix();
 
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {
@@ -61,5 +64,15 @@ public class SnakeBoardPanel extends JPanel {
             int x = col * cellSize;
             graphics.drawLine(x, 0, x, game.getRows() * cellSize);
         }
+    }
+
+    public void showOverrideBoard(Cell[][] board) {
+        this.overrideBoard = board;
+        repaint();
+    }
+
+    public void clearOverrideBoard() {
+        this.overrideBoard = null;
+        repaint();
     }
 }

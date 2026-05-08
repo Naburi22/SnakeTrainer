@@ -21,6 +21,6 @@
 
 ## Ideas de Álvaro ©
 
-- [ ] Animación durante entrenamiento para que no parezca que está congelado, (serpiente levantando pesas, Moni ©).
-- [ ] Enseñar durante entrenamiento la generación que se está entrenando, mostrar más información relevante.
+- [x] Animación durante entrenamiento para que no parezca que está congelado.
+- [x] Enseñar durante entrenamiento la generación que se está entrenando, mostrar más información relevante.
 - [x] Hacer el entrenamiento concurrente.

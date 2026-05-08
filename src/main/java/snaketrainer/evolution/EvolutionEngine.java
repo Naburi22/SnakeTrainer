@@ -34,14 +34,20 @@ public class EvolutionEngine {
     private final EvolutionConfig config;
     private final Random random;
     private final EvolutionLogger logger;
+    private final EvolutionProgressListener progressListener;
 
     public EvolutionEngine(EvolutionConfig config) {
-        this(config, new Random());
+        this(config, new Random(), null);
     }
 
     public EvolutionEngine(EvolutionConfig config, Random random) {
+        this(config, random, null);
+    }
+
+    public EvolutionEngine(EvolutionConfig config, Random random, EvolutionProgressListener progressListener) {
         this.config = config;
         this.random = random;
+        this.progressListener = progressListener;
         this.logger = new EvolutionLogger("./logs/evolution_log.md");
     }
 
@@ -53,6 +59,10 @@ public class EvolutionEngine {
         GenerationResult bestGenerationResult = null;
 
         for (int generation = 1; generation <= config.getGenerations(); generation++) {
+            if (progressListener != null) {
+                progressListener.onGenerationStarted(generation, config.getGenerations());
+            }
+            
             List<Individual> individuals = evaluatePopulation(population);
             Collections.sort(individuals);
 

@@ -15,9 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import snaketrainer.agent.FeatureName;
@@ -49,12 +51,15 @@ public class SnakeWindow extends JFrame {
     private final JLabel statusLabel;
     private final JLabel bestStepsLabel;
     private final JTextArea weightsArea;
+    private final JProgressBar trainingProgressBar;
+
+    private LoadingAnimation loadingAnimation;
 
     private final JTextField generationsField;
     private final JTextField agentsField;
     private final JButton runButton;
 
-    private Timer visualTimer;
+    private Timer visualTimer, trainingAnimationTimer;
     private SnakeAgent currentAgent;
     private int lastVisualScore;
 
@@ -84,6 +89,10 @@ public class SnakeWindow extends JFrame {
         weightsArea = new JTextArea(9, 24);
         weightsArea.setEditable(false);
         weightsArea.setText("");
+
+        trainingProgressBar = new JProgressBar();
+        trainingProgressBar.setStringPainted(true);
+        trainingProgressBar.setVisible(false);
 
         generationsField = new JTextField("10", INPUT_COLUMNS);
         agentsField = new JTextField("20", INPUT_COLUMNS);
@@ -147,6 +156,8 @@ public class SnakeWindow extends JFrame {
         infoPanel.add(bestAgentLabel);
         infoPanel.add(Box.createVerticalStrut(6));
         infoPanel.add(statusLabel);
+        infoPanel.add(Box.createVerticalStrut(6));
+        infoPanel.add(trainingProgressBar);
         infoPanel.add(Box.createVerticalStrut(10));
 
         JScrollPane weightsScrollPane = new JScrollPane(weightsArea);
@@ -233,6 +244,12 @@ public class SnakeWindow extends JFrame {
 
         runButton.setEnabled(false);
         statusLabel.setText("Estado: entrenando...");
+        trainingProgressBar.setMinimum(0);
+        trainingProgressBar.setMaximum(generations);
+        trainingProgressBar.setValue(0);
+        trainingProgressBar.setString("0 / " + generations);
+        trainingProgressBar.setVisible(true);
+        startTrainingAnimation();
         generationsLabel.setText("Generaciones: " + generations);
         agentsLabel.setText("Agentes/generación: " + agentsPerGeneration);
         bestScoreLabel.setText("Mejor puntuación entrenamiento: calculando...");
@@ -244,7 +261,13 @@ public class SnakeWindow extends JFrame {
             @Override
             protected TrainingResult doInBackground() {
                 SnakeTrainer trainer = new SnakeTrainer();
-                return trainer.train(generations, agentsPerGeneration);
+                return trainer.train(generations, agentsPerGeneration, (generation, totalGenerations) -> {
+                    SwingUtilities.invokeLater(() -> {
+                        trainingProgressBar.setMaximum(totalGenerations);
+                        trainingProgressBar.setValue(generation);
+                        trainingProgressBar.setString(generation + " / " + totalGenerations);
+                    });
+                });
             }
 
             @Override
@@ -259,9 +282,13 @@ public class SnakeWindow extends JFrame {
                     weightsArea.setText(result.getBestWeights().toMultilineString());
                     bestAgentLabel.setText("Mejor agente: " + currentAgent.getName());
                     statusLabel.setText("Estado: mostrando mejor agente");
-
+                    stopTrainingAnimation();
+                    stopTrainingAnimation();
+                    trainingProgressBar.setVisible(false);
                     startVisualGame();
                 } catch (Exception exception) {
+                    stopTrainingAnimation();
+                    trainingProgressBar.setVisible(false);
                     JOptionPane.showMessageDialog(
                             SnakeWindow.this,
                             "Error durante el entrenamiento: " + exception.getMessage(),
@@ -417,4 +444,30 @@ public class SnakeWindow extends JFrame {
         showNormalPanel();
         startVisualGame();
     }
+
+    private void startTrainingAnimation() {
+        if (trainingAnimationTimer != null) {
+            trainingAnimationTimer.stop();
+        }
+
+        loadingAnimation = new LoadingAnimation(ROWS, COLS);
+
+        trainingAnimationTimer = new Timer(VISUAL_DELAY_MS, event -> {
+            loadingAnimation.nextFrame();
+            boardPanel.showOverrideBoard(loadingAnimation.getBoardMatrix());
+        });
+
+        trainingAnimationTimer.start();
+    }
+
+    private void stopTrainingAnimation() {
+        if (trainingAnimationTimer != null) {
+            trainingAnimationTimer.stop();
+            trainingAnimationTimer = null;
+        }
+
+        loadingAnimation = null;
+        boardPanel.clearOverrideBoard();
+    }
+
 }
