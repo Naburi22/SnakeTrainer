@@ -16,6 +16,10 @@ El proyecto sigue una organización modular para separar claramente la lógica d
 ```text
 SnakeTrainerComplete/
 ├── README.md
+├── .gitignore
+├── logs/
+│ └── .gitkeep
+│
 └── src/
 └── main/
 └── java/
@@ -30,6 +34,9 @@ SnakeTrainerComplete/
 ├── game/
 │ └── SnakeGame.java
 │
+├── analysis/
+│ └── FeatureExtractor.java
+│
 ├── agent/
 │ ├── SnakeAgent.java
 │ ├── GreedyAgent.java
@@ -38,31 +45,28 @@ SnakeTrainerComplete/
 │ ├── FeatureVector.java
 │ └── FeatureName.java
 │
-├── analysis/
-│ └── FeatureExtractor.java
-│
 ├── evolution/
 │ ├── EvolutionEngine.java
 │ ├── EvolutionConfig.java
 │ ├── EvolutionLogger.java
+│ ├── EvolutionProgressListener.java
 │ ├── Individual.java
 │ ├── Population.java
 │ └── GenerationResult.java
 │
-├── evolution/evaluation/
-│ ├── FitnessEvaluator.java
-│ ├── FitnessResult.java
-│ └── EndCause.java
-│
-├── evolution/selection/
-│ ├── SelectionStrategy.java
-│ └── TournamentSelection.java
-│
-├── evolution/reproduction/
+├── evolution/
+│ ├── evaluation/
+│ │ ├── FitnessEvaluator.java
+│ │ ├── FitnessResult.java
+│ │ └── EndCause.java
+│ │
+│ ├── selection/
+│ │ ├── SelectionStrategy.java
+│ │ └── TournamentSelection.java
+│ │
+│ └── reproduction/
 │ ├── ReproductionEngine.java
-│ ├── CrossoverStrategy.java
 │ ├── ArithmeticCrossover.java
-│ ├── MutationStrategy.java
 │ └── UniformMutation.java
 │
 ├── trainer/
@@ -71,8 +75,8 @@ SnakeTrainerComplete/
 │
 ├── ui/
 │ ├── SnakeBoardPanel.java
-│ └── SnakeWindow.java
-│
+│ ├── SnakeWindow.java
+│ └── LoadingAnimation.java
 └── logs/
   └── evolution_log.txt
 ```
@@ -161,7 +165,8 @@ Generación de nuevas poblaciones:
 Capa de alto nivel:
 
 - Orquesta el entrenamiento
-- Devuelve el mejor agente encontrado
+- Comunica evolución e interfaz
+- Devuelve resultados finales
 
 ---
 
@@ -172,6 +177,8 @@ Interfaz gráfica:
 - Renderizado del tablero
 - Visualización de información
 - Control de ejecución (modo evolutivo y manual)
+- Barra de progreso
+- Animaciones de carga
 
 ---
 
