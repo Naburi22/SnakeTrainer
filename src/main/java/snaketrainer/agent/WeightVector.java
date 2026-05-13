@@ -38,6 +38,20 @@ public class WeightVector {
         return result;
     }
 
+    public double dot(FeatureVector features, FeatureGenome genome) {
+        double result = 0.0;
+        double[] featureValues = features.toArray();
+
+        for (FeatureName featureName : FeatureName.values()) {
+            if (genome.isEnabled(featureName)) {
+                int i = featureName.ordinal();
+                result += values[i] * featureValues[i];
+            }
+        }
+
+        return result;
+    }
+
     public double get(FeatureName featureName) {
         return values[featureName.ordinal()];
     }
@@ -52,15 +66,14 @@ public class WeightVector {
 
     public String toMultilineString() {
         StringBuilder builder = new StringBuilder();
-
         FeatureName[] features = FeatureName.values();
 
         for (int i = 0; i < features.length; i++) {
             FeatureName feature = features[i];
 
             builder.append(feature.getDisplayName())
-                .append(": ")
-                .append(String.format("%.4f", get(feature)));
+                    .append(": ")
+                    .append(String.format("%.4f", get(feature)));
 
             if (i < features.length - 1) {
                 builder.append("\n");
@@ -68,5 +81,36 @@ public class WeightVector {
         }
 
         return builder.toString();
+    }
+
+    public String toMultilineString(FeatureGenome genome) {
+        StringBuilder builder = new StringBuilder();
+        FeatureName[] features = FeatureName.values();
+        int split = (features.length + 1) / 2;
+
+        for (int i = 0; i < split; i++) {
+            appendFeature(builder, features[i], genome);
+
+            int rightIndex = i + split;
+            if (rightIndex < features.length) {
+                builder.append("    ");
+                appendFeature(builder, features[rightIndex], genome);
+            }
+
+            if (i < split - 1) {
+                builder.append("\n");
+            }
+        }
+
+        return builder.toString();
+    }
+
+    private void appendFeature(StringBuilder builder, FeatureName featureName, FeatureGenome genome) {
+        builder.append(String.format(
+                "%-22s %8.4f [%s]",
+                featureName.getDisplayName() + ":",
+                get(featureName),
+                genome.isEnabled(featureName) ? "ON" : "OFF"
+        ));
     }
 }

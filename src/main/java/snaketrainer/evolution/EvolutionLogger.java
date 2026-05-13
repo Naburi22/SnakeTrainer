@@ -1,9 +1,12 @@
 package snaketrainer.evolution;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+
+import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.FeatureName;
 import snaketrainer.agent.WeightVector;
 
@@ -12,11 +15,14 @@ public class EvolutionLogger {
 
     public EvolutionLogger(String filePath) {
         this.filePath = filePath;
+        ensureDirectoryExists();
     }
 
     public void clear() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false))) {
-            writer.write("");
+            writer.write("# Log de evolución");
+            writer.newLine();
+            writer.newLine();
         } catch (IOException exception) {
             throw new RuntimeException("No se pudo vaciar el archivo de log evolutivo.", exception);
         }
@@ -24,8 +30,6 @@ public class EvolutionLogger {
 
     public void logGeneration(int generationNumber, List<Individual> individuals) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
-            writer.write("# Log de evolución");
-            writer.newLine();
             writer.write("## Generación " + generationNumber);
             writer.newLine();
             writer.newLine();
@@ -34,6 +38,7 @@ public class EvolutionLogger {
                 Individual individual = individuals.get(i);
 
                 writer.write("### Agente " + (i + 1));
+                writer.newLine();
                 writer.newLine();
 
                 writer.write("- Puntuación: " + individual.getApples());
@@ -44,12 +49,17 @@ public class EvolutionLogger {
 
                 writer.write("- Causa de fin: " + individual.getEndCause().getDisplayName());
                 writer.newLine();
+
+                writer.write("- Features activas: " + individual.getAgent().getGenome().countEnabled()
+                        + " / " + FeatureName.size());
+                writer.newLine();
                 writer.newLine();
 
-                writer.write("**Vector de pesos:**");
+                writer.write("**Vector de pesos y genoma de features:**");
+                writer.newLine();
                 writer.newLine();
 
-                writeWeightsTable(writer, individual.getAgent().getWeights());
+                writeWeightsTable(writer, individual.getAgent().getWeights(), individual.getAgent().getGenome());
 
                 writer.newLine();
                 writer.write("---");
@@ -61,15 +71,16 @@ public class EvolutionLogger {
         }
     }
 
-    private void writeWeightsTable(BufferedWriter writer, WeightVector weights) throws IOException {
-        writer.write("| Feature | Valor |");
+    private void writeWeightsTable(BufferedWriter writer, WeightVector weights, FeatureGenome genome) throws IOException {
+        writer.write("| Feature | Activa | Valor |");
         writer.newLine();
-        writer.write("|--------|------|");
+        writer.write("| ------- | ------ | ----- |");
         writer.newLine();
 
         for (FeatureName featureName : FeatureName.values()) {
-            writer.write("| " + featureName.getDisplayName() + " | " +
-                    String.format("%.6f", weights.get(featureName)) + " |");
+            writer.write("| " + featureName.getDisplayName()
+                    + " | " + (genome.isEnabled(featureName) ? "Sí" : "No")
+                    + " | " + String.format("%.6f", weights.get(featureName)) + " |");
             writer.newLine();
         }
     }
@@ -91,14 +102,28 @@ public class EvolutionLogger {
 
             writer.write("- Causa de fin: " + best.getEndCause().getDisplayName());
             writer.newLine();
+
+            writer.write("- Features activas: " + best.getAgent().getGenome().countEnabled()
+                    + " / " + FeatureName.size());
+            writer.newLine();
             writer.newLine();
 
-            writer.write("**Vector de pesos:**");
+            writer.write("**Vector de pesos y genoma de features:**");
+            writer.newLine();
             writer.newLine();
 
-            writeWeightsTable(writer, best.getAgent().getWeights());
+            writeWeightsTable(writer, best.getAgent().getWeights(), best.getAgent().getGenome());
         } catch (IOException exception) {
             throw new RuntimeException("No se pudo escribir el mejor agente en el log.", exception);
+        }
+    }
+
+    private void ensureDirectoryExists() {
+        File file = new File(filePath);
+        File parent = file.getParentFile();
+
+        if (parent != null && !parent.exists() && !parent.mkdirs()) {
+            throw new RuntimeException("No se pudo crear el directorio de logs: " + parent.getAbsolutePath());
         }
     }
 }

@@ -3,7 +3,6 @@ package snaketrainer.agent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import snaketrainer.analysis.FeatureExtractor;
 import snaketrainer.model.Cell;
 import snaketrainer.model.Direction;
@@ -11,14 +10,24 @@ import snaketrainer.model.Position;
 
 public class WeightedAgent implements SnakeAgent {
     private final WeightVector weights;
+    private final FeatureGenome genome;
     private final Random random;
 
     public WeightedAgent(WeightVector weights) {
-        this(weights, new Random());
+        this(weights, FeatureGenome.random(new Random()), new Random());
     }
 
     public WeightedAgent(WeightVector weights, Random random) {
+        this(weights, FeatureGenome.random(random), random);
+    }
+
+    public WeightedAgent(WeightVector weights, FeatureGenome genome) {
+        this(weights, genome, new Random());
+    }
+
+    public WeightedAgent(WeightVector weights, FeatureGenome genome, Random random) {
         this.weights = weights;
+        this.genome = genome;
         this.random = random;
     }
 
@@ -41,7 +50,7 @@ public class WeightedAgent implements SnakeAgent {
 
         for (Direction direction : safeMoves) {
             FeatureVector features = FeatureExtractor.extract(board, currentDirection, direction);
-            double value = weights.dot(features);
+            double value = weights.dot(features, genome);
 
             if (value > bestValue || value == bestValue && random.nextBoolean()) {
                 bestValue = value;
@@ -77,5 +86,9 @@ public class WeightedAgent implements SnakeAgent {
 
     public WeightVector getWeights() {
         return weights;
+    }
+
+    public FeatureGenome getGenome() {
+        return genome;
     }
 }

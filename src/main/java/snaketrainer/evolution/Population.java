@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.WeightedAgent;
 import snaketrainer.agent.WeightVector;
 
@@ -19,7 +20,11 @@ public class Population {
         List<WeightedAgent> agents = new ArrayList<>();
 
         for (int i = 0; i < size; i++) {
-            agents.add(new WeightedAgent(WeightVector.random(random), random));
+            agents.add(new WeightedAgent(
+                    WeightVector.random(random),
+                    FeatureGenome.random(random),
+                    random
+            ));
         }
 
         return new Population(agents);

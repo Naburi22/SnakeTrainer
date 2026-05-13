@@ -1,11 +1,13 @@
 package snaketrainer.trainer;
 
+import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.SnakeAgent;
 import snaketrainer.agent.WeightVector;
 
 public class TrainingResult {
     private final SnakeAgent bestAgent;
     private final WeightVector bestWeights;
+    private final FeatureGenome bestGenome;
     private final int bestScore;
     private final int bestSteps;
     private final int generations;
@@ -14,6 +16,7 @@ public class TrainingResult {
     public TrainingResult(
             SnakeAgent bestAgent,
             WeightVector bestWeights,
+            FeatureGenome bestGenome,
             int bestScore,
             int bestSteps,
             int generations,
@@ -21,6 +24,7 @@ public class TrainingResult {
     ) {
         this.bestAgent = bestAgent;
         this.bestWeights = bestWeights;
+        this.bestGenome = bestGenome;
         this.bestScore = bestScore;
         this.bestSteps = bestSteps;
         this.generations = generations;
@@ -33,6 +37,10 @@ public class TrainingResult {
 
     public WeightVector getBestWeights() {
         return bestWeights;
+    }
+
+    public FeatureGenome getBestGenome() {
+        return bestGenome;
     }
 
     public int getBestScore() {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.WeightedAgent;
 import snaketrainer.agent.WeightVector;
 import snaketrainer.evolution.EvolutionConfig;
@@ -16,6 +17,8 @@ public class ReproductionEngine {
     private final SelectionStrategy selectionStrategy;
     private final CrossoverStrategy crossoverStrategy;
     private final MutationStrategy mutationStrategy;
+    private final FeatureGenomeCrossover genomeCrossover;
+    private final FeatureGenomeMutation genomeMutation;
     private final Random random;
 
     public ReproductionEngine(
@@ -23,12 +26,16 @@ public class ReproductionEngine {
             SelectionStrategy selectionStrategy,
             CrossoverStrategy crossoverStrategy,
             MutationStrategy mutationStrategy,
+            FeatureGenomeCrossover genomeCrossover,
+            FeatureGenomeMutation genomeMutation,
             Random random
     ) {
         this.config = config;
         this.selectionStrategy = selectionStrategy;
         this.crossoverStrategy = crossoverStrategy;
         this.mutationStrategy = mutationStrategy;
+        this.genomeCrossover = genomeCrossover;
+        this.genomeMutation = genomeMutation;
         this.random = random;
     }
 
@@ -36,11 +43,11 @@ public class ReproductionEngine {
         List<WeightedAgent> newAgents = new ArrayList<>();
 
         for (int i = 0; i < config.getEliteCount() && i < orderedIndividuals.size(); i++) {
-            WeightVector eliteWeights = new WeightVector(
-                    orderedIndividuals.get(i).getAgent().getWeights().toArray()
-            );
+            WeightedAgent elite = orderedIndividuals.get(i).getAgent();
+            WeightVector eliteWeights = new WeightVector(elite.getWeights().toArray());
+            FeatureGenome eliteGenome = new FeatureGenome(elite.getGenome().toArray(), random);
 
-            newAgents.add(new WeightedAgent(eliteWeights, random));
+            newAgents.add(new WeightedAgent(eliteWeights, eliteGenome, random));
         }
 
         while (newAgents.size() < config.getAgentsPerGeneration()) {
@@ -54,7 +61,14 @@ public class ReproductionEngine {
 
             childWeights = mutationStrategy.mutate(childWeights);
 
-            newAgents.add(new WeightedAgent(childWeights, random));
+            FeatureGenome childGenome = genomeCrossover.crossover(
+                    parent1.getAgent().getGenome(),
+                    parent2.getAgent().getGenome()
+            );
+
+            childGenome = genomeMutation.mutate(childGenome);
+
+            newAgents.add(new WeightedAgent(childWeights, childGenome, random));
         }
 
         return new Population(newAgents);

@@ -23,6 +23,7 @@ public class SnakeTrainer {
         return new TrainingResult(
                 bestAgent,
                 bestAgent.getWeights(),
+                bestAgent.getGenome(),
                 best.getApples(),
                 best.getSteps(),
                 generations,

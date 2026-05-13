@@ -7,9 +7,10 @@ public class EvolutionConfig {
     private final int tournamentSize;
     private final double mutationRate;
     private final double mutationStrength;
+    private final double featureMutationRate;
 
     public EvolutionConfig(int generations, int agentsPerGeneration) {
-        this(generations, agentsPerGeneration, 1, 3, 0.10, 0.20);
+        this(generations, agentsPerGeneration, 1, 3, 0.10, 0.20, 0.03);
     }
 
     public EvolutionConfig(
@@ -18,7 +19,8 @@ public class EvolutionConfig {
             int eliteCount,
             int tournamentSize,
             double mutationRate,
-            double mutationStrength
+            double mutationStrength,
+            double featureMutationRate
     ) {
         this.generations = generations;
         this.agentsPerGeneration = agentsPerGeneration;
@@ -26,6 +28,7 @@ public class EvolutionConfig {
         this.tournamentSize = tournamentSize;
         this.mutationRate = mutationRate;
         this.mutationStrength = mutationStrength;
+        this.featureMutationRate = featureMutationRate;
     }
 
     public int getGenerations() {
@@ -50,5 +53,9 @@ public class EvolutionConfig {
 
     public double getMutationStrength() {
         return mutationStrength;
+    }
+
+    public double getFeatureMutationRate() {
+        return featureMutationRate;
     }
 }

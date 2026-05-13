@@ -12,6 +12,8 @@ import snaketrainer.agent.WeightedAgent;
 import snaketrainer.evolution.evaluation.FitnessEvaluator;
 import snaketrainer.evolution.evaluation.FitnessResult;
 import snaketrainer.evolution.reproduction.ArithmeticCrossover;
+import snaketrainer.evolution.reproduction.FeatureGenomeCrossover;
+import snaketrainer.evolution.reproduction.FeatureGenomeMutation;
 import snaketrainer.evolution.reproduction.ReproductionEngine;
 import snaketrainer.evolution.reproduction.UniformMutation;
 import snaketrainer.evolution.selection.TournamentSelection;
@@ -139,6 +141,8 @@ public class EvolutionEngine {
                 new TournamentSelection(config.getTournamentSize(), random),
                 new ArithmeticCrossover(random),
                 new UniformMutation(config.getMutationRate(), config.getMutationStrength(), random),
+                new FeatureGenomeCrossover(random),
+                new FeatureGenomeMutation(config.getFeatureMutationRate(), random),
                 random
         );
     }

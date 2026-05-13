@@ -24,3 +24,7 @@
 - [x] Animación durante entrenamiento para que no parezca que está congelado.
 - [x] Enseñar durante entrenamiento la generación que se está entrenando, mostrar más información relevante.
 - [x] Hacer el entrenamiento concurrente.
+
+## Mi cerebro a veces piensa por la cara
+
+- [ ] Matar la partida si se entra en bucle (guardar el estado del tablero al comer y si se vuelve a ese estado acabar, maybe? dale una vuelta).

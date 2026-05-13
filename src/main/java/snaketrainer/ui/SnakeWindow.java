@@ -2,6 +2,7 @@ package snaketrainer.ui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,17 +12,21 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
+import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.FeatureName;
 import snaketrainer.agent.SnakeAgent;
 import snaketrainer.agent.WeightVector;
@@ -36,7 +41,10 @@ public class SnakeWindow extends JFrame {
     private static final int ROWS = 20;
     private static final int COLS = 20;
     private static final int CELL_SIZE = 28;
-    private static final int VISUAL_DELAY_MS = 90;
+    private static final int DEFAULT_VISUAL_DELAY_MS = 90;
+    private static final int MIN_SPEED_LEVEL = 1;
+    private static final int MAX_SPEED_LEVEL = 10;
+    private static final int DEFAULT_SPEED_LEVEL = 5;
     private static final int INPUT_COLUMNS = 8;
 
     private final SnakeGame visualGame;
@@ -52,6 +60,7 @@ public class SnakeWindow extends JFrame {
     private final JLabel bestStepsLabel;
     private final JTextArea weightsArea;
     private final JProgressBar trainingProgressBar;
+    private final JSlider speedSlider;
 
     private LoadingAnimation loadingAnimation;
 
@@ -72,6 +81,7 @@ public class SnakeWindow extends JFrame {
     private final JPanel manualWeightsPanel;
 
     private final Map<FeatureName, JTextField> weightFields;
+    private final Map<FeatureName, JCheckBox> featureEnabledFields;
 
     public SnakeWindow() {
         visualGame = new SnakeGame(ROWS, COLS);
@@ -86,8 +96,9 @@ public class SnakeWindow extends JFrame {
         statusLabel = new JLabel("Estado: esperando");
         bestStepsLabel = new JLabel("Pasos del mejor agente: -");
 
-        weightsArea = new JTextArea(9, 24);
+        weightsArea = new JTextArea(9, 42);
         weightsArea.setEditable(false);
+        weightsArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         weightsArea.setText("");
 
         trainingProgressBar = new JProgressBar();
@@ -103,8 +114,20 @@ public class SnakeWindow extends JFrame {
         backButton = new JButton("Volver");
         runManualAgentButton = new JButton("Ejecutar agente manual");
 
+        speedSlider = new JSlider(
+            MIN_SPEED_LEVEL,
+            MAX_SPEED_LEVEL,
+            DEFAULT_SPEED_LEVEL
+        );
+
+        speedSlider.setMajorTickSpacing(1);
+        speedSlider.setPaintTicks(true);
+        speedSlider.setPaintLabels(true);
+        speedSlider.addChangeListener(event -> updateVisualSpeed());
+
         rightPanelCards = new JPanel(new CardLayout());
         weightFields = new EnumMap<>(FeatureName.class);
+        featureEnabledFields = new EnumMap<>(FeatureName.class);
 
         normalPanel = createRightPanel();
         manualWeightsPanel = createManualWeightsPanel();
@@ -137,33 +160,65 @@ public class SnakeWindow extends JFrame {
         JPanel mainPanel = new JPanel(new BorderLayout(1, 1));
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
-        JPanel infoPanel = new JPanel();
-        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        // =====================================================
+        // 1. INFORMACIÓN DE LA PARTIDA
+        // =====================================================
+        JPanel infoPanel = new JPanel(new GridBagLayout());
         infoPanel.setBorder(BorderFactory.createTitledBorder("Información de la partida"));
 
-        infoPanel.add(scoreLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(stepsLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(generationsLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(agentsLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(bestScoreLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(bestStepsLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(bestAgentLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(statusLabel);
-        infoPanel.add(Box.createVerticalStrut(6));
-        infoPanel.add(trainingProgressBar);
-        infoPanel.add(Box.createVerticalStrut(10));
+        GridBagConstraints infoGbc = new GridBagConstraints();
+        infoGbc.insets = new Insets(4, 6, 4, 6);
+        infoGbc.anchor = GridBagConstraints.WEST;
+        infoGbc.fill = GridBagConstraints.HORIZONTAL;
+        infoGbc.weightx = 1.0;
 
+        addInfoLabel(infoPanel, infoGbc, scoreLabel, 0, 0);
+        addInfoLabel(infoPanel, infoGbc, stepsLabel, 1, 0);
+
+        addInfoLabel(infoPanel, infoGbc, generationsLabel, 0, 1);
+        addInfoLabel(infoPanel, infoGbc, agentsLabel, 1, 1);
+
+        addInfoLabel(infoPanel, infoGbc, bestScoreLabel, 0, 2);
+        addInfoLabel(infoPanel, infoGbc, bestStepsLabel, 1, 2);
+
+        addInfoLabel(infoPanel, infoGbc, bestAgentLabel, 0, 3);
+        addInfoLabel(infoPanel, infoGbc, statusLabel, 1, 3);
+
+        infoGbc.gridx = 0;
+        infoGbc.gridy = 4;
+        infoGbc.gridwidth = 2;
+        infoGbc.fill = GridBagConstraints.HORIZONTAL;
+        infoPanel.add(trainingProgressBar, infoGbc);
+
+        infoGbc.gridy = 5;
         JScrollPane weightsScrollPane = new JScrollPane(weightsArea);
-        weightsScrollPane.setBorder(BorderFactory.createTitledBorder("Vector de prioridades"));
-        infoPanel.add(weightsScrollPane);
+        weightsScrollPane.setBorder(
+                BorderFactory.createTitledBorder("Vector de prioridades / features activas")
+        );
+        infoPanel.add(weightsScrollPane, infoGbc);
 
+        infoGbc.gridwidth = 1;
+
+        // =====================================================
+        // 2. CONFIGURACIÓN VISUAL
+        // =====================================================
+        JPanel speedPanel = new JPanel();
+        speedPanel.setLayout(new BoxLayout(speedPanel, BoxLayout.Y_AXIS));
+        speedPanel.setBorder(BorderFactory.createTitledBorder("Velocidad de partida"));
+        speedPanel.add(speedSlider);
+
+        JPanel visualConfigPanel = new JPanel();
+        visualConfigPanel.setLayout(new BoxLayout(visualConfigPanel, BoxLayout.Y_AXIS));
+        visualConfigPanel.setBorder(BorderFactory.createTitledBorder("Configuración visual"));
+
+        visualConfigPanel.add(speedPanel);
+
+        // =====================================================
+        // 3. PARÁMETROS EVOLUTIVOS
+        // =====================================================
         JPanel inputPanel = new JPanel(new GridBagLayout());
         inputPanel.setBorder(BorderFactory.createTitledBorder("Parámetros"));
 
@@ -172,24 +227,12 @@ public class SnakeWindow extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.WEST;
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        inputPanel.add(new JLabel("Nº de iteraciones/generaciones:"), gbc);
+        addLabeledField(inputPanel, gbc, "Nº de iteraciones/generaciones:", generationsField, 0, 0);
+        addLabeledField(inputPanel, gbc, "Nº de agentes por generación:", agentsField, 2, 0);
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.weightx = 0;
-        inputPanel.add(generationsField, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        inputPanel.add(new JLabel("Nº de agentes por generación:"), gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.weightx = 0;
-        inputPanel.add(agentsField, gbc);
-
+        // =====================================================
+        // 4. BOTONES FUERA DE LA CAJA DE PARÁMETROS
+        // =====================================================
         JPanel buttonsPanel = new JPanel(new GridBagLayout());
 
         GridBagConstraints btnGbc = new GridBagConstraints();
@@ -200,13 +243,52 @@ public class SnakeWindow extends JFrame {
         buttonsPanel.add(runButton, btnGbc);
 
         btnGbc.gridx = 1;
+        btnGbc.gridy = 0;
         buttonsPanel.add(manualWeightsButton, btnGbc);
 
-        mainPanel.add(infoPanel, BorderLayout.NORTH);
-        mainPanel.add(inputPanel, BorderLayout.CENTER);
-        mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
+        // =====================================================
+        // COMPOSICIÓN FINAL
+        // =====================================================
+        contentPanel.add(infoPanel);
+        contentPanel.add(Box.createVerticalStrut(8));
+        contentPanel.add(visualConfigPanel);
+        contentPanel.add(Box.createVerticalStrut(8));
+        contentPanel.add(inputPanel);
+        contentPanel.add(Box.createVerticalStrut(8));
+        contentPanel.add(buttonsPanel);
+
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
 
         return mainPanel;
+    }
+
+    private void addInfoLabel(
+        JPanel panel,
+        GridBagConstraints gbc,
+        JLabel label,
+        int column,
+        int row
+    ) {
+        gbc.gridx = column;
+        gbc.gridy = row;
+        panel.add(label, gbc);
+    }
+
+    private void addLabeledField(
+        JPanel panel,
+        GridBagConstraints gbc,
+        String labelText,
+        JComponent field,
+        int labelColumn,
+        int row
+    ) {
+        gbc.gridx = labelColumn;
+        gbc.gridy = row;
+        panel.add(new JLabel(labelText), gbc);
+
+        gbc.gridx = labelColumn + 1;
+        gbc.weightx = 0;
+        panel.add(field, gbc);
     }
 
     private void runTraining() {
@@ -279,10 +361,9 @@ public class SnakeWindow extends JFrame {
 
                     bestScoreLabel.setText("Mejor puntuación entrenamiento: " + result.getBestScore());
                     bestStepsLabel.setText("Pasos del mejor agente: " + result.getBestSteps());
-                    weightsArea.setText(result.getBestWeights().toMultilineString());
+                    weightsArea.setText(result.getBestWeights().toMultilineString(result.getBestGenome()));
                     bestAgentLabel.setText("Mejor agente: " + currentAgent.getName());
                     statusLabel.setText("Estado: mostrando mejor agente");
-                    stopTrainingAnimation();
                     stopTrainingAnimation();
                     trainingProgressBar.setVisible(false);
                     startVisualGame();
@@ -316,7 +397,7 @@ public class SnakeWindow extends JFrame {
         updateLabels();
         boardPanel.repaint();
 
-        visualTimer = new Timer(VISUAL_DELAY_MS, event -> {
+        visualTimer = new Timer(getCurrentVisualDelay(), event -> {
             if (visualGame.isGameOver()) {
                 visualTimer.stop();
                 statusLabel.setText("Estado: partida terminada por muerte");
@@ -349,43 +430,70 @@ public class SnakeWindow extends JFrame {
         mainPanel.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
 
         JPanel fieldsPanel = new JPanel(new GridBagLayout());
-        fieldsPanel.setBorder(BorderFactory.createTitledBorder("Pesos personalizados"));
+        fieldsPanel.setBorder(BorderFactory.createTitledBorder("Pesos personalizados y features activas"));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(4, 4, 4, 4);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.WEST;
 
-        int row = 0;
+        FeatureName[] features = FeatureName.values();
+        int split = (features.length + 1) / 2;
 
-        for (FeatureName featureName : FeatureName.values()) {
-            gbc.gridx = 0;
-            gbc.gridy = row;
-            fieldsPanel.add(new JLabel(featureName.getDisplayName() + ":"), gbc);
+        for (int i = 0; i < split; i++) {
+            addManualFeatureRow(fieldsPanel, gbc, features[i],
+                i, 0, i < FeatureGenome.MIN_ACTIVE_FEATURES);
 
-            JTextField field = new JTextField("0.0", 8);
-            weightFields.put(featureName, field);
-
-            gbc.gridx = 1;
-            gbc.gridy = row;
-            fieldsPanel.add(field, gbc);
-
-            row++;
+            int rightIndex = i + split;
+            if (rightIndex < features.length) {
+                addManualFeatureRow(fieldsPanel, gbc, features[rightIndex],
+                    i, 3, rightIndex < FeatureGenome.MIN_ACTIVE_FEATURES);
+            }
         }
 
         JPanel buttonsPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints btnGbc = new GridBagConstraints();
+        btnGbc.insets = new Insets(4, 4, 4, 4);
 
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        buttonsPanel.add(runManualAgentButton, gbc);
+        btnGbc.gridx = 0;
+        btnGbc.gridy = 0;
+        buttonsPanel.add(runManualAgentButton, btnGbc);
 
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        buttonsPanel.add(backButton, gbc);
+        btnGbc.gridx = 1;
+        buttonsPanel.add(backButton, btnGbc);
 
         mainPanel.add(fieldsPanel, BorderLayout.CENTER);
         mainPanel.add(buttonsPanel, BorderLayout.SOUTH);
 
         return mainPanel;
+    }
+
+    private void addManualFeatureRow(
+            JPanel fieldsPanel,
+            GridBagConstraints gbc,
+            FeatureName featureName,
+            int row,
+            int startCol,
+            boolean enabledByDefault
+    ) {
+        gbc.gridx = startCol;
+        gbc.gridy = row;
+        fieldsPanel.add(new JLabel(featureName.getDisplayName() + ":"), gbc);
+
+        JTextField field = new JTextField("0.0", INPUT_COLUMNS);
+        field.setMaximumSize(field.getPreferredSize());
+        weightFields.put(featureName, field);
+
+        gbc.gridx = startCol + 1;
+        gbc.gridy = row;
+        fieldsPanel.add(field, gbc);
+
+        JCheckBox enabledBox = new JCheckBox("ON", enabledByDefault);
+        featureEnabledFields.put(featureName, enabledBox);
+
+        gbc.gridx = startCol + 2;
+        gbc.gridy = row;
+        fieldsPanel.add(enabledBox, gbc);
     }
 
     private void showManualWeightsPanel() {
@@ -400,10 +508,12 @@ public class SnakeWindow extends JFrame {
 
     private void runManualAgent() {
         double[] values = new double[FeatureName.size()];
+        boolean[] enabled = new boolean[FeatureName.size()];
 
         try {
             for (FeatureName featureName : FeatureName.values()) {
                 JTextField field = weightFields.get(featureName);
+                JCheckBox enabledBox = featureEnabledFields.get(featureName);
                 double value = Double.parseDouble(field.getText().trim());
 
                 if (value < WeightVector.MIN_WEIGHT || value > WeightVector.MAX_WEIGHT) {
@@ -413,6 +523,18 @@ public class SnakeWindow extends JFrame {
                 }
 
                 values[featureName.ordinal()] = value;
+                enabled[featureName.ordinal()] = enabledBox.isSelected();
+            }
+
+            int activeCount = countEnabled(enabled);
+            if (activeCount < FeatureGenome.MIN_ACTIVE_FEATURES || activeCount > FeatureGenome.MAX_ACTIVE_FEATURES) {
+                throw new IllegalArgumentException(
+                        "El agente manual debe tener entre "
+                                + FeatureGenome.MIN_ACTIVE_FEATURES
+                                + " y "
+                                + FeatureGenome.MAX_ACTIVE_FEATURES
+                                + " features activas."
+                );
             }
         } catch (NumberFormatException exception) {
             JOptionPane.showMessageDialog(
@@ -433,16 +555,29 @@ public class SnakeWindow extends JFrame {
         }
 
         WeightVector weights = new WeightVector(values);
-        currentAgent = new WeightedAgent(weights);
+        FeatureGenome genome = new FeatureGenome(enabled);
+        currentAgent = new WeightedAgent(weights, genome);
 
         bestScoreLabel.setText("Mejor puntuación entrenamiento: -");
         bestStepsLabel.setText("Pasos del mejor agente: -");
         bestAgentLabel.setText("Mejor agente: agente manual");
-        weightsArea.setText(weights.toMultilineString());
+        weightsArea.setText(weights.toMultilineString(genome));
         statusLabel.setText("Estado: mostrando agente manual");
 
         showNormalPanel();
         startVisualGame();
+    }
+
+    private int countEnabled(boolean[] enabled) {
+        int count = 0;
+
+        for (boolean value : enabled) {
+            if (value) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     private void startTrainingAnimation() {
@@ -452,7 +587,7 @@ public class SnakeWindow extends JFrame {
 
         loadingAnimation = new LoadingAnimation(ROWS, COLS);
 
-        trainingAnimationTimer = new Timer(VISUAL_DELAY_MS, event -> {
+        trainingAnimationTimer = new Timer(DEFAULT_VISUAL_DELAY_MS, event -> {
             loadingAnimation.nextFrame();
             boardPanel.showOverrideBoard(loadingAnimation.getBoardMatrix());
         });
@@ -470,4 +605,29 @@ public class SnakeWindow extends JFrame {
         boardPanel.clearOverrideBoard();
     }
 
+    private int getCurrentVisualDelay() {
+        int speed = speedSlider.getValue();
+
+        if (speed <= 4) {
+            // 1 -> 300 ms, 4 -> 90 ms
+            return 300 - ((speed - 1) * (300 - 90) / (4 - 1));
+        }
+
+        // 4 -> 90 ms, 10 -> 20 ms
+        return 90 - ((speed - 4) * (90 - 20) / (10 - 4));
+    }
+
+    private void updateVisualSpeed() {
+        int delay = getCurrentVisualDelay();
+
+        if (visualTimer != null) {
+            visualTimer.setDelay(delay);
+            visualTimer.setInitialDelay(delay);
+        }
+
+        if (trainingAnimationTimer != null) {
+            trainingAnimationTimer.setDelay(delay);
+            trainingAnimationTimer.setInitialDelay(delay);
+        }
+    }
 }

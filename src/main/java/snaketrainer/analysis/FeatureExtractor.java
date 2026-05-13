@@ -1,10 +1,11 @@
 package snaketrainer.analysis;
 
 import java.util.ArrayDeque;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-
 import snaketrainer.agent.FeatureName;
 import snaketrainer.agent.FeatureVector;
 import snaketrainer.model.Cell;
@@ -31,15 +32,34 @@ public final class FeatureExtractor {
         int totalCells = rows * cols;
         int maxDistance = rows + cols;
 
+        int reachableCells = countReachableCells(board, newHead);
+        int snakeLength = countSnakeLength(board);
+        int freeCells = countFreeCells(board);
+
+        int oldFoodDistance = bfsDistance(board, head, apple);
+        int newFoodDistance = bfsDistance(board, newHead, apple);
+        int oldTailDistance = bfsDistance(board, head, tail);
+        int newTailDistance = bfsDistance(board, newHead, tail);
+
         double distanciaPared = distanceToNearestWall(newHead, rows, cols) / (double) Math.max(rows, cols);
         double distanciaCuerpo = distanceToNearestBody(board, newHead, maxDistance) / (double) maxDistance;
         double libertadLocal = countLocalFreedom(board, newHead) / 4.0;
-        double espacioAccesible = countReachableCells(board, newHead) / (double) totalCells;
+        double espacioAccesible = reachableCells / (double) totalCells;
         double mejoraComida = foodImprovement(head, newHead, apple) / (double) maxDistance;
         double comidaEnFrente = isFoodInFront(newHead, apple, candidateDirection) ? 1.0 : 0.0;
-        double comidaAlcanzable = apple != null && existsPath(board, newHead, apple) ? 1.0 : 0.0;
+        double comidaAlcanzable = apple != null && newFoodDistance >= 0 ? 1.0 : 0.0;
         double seguirRecto = candidateDirection == currentDirection ? 1.0 : 0.0;
-        double colaAlcanzable = tail != null && existsPath(board, newHead, tail) ? 1.0 : 0.0;
+        double colaAlcanzable = tail != null && newTailDistance >= 0 ? 1.0 : 0.0;
+
+        double distanciaRealComida = normalizeDistance(newFoodDistance, maxDistance);
+        double progresoRealComida = normalizeProgress(oldFoodDistance, newFoodDistance, maxDistance);
+        double areaSeguraRelativa = calculateSafeAreaRatio(reachableCells, snakeLength);
+        double espacioEncerrado = calculateTrappedSpaceRatio(freeCells, reachableCells);
+        double distanciaRealCola = normalizeDistance(newTailDistance, maxDistance);
+        double progresoRealCola = normalizeProgress(oldTailDistance, newTailDistance, maxDistance);
+        double riesgoEncierro = calculateTrapRisk(reachableCells, snakeLength);
+        double comidaSegura = comidaAlcanzable == 1.0 && colaAlcanzable == 1.0 ? 1.0 : 0.0;
+        double comeManzana = apple != null && newHead.equals(apple) ? 1.0 : 0.0;
 
         double[] values = new double[FeatureName.size()];
 
@@ -52,6 +72,15 @@ public final class FeatureExtractor {
         values[FeatureName.COMIDA_ALCANZABLE.ordinal()] = comidaAlcanzable;
         values[FeatureName.SEGUIR_RECTO.ordinal()] = seguirRecto;
         values[FeatureName.COLA_ALCANZABLE.ordinal()] = colaAlcanzable;
+        values[FeatureName.DISTANCIA_REAL_COMIDA.ordinal()] = distanciaRealComida;
+        values[FeatureName.PROGRESO_REAL_COMIDA.ordinal()] = progresoRealComida;
+        values[FeatureName.AREA_SEGURA_RELATIVA.ordinal()] = areaSeguraRelativa;
+        values[FeatureName.ESPACIO_ENCERRADO.ordinal()] = espacioEncerrado;
+        values[FeatureName.DISTANCIA_REAL_COLA.ordinal()] = distanciaRealCola;
+        values[FeatureName.PROGRESO_REAL_COLA.ordinal()] = progresoRealCola;
+        values[FeatureName.RIESGO_ENCIERRO.ordinal()] = riesgoEncierro;
+        values[FeatureName.COMIDA_SEGURA.ordinal()] = comidaSegura;
+        values[FeatureName.COME_MANZANA.ordinal()] = comeManzana;
 
         return new FeatureVector(values);
     }
@@ -156,14 +185,10 @@ public final class FeatureExtractor {
     }
 
     private static int countReachableCells(Cell[][] board, Position start) {
-        return bfs(board, start, null);
+        return bfsCount(board, start, null);
     }
 
-    private static boolean existsPath(Cell[][] board, Position start, Position target) {
-        return bfs(board, start, target) > 0;
-    }
-
-    private static int bfs(Cell[][] board, Position start, Position target) {
+    private static int bfsCount(Cell[][] board, Position start, Position target) {
         if (!isInside(board, start)) {
             return 0;
         }
@@ -202,6 +227,127 @@ public final class FeatureExtractor {
         }
 
         return target == null ? count : 0;
+    }
+
+    private static int bfsDistance(Cell[][] board, Position start, Position target) {
+        if (target == null || !isInside(board, start)) {
+            return -1;
+        }
+
+        Queue<Position> queue = new ArrayDeque<>();
+        Set<Position> visited = new HashSet<>();
+        Map<Position, Integer> distances = new HashMap<>();
+
+        queue.add(start);
+        visited.add(start);
+        distances.put(start, 0);
+
+        while (!queue.isEmpty()) {
+            Position current = queue.poll();
+
+            if (current.equals(target)) {
+                return distances.get(current);
+            }
+
+            for (Direction direction : Direction.values()) {
+                Position next = nextPosition(current, direction);
+
+                if (!isInside(board, next) || visited.contains(next)) {
+                    continue;
+                }
+
+                if (next.equals(target) || isPassableForSearch(board, next)) {
+                    visited.add(next);
+                    distances.put(next, distances.get(current) + 1);
+                    queue.add(next);
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    private static int countSnakeLength(Cell[][] board) {
+        int count = 0;
+
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[row].length; col++) {
+                if (board[row][col] == Cell.SNAKE_HEAD
+                        || board[row][col] == Cell.SNAKE_BODY
+                        || board[row][col] == Cell.SNAKE_TAIL) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static int countFreeCells(Cell[][] board) {
+        int count = 0;
+
+        for (int row = 0; row < board.length; row++) {
+            for (int col = 0; col < board[row].length; col++) {
+                if (board[row][col] == Cell.EMPTY
+                        || board[row][col] == Cell.APPLE
+                        || board[row][col] == Cell.SNAKE_TAIL) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private static double normalizeDistance(int distance, int maxDistance) {
+        if (distance < 0) {
+            return 1.0;
+        }
+
+        return Math.min(1.0, distance / (double) maxDistance);
+    }
+
+    private static double normalizeProgress(int oldDistance, int newDistance, int maxDistance) {
+        if (oldDistance < 0 && newDistance < 0) {
+            return 0.0;
+        }
+
+        if (oldDistance < 0) {
+            oldDistance = maxDistance;
+        }
+
+        if (newDistance < 0) {
+            newDistance = maxDistance;
+        }
+
+        return (oldDistance - newDistance) / (double) maxDistance;
+    }
+
+    private static double calculateSafeAreaRatio(int reachableCells, int snakeLength) {
+        if (snakeLength <= 0) {
+            return 0.0;
+        }
+
+        return Math.min(1.0, reachableCells / (double) snakeLength);
+    }
+
+    private static double calculateTrappedSpaceRatio(int freeCells, int reachableCells) {
+        if (freeCells <= 0) {
+            return 0.0;
+        }
+
+        return Math.max(0.0, (freeCells - reachableCells) / (double) freeCells);
+    }
+
+    private static double calculateTrapRisk(int reachableCells, int snakeLength) {
+        if (snakeLength <= 0) {
+            return 1.0;
+        }
+
+        double desiredSpace = snakeLength * 2.0;
+        double ratio = reachableCells / desiredSpace;
+
+        return 1.0 - Math.min(1.0, ratio);
     }
 
     private static int foodImprovement(Position oldHead, Position newHead, Position apple) {
