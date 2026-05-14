@@ -16,7 +16,7 @@ public final class FeatureExtractor {
     private FeatureExtractor() {
     }
 
-    public static FeatureVector extract(Cell[][] board, Direction currentDirection, Direction candidateDirection) {
+    public static FeatureVector extract(Cell[][] board, Direction currentDirection, Direction candidateDirection, int score) {
         Position head = findCell(board, Cell.SNAKE_HEAD);
         Position apple = findCell(board, Cell.APPLE);
         Position tail = findCell(board, Cell.SNAKE_TAIL);
@@ -33,7 +33,7 @@ public final class FeatureExtractor {
         int maxDistance = rows + cols;
 
         int reachableCells = countReachableCells(board, newHead);
-        int snakeLength = countSnakeLength(board);
+        int snakeLength = score;
         int freeCells = countFreeCells(board);
 
         int oldFoodDistance = bfsDistance(board, head, apple);
@@ -265,22 +265,6 @@ public final class FeatureExtractor {
         }
 
         return -1;
-    }
-
-    private static int countSnakeLength(Cell[][] board) {
-        int count = 0;
-
-        for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
-                if (board[row][col] == Cell.SNAKE_HEAD
-                        || board[row][col] == Cell.SNAKE_BODY
-                        || board[row][col] == Cell.SNAKE_TAIL) {
-                    count++;
-                }
-            }
-        }
-
-        return count;
     }
 
     private static int countFreeCells(Cell[][] board) {

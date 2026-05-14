@@ -75,6 +75,8 @@ public class SnakeWindow extends JFrame {
     private final JButton manualWeightsButton;
     private final JButton backButton;
     private final JButton runManualAgentButton;
+    private final JButton skipVisualGameButton;
+    private final JButton copyCurrentAgentButton;
 
     private final JPanel rightPanelCards;
     private final JPanel normalPanel;
@@ -111,6 +113,8 @@ public class SnakeWindow extends JFrame {
         agentsField.setMaximumSize(agentsField.getPreferredSize());
         runButton = new JButton("Ejecutar");
         manualWeightsButton = new JButton("Probar pesos manuales");
+        skipVisualGameButton = new JButton("Saltar partida");
+        copyCurrentAgentButton = new JButton("Copiar agente actual");
         backButton = new JButton("Volver");
         runManualAgentButton = new JButton("Ejecutar agente manual");
 
@@ -150,6 +154,8 @@ public class SnakeWindow extends JFrame {
         manualWeightsButton.addActionListener(event -> showManualWeightsPanel());
         backButton.addActionListener(event -> showNormalPanel());
         runManualAgentButton.addActionListener(event -> runManualAgent());
+        skipVisualGameButton.addActionListener(event -> skipCurrentVisualGame());
+        copyCurrentAgentButton.addActionListener(event -> copyCurrentAgentToManualFields());
 
         pack();
         setLocationRelativeTo(null);
@@ -245,6 +251,14 @@ public class SnakeWindow extends JFrame {
         btnGbc.gridx = 1;
         btnGbc.gridy = 0;
         buttonsPanel.add(manualWeightsButton, btnGbc);
+
+        btnGbc.gridx = 2;
+        btnGbc.gridy = 0;
+        buttonsPanel.add(skipVisualGameButton, btnGbc);
+
+        btnGbc.gridx = 3;
+        btnGbc.gridy = 0;
+        buttonsPanel.add(copyCurrentAgentButton, btnGbc);
 
         // =====================================================
         // COMPOSICIÓN FINAL
@@ -514,7 +528,8 @@ public class SnakeWindow extends JFrame {
             for (FeatureName featureName : FeatureName.values()) {
                 JTextField field = weightFields.get(featureName);
                 JCheckBox enabledBox = featureEnabledFields.get(featureName);
-                double value = Double.parseDouble(field.getText().trim());
+                String text = field.getText().trim().replace(",", ".");
+                double value = Double.parseDouble(text);
 
                 if (value < WeightVector.MIN_WEIGHT || value > WeightVector.MAX_WEIGHT) {
                     throw new IllegalArgumentException(
@@ -629,5 +644,87 @@ public class SnakeWindow extends JFrame {
             trainingAnimationTimer.setDelay(delay);
             trainingAnimationTimer.setInitialDelay(delay);
         }
+    }
+
+    private void skipCurrentVisualGame() {
+        if (currentAgent == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No hay ningún agente ejecutándose actualmente.",
+                    "Sin agente",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        if (visualTimer != null) {
+            visualTimer.stop();
+        }
+
+        final int maxStepsWithoutApple = ROWS * COLS * 2;
+
+        int stepsWithoutApple = 0;
+        int previousScore = visualGame.getScore();
+
+        while (!visualGame.isGameOver() && stepsWithoutApple < maxStepsWithoutApple) {
+            Cell[][] board = visualGame.getBoardMatrix();
+            Direction decision = currentAgent.decideMove(
+                    board,
+                    visualGame.getDirection(),
+                    visualGame.getScore()
+            );
+
+            visualGame.step(decision);
+
+            if (visualGame.getScore() > previousScore) {
+                previousScore = visualGame.getScore();
+                stepsWithoutApple = 0;
+            } else {
+                stepsWithoutApple++;
+            }
+        }
+
+        updateLabels();
+        boardPanel.repaint();
+
+        if (visualGame.isGameOver()) {
+            statusLabel.setText("Estado: partida saltada hasta muerte");
+        } else {
+            statusLabel.setText("Estado: partida saltada hasta límite sin comer");
+        }
+    }
+
+    private void copyCurrentAgentToManualFields() {
+        if (!(currentAgent instanceof WeightedAgent weightedAgent)) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El agente actual no tiene vector de pesos editable.",
+                    "Agente no compatible",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        WeightVector weights = weightedAgent.getWeights();
+
+        for (FeatureName featureName : FeatureName.values()) {
+            JTextField field = weightFields.get(featureName);
+
+            if (field != null) {
+                field.setText(String.format(java.util.Locale.US, "%.4f", weights.get(featureName)));
+            }
+        }
+
+        if (featureEnabledFields != null) {
+            for (FeatureName featureName : FeatureName.values()) {
+                JCheckBox checkbox = featureEnabledFields.get(featureName);
+
+                if (checkbox != null) {
+                    checkbox.setSelected(weightedAgent.getGenome().isEnabled(featureName));
+                }
+            }
+        }
+
+        showManualWeightsPanel();
     }
 }

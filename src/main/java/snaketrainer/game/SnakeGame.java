@@ -51,7 +51,7 @@ public class SnakeGame {
         apple = null;
         direction = Direction.RIGHT;
         gameOver = false;
-        score = 0;
+        score = 3; // La puntuación inicial es igual a la longitud de la serpiente.
         steps = 0;
 
         spawnApple();

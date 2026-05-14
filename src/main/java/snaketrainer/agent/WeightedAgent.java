@@ -49,7 +49,7 @@ public class WeightedAgent implements SnakeAgent {
         double bestValue = Double.NEGATIVE_INFINITY;
 
         for (Direction direction : safeMoves) {
-            FeatureVector features = FeatureExtractor.extract(board, currentDirection, direction);
+            FeatureVector features = FeatureExtractor.extract(board, currentDirection, direction, score);
             double value = weights.dot(features, genome);
 
             if (value > bestValue || value == bestValue && random.nextBoolean()) {
