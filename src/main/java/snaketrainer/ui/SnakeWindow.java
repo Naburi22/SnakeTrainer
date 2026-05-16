@@ -94,7 +94,7 @@ public class SnakeWindow extends JFrame {
         generationsLabel = new JLabel("Generaciones: -");
         agentsLabel = new JLabel("Agentes/generación: -");
         bestScoreLabel = new JLabel("Mejor puntuación entrenamiento: -");
-        bestAgentLabel = new JLabel("Mejor agente: -");
+        bestAgentLabel = new JLabel("Generación en la que apareció: -");
         statusLabel = new JLabel("Estado: esperando");
         bestStepsLabel = new JLabel("Pasos del mejor agente: -");
 
@@ -250,12 +250,12 @@ public class SnakeWindow extends JFrame {
 
         btnGbc.gridx = 1;
         btnGbc.gridy = 0;
-        buttonsPanel.add(manualWeightsButton, btnGbc);
+        buttonsPanel.add(skipVisualGameButton, btnGbc);
 
         btnGbc.gridx = 2;
         btnGbc.gridy = 0;
-        buttonsPanel.add(skipVisualGameButton, btnGbc);
-
+        buttonsPanel.add(manualWeightsButton, btnGbc);
+        
         btnGbc.gridx = 3;
         btnGbc.gridy = 0;
         buttonsPanel.add(copyCurrentAgentButton, btnGbc);
@@ -349,7 +349,7 @@ public class SnakeWindow extends JFrame {
         generationsLabel.setText("Generaciones: " + generations);
         agentsLabel.setText("Agentes/generación: " + agentsPerGeneration);
         bestScoreLabel.setText("Mejor puntuación entrenamiento: calculando...");
-        bestAgentLabel.setText("Mejor agente: calculando...");
+        bestAgentLabel.setText("Generación en la que apareció: calculando...");
         bestStepsLabel.setText("Pasos del mejor agente: calculando...");
         weightsArea.setText("calculando...");
 
@@ -376,7 +376,7 @@ public class SnakeWindow extends JFrame {
                     bestScoreLabel.setText("Mejor puntuación entrenamiento: " + result.getBestScore());
                     bestStepsLabel.setText("Pasos del mejor agente: " + result.getBestSteps());
                     weightsArea.setText(result.getBestWeights().toMultilineString(result.getBestGenome()));
-                    bestAgentLabel.setText("Mejor agente: " + currentAgent.getName());
+                    bestAgentLabel.setText("Generación en la que apareció: " + result.getBestGeneration());
                     statusLabel.setText("Estado: mostrando mejor agente");
                     stopTrainingAnimation();
                     trainingProgressBar.setVisible(false);
@@ -575,7 +575,7 @@ public class SnakeWindow extends JFrame {
 
         bestScoreLabel.setText("Mejor puntuación entrenamiento: -");
         bestStepsLabel.setText("Pasos del mejor agente: -");
-        bestAgentLabel.setText("Mejor agente: agente manual");
+        bestAgentLabel.setText("Generación en la que apareció: -");
         weightsArea.setText(weights.toMultilineString(genome));
         statusLabel.setText("Estado: mostrando agente manual");
 
@@ -661,7 +661,7 @@ public class SnakeWindow extends JFrame {
             visualTimer.stop();
         }
 
-        final int maxStepsWithoutApple = ROWS * COLS * 2;
+        final int maxStepsWithoutApple = ROWS * COLS * 5;
 
         int stepsWithoutApple = 0;
         int previousScore = visualGame.getScore();

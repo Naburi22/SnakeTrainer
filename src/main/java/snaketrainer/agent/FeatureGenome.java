@@ -8,17 +8,28 @@ public class FeatureGenome {
 
     private final boolean[] enabled;
 
-    public FeatureGenome(boolean[] enabled) {
-        this(enabled, new Random());
+    public FeatureGenome(boolean[] enabled, Random random) {
+        this(enabled, true, random);
     }
 
-    public FeatureGenome(boolean[] enabled, Random random) {
+    public FeatureGenome(boolean[] enabled) {
+        this(enabled, false, null);
+    }
+
+    private FeatureGenome(boolean[] enabled, boolean repair, Random random) {
         if (enabled.length != FeatureName.size()) {
-            throw new IllegalArgumentException("Número incorrecto de genes de features.");
+            throw new IllegalArgumentException("Número incorrecto de features.");
         }
 
         this.enabled = enabled.clone();
-        repair(random);
+
+        if (repair) {
+            repair(random);
+        }
+    }
+
+    public static FeatureGenome copyOf(FeatureGenome genome) {
+        return new FeatureGenome(genome.toArray(), false, null);
     }
 
     public static FeatureGenome random(Random random) {

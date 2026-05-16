@@ -14,14 +14,19 @@ public class WeightVector {
             throw new IllegalArgumentException("Número incorrecto de pesos.");
         }
 
-        this.values = Arrays.copyOf(values, values.length);
+        this.values = new double[values.length];
+
+        for (FeatureName featureName : FeatureName.values()) {
+            int index = featureName.ordinal();
+            this.values[index] = discretize(featureName, values[index]);
+        }
     }
 
     public static WeightVector random(Random random) {
         double[] values = new double[FeatureName.size()];
 
-        for (int i = 0; i < values.length; i++) {
-            values[i] = MIN_WEIGHT + random.nextDouble() * (MAX_WEIGHT - MIN_WEIGHT);
+        for (FeatureName featureName : FeatureName.values()) {
+            values[featureName.ordinal()] = randomDiscreteValue(featureName, random);
         }
 
         return new WeightVector(values);
@@ -62,6 +67,36 @@ public class WeightVector {
 
     public static double clamp(double value) {
         return Math.max(MIN_WEIGHT, Math.min(MAX_WEIGHT, value));
+    }
+
+    public static double discretize(FeatureName featureName, double value) {
+        double clamped = clamp(value);
+        int levels = featureName.getDiscretizationLevels();
+
+        if (levels <= 1) {
+            return 0.0;
+        }
+
+        double step = (MAX_WEIGHT - MIN_WEIGHT) / (levels - 1);
+        int nearestLevel = (int) Math.round((clamped - MIN_WEIGHT) / step);
+        double discretized = MIN_WEIGHT + nearestLevel * step;
+
+        return cleanFloatingPointNoise(discretized);
+    }
+
+    private static double randomDiscreteValue(FeatureName featureName, Random random) {
+        int levels = featureName.getDiscretizationLevels();
+        int level = random.nextInt(levels);
+        double step = (MAX_WEIGHT - MIN_WEIGHT) / (levels - 1);
+        return cleanFloatingPointNoise(MIN_WEIGHT + level * step);
+    }
+
+    private static double cleanFloatingPointNoise(double value) {
+        if (Math.abs(value) < 1e-12) {
+            return 0.0;
+        }
+
+        return value;
     }
 
     public String toMultilineString() {

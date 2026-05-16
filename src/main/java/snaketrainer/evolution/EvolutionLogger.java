@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-
 import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.FeatureName;
 import snaketrainer.agent.WeightVector;
@@ -85,7 +84,7 @@ public class EvolutionLogger {
         }
     }
 
-    public void logBestIndividual(Individual best, int generations) {
+    public void logBestIndividual(Individual best, int bestGeneration, int generations) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write("# Mejor agente global");
             writer.newLine();
@@ -98,6 +97,9 @@ public class EvolutionLogger {
             writer.newLine();
 
             writer.write("- Pasos: " + best.getSteps());
+            writer.newLine();
+
+            writer.write("- Generación en la que apareció: " + bestGeneration);
             writer.newLine();
 
             writer.write("- Causa de fin: " + best.getEndCause().getDisplayName());

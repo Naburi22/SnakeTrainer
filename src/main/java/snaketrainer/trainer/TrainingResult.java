@@ -12,15 +12,17 @@ public class TrainingResult {
     private final int bestSteps;
     private final int generations;
     private final int agentsPerGeneration;
+    private final int bestGeneration;
 
     public TrainingResult(
-            SnakeAgent bestAgent,
-            WeightVector bestWeights,
-            FeatureGenome bestGenome,
-            int bestScore,
-            int bestSteps,
-            int generations,
-            int agentsPerGeneration
+        SnakeAgent bestAgent,
+        WeightVector bestWeights,
+        FeatureGenome bestGenome,
+        int bestScore,
+        int bestSteps,
+        int bestGeneration,
+        int generations,
+        int agentsPerGeneration
     ) {
         this.bestAgent = bestAgent;
         this.bestWeights = bestWeights;
@@ -29,6 +31,7 @@ public class TrainingResult {
         this.bestSteps = bestSteps;
         this.generations = generations;
         this.agentsPerGeneration = agentsPerGeneration;
+        this.bestGeneration = bestGeneration;  
     }
 
     public SnakeAgent getBestAgent() {
@@ -57,5 +60,9 @@ public class TrainingResult {
 
     public int getAgentsPerGeneration() {
         return agentsPerGeneration;
+    }
+
+    public int getBestGeneration() {
+        return bestGeneration;
     }
 }

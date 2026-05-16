@@ -82,7 +82,11 @@ public class EvolutionEngine {
             }
         }
 
-        logger.logBestIndividual(bestGenerationResult.getBestIndividual(), config.getGenerations());
+        logger.logBestIndividual(
+            bestGenerationResult.getBestIndividual(),
+            bestGenerationResult.getGenerationNumber(),
+            config.getGenerations()
+        );
 
         return bestGenerationResult;
     }

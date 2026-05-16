@@ -3,10 +3,9 @@ package snaketrainer.evolution.reproduction;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import snaketrainer.agent.FeatureGenome;
-import snaketrainer.agent.WeightedAgent;
 import snaketrainer.agent.WeightVector;
+import snaketrainer.agent.WeightedAgent;
 import snaketrainer.evolution.EvolutionConfig;
 import snaketrainer.evolution.Individual;
 import snaketrainer.evolution.Population;
@@ -45,7 +44,7 @@ public class ReproductionEngine {
         for (int i = 0; i < config.getEliteCount() && i < orderedIndividuals.size(); i++) {
             WeightedAgent elite = orderedIndividuals.get(i).getAgent();
             WeightVector eliteWeights = new WeightVector(elite.getWeights().toArray());
-            FeatureGenome eliteGenome = new FeatureGenome(elite.getGenome().toArray(), random);
+            FeatureGenome eliteGenome = FeatureGenome.copyOf(elite.getGenome());
 
             newAgents.add(new WeightedAgent(eliteWeights, eliteGenome, random));
         }

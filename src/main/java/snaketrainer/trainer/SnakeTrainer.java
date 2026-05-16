@@ -26,8 +26,13 @@ public class SnakeTrainer {
                 bestAgent.getGenome(),
                 best.getApples(),
                 best.getSteps(),
+                result.getGenerationNumber(),
                 generations,
                 agentsPerGeneration
         );
+    }
+
+    public TrainingResult train(int generations, int agentsPerGeneration) {
+        return train(generations, agentsPerGeneration, null);
     }
 }

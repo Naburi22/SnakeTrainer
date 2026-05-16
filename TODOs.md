@@ -27,4 +27,4 @@
 
 ## Mi cerebro a veces piensa por la cara
 
-- [ ] Matar la partida si se entra en bucle (guardar el estado del tablero al comer y si se vuelve a ese estado acabar, maybe? dale una vuelta).
+- [ ] En cuanto una partida en entrenamiento llega a 400 (ha ganado) se muestra ese agente. Discutir la idea.
