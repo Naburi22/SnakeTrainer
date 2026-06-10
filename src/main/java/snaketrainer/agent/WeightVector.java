@@ -6,7 +6,7 @@ import java.util.Random;
 public class WeightVector {
     public static final double MIN_WEIGHT = -1.0;
     public static final double MAX_WEIGHT = 1.0;
-
+    public static final boolean USE_DISCRETIZATION = false;
     private final double[] values;
 
     public WeightVector(double[] values) {
@@ -18,7 +18,9 @@ public class WeightVector {
 
         for (FeatureName featureName : FeatureName.values()) {
             int index = featureName.ordinal();
-            this.values[index] = discretize(featureName, values[index]);
+            this.values[index] = USE_DISCRETIZATION
+                ? discretize(featureName, values[index])
+                : cleanFloatingPointNoise(clamp(values[index]));
         }
     }
 
@@ -26,7 +28,9 @@ public class WeightVector {
         double[] values = new double[FeatureName.size()];
 
         for (FeatureName featureName : FeatureName.values()) {
-            values[featureName.ordinal()] = randomDiscreteValue(featureName, random);
+            values[featureName.ordinal()] = USE_DISCRETIZATION
+                ? randomDiscreteValue(featureName, random)
+                : randomContinuousValue(random);
         }
 
         return new WeightVector(values);
@@ -89,6 +93,10 @@ public class WeightVector {
         int level = random.nextInt(levels);
         double step = (MAX_WEIGHT - MIN_WEIGHT) / (levels - 1);
         return cleanFloatingPointNoise(MIN_WEIGHT + level * step);
+    }
+
+    private static double randomContinuousValue(Random random) {
+        return cleanFloatingPointNoise(MIN_WEIGHT + random.nextDouble() * (MAX_WEIGHT - MIN_WEIGHT));
     }
 
     private static double cleanFloatingPointNoise(double value) {

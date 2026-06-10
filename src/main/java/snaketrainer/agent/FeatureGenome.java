@@ -1,9 +1,12 @@
 package snaketrainer.agent;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
 
 public class FeatureGenome {
-    public static final int MIN_ACTIVE_FEATURES = 5;
+    public static final int MIN_ACTIVE_FEATURES = 8;
     public static final int MAX_ACTIVE_FEATURES = 10;
 
     private final boolean[] enabled;
@@ -46,7 +49,7 @@ public class FeatureGenome {
             }
         }
 
-        return new FeatureGenome(enabled, random);
+        return new FeatureGenome(enabled);
     }
 
     public boolean isEnabled(FeatureName featureName) {
@@ -69,6 +72,9 @@ public class FeatureGenome {
         return count;
     }
 
+    /**
+     * Fallback repair kept for random contexts. It only enforces the number of active features.
+     */
     public void repair(Random random) {
         while (countEnabled() < MIN_ACTIVE_FEATURES) {
             enabled[random.nextInt(enabled.length)] = true;
@@ -79,6 +85,53 @@ public class FeatureGenome {
 
             if (enabled[index]) {
                 enabled[index] = false;
+            }
+        }
+    }
+
+    /**
+     * Intelligent repair used after crossover/mutation.
+     * If features are missing, activates the inactive features with highest absolute weight.
+     * If there are too many features, disables the active features with lowest absolute weight.
+     */
+    public void repairByWeightMagnitude(WeightVector weights) {
+        if (countEnabled() < MIN_ACTIVE_FEATURES) {
+            List<FeatureName> inactiveFeatures = new ArrayList<>();
+
+            for (FeatureName featureName : FeatureName.values()) {
+                if (!isEnabled(featureName)) {
+                    inactiveFeatures.add(featureName);
+                }
+            }
+
+            inactiveFeatures.sort(Comparator.comparingDouble(
+                    (FeatureName featureName) -> Math.abs(weights.get(featureName))
+            ).reversed());
+
+            int index = 0;
+            while (countEnabled() < MIN_ACTIVE_FEATURES && index < inactiveFeatures.size()) {
+                enabled[inactiveFeatures.get(index).ordinal()] = true;
+                index++;
+            }
+        }
+
+        if (countEnabled() > MAX_ACTIVE_FEATURES) {
+            List<FeatureName> activeFeatures = new ArrayList<>();
+
+            for (FeatureName featureName : FeatureName.values()) {
+                if (isEnabled(featureName)) {
+                    activeFeatures.add(featureName);
+                }
+            }
+
+            activeFeatures.sort(Comparator.comparingDouble(
+                    featureName -> Math.abs(weights.get(featureName))
+            ));
+
+            int index = 0;
+            while (countEnabled() > MAX_ACTIVE_FEATURES && index < activeFeatures.size()) {
+                enabled[activeFeatures.get(index).ordinal()] = false;
+                index++;
             }
         }
     }

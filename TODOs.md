@@ -25,6 +25,16 @@
 - [x] Enseñar durante entrenamiento la generación que se está entrenando, mostrar más información relevante.
 - [x] Hacer el entrenamiento concurrente.
 
-## Mi cerebro a veces piensa por la cara
+## Para la memoria
 
-- [ ] En cuanto una partida en entrenamiento llega a 400 (ha ganado) se muestra ese agente. Discutir la idea.
+- [ ] Explicacion exacta del proceso de seleccion y reproduccion.
+- [ ] Explicacion exacta del proceso de construccion del vector de pesos, y de la activacion o no activacion de los parametros.
+
+- [ ] Añadir probabilidad de cruce (no asegurar), repetir cruces hasta llenar poblacion.
+- [ ] Cambiar cantidad de mutacion de [-0.2, 0.2] a un intervalo con un porcentaje del peso [-10%, +10%].
+- [ ] El constructor repara el genoma si tiene demasiadas o muy pocas features activas.
+- [ ] Modificar operador alfa para que favorezca un poco al progenitor superior (introduce sesgo?).
+- [ ] Cambiar las probabilidades de heredar la activacion de un gen a: 70% del padre superior y 30% del padre inferior (tanto valor del peso como de su activacion).
+
+- [ ] Definir función de aprendizaje (La función de aprendizaje ajusta los parámetros del algoritmo (como las tasas de mutación) para mejorar la búsqueda con el tiempo, optimizando cómo evoluciona el sistema).
+

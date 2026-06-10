@@ -23,8 +23,8 @@ public class EvolutionEngine {
     private static final int BOARD_COLS = 20;
     // TODO: Ajustar estos parámetros: equilibrio entre exploración y tiempo de entrenamiento.
     private static final int BASE_STEPS_WITHOUT_APPLE = 200;
-    private static final int EXTRA_STEPS_PER_APPLE = 40;
-    private static final int MAX_STEPS_WITHOUT_APPLE = 600;
+    private static final int EXTRA_STEPS_PER_APPLE = 100;
+    private static final int MAX_STEPS_WITHOUT_APPLE = 1000;
 
     /*
      * Dejamos un procesador libre para la interfaz gráfica y el sistema operativo.
@@ -37,26 +37,40 @@ public class EvolutionEngine {
     private final Random random;
     private final EvolutionLogger logger;
     private final EvolutionProgressListener progressListener;
+    private final boolean detailedLogging;
 
     public EvolutionEngine(EvolutionConfig config) {
-        this(config, new Random(), null);
+        this(config, new Random(), null, true);
     }
 
     public EvolutionEngine(EvolutionConfig config, Random random) {
-        this(config, random, null);
+        this(config, random, null, true);
     }
 
     public EvolutionEngine(EvolutionConfig config, Random random, EvolutionProgressListener progressListener) {
+        this(config, random, progressListener, true);
+    }
+
+    public EvolutionEngine(
+            EvolutionConfig config,
+            Random random,
+            EvolutionProgressListener progressListener,
+            boolean detailedLogging
+    ) {
         this.config = config;
         this.random = random;
         this.progressListener = progressListener;
+        this.detailedLogging = detailedLogging;
         this.logger = new EvolutionLogger("./logs/evolution_log.md");
     }
 
     public GenerationResult run() {
-        logger.clear();
+        if (detailedLogging) {
+            logger.clear();
+        }
 
         Population population = Population.random(config.getAgentsPerGeneration(), random);
+        LearningController learningController = new LearningController(config, BOARD_COLS * BOARD_ROWS);
 
         GenerationResult bestGenerationResult = null;
 
@@ -68,9 +82,16 @@ public class EvolutionEngine {
             List<Individual> individuals = evaluatePopulation(population);
             Collections.sort(individuals);
 
-            logger.logGeneration(generation, individuals);
+            if (detailedLogging) {
+                logger.logGeneration(generation, individuals);
+            }
 
             GenerationResult currentResult = new GenerationResult(generation, individuals);
+            LearningState learningState = learningController.update(generation, individuals);
+
+            if (detailedLogging) {
+                logger.logLearningState(learningState);
+            }
 
             if (bestGenerationResult == null
                     || currentResult.getBestIndividual().compareTo(bestGenerationResult.getBestIndividual()) < 0) {
@@ -78,15 +99,17 @@ public class EvolutionEngine {
             }
 
             if (generation < config.getGenerations()) {
-                population = createReproductionEngine().reproduce(individuals);
+                population = createReproductionEngine(learningController.getParameters()).reproduce(individuals);
             }
         }
 
-        logger.logBestIndividual(
-            bestGenerationResult.getBestIndividual(),
-            bestGenerationResult.getGenerationNumber(),
-            config.getGenerations()
-        );
+        if (detailedLogging) {
+            logger.logBestIndividual(
+                bestGenerationResult.getBestIndividual(),
+                bestGenerationResult.getGenerationNumber(),
+                config.getGenerations()
+            );
+        }
 
         return bestGenerationResult;
     }
@@ -139,14 +162,20 @@ public class EvolutionEngine {
         );
     }
 
-    private ReproductionEngine createReproductionEngine() {
+    private ReproductionEngine createReproductionEngine(EvolutionParameters parameters) {
         return new ReproductionEngine(
                 config,
-                new TournamentSelection(config.getTournamentSize(), random),
+                parameters,
+                new TournamentSelection(parameters.getTournamentSize(), random),
                 new ArithmeticCrossover(random),
-                new UniformMutation(config.getMutationRate(), config.getMutationStrength(), random),
-                new FeatureGenomeCrossover(random),
-                new FeatureGenomeMutation(config.getFeatureMutationRate(), random),
+                new UniformMutation(
+                        parameters.getMutationRate(),
+                        parameters.getWeightMutationPercentage(),
+                        parameters.getMinimumMutationStep(),
+                        random
+                ),
+                new FeatureGenomeCrossover(parameters.getFeatureSuperiorInheritanceRate(), random),
+                new FeatureGenomeMutation(parameters.getFeatureMutationRate(), random),
                 random
         );
     }

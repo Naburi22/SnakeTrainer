@@ -5,21 +5,28 @@ import java.util.Random;
 import snaketrainer.agent.FeatureGenome;
 
 public class FeatureGenomeCrossover {
+    private final double superiorInheritanceRate;
     private final Random random;
 
-    public FeatureGenomeCrossover(Random random) {
+    public FeatureGenomeCrossover(double superiorInheritanceRate, Random random) {
+        this.superiorInheritanceRate = superiorInheritanceRate;
         this.random = random;
     }
 
-    public FeatureGenome crossover(FeatureGenome first, FeatureGenome second) {
-        boolean[] a = first.toArray();
-        boolean[] b = second.toArray();
-        boolean[] child = new boolean[a.length];
+    /**
+     * The first parent is expected to be the better classified parent.
+     */
+    public FeatureGenome crossover(FeatureGenome superiorParent, FeatureGenome inferiorParent) {
+        boolean[] superior = superiorParent.toArray();
+        boolean[] inferior = inferiorParent.toArray();
+        boolean[] child = new boolean[superior.length];
 
         for (int i = 0; i < child.length; i++) {
-            child[i] = random.nextBoolean() ? a[i] : b[i];
+            child[i] = random.nextDouble() < superiorInheritanceRate
+                    ? superior[i]
+                    : inferior[i];
         }
 
-        return new FeatureGenome(child, random);
+        return new FeatureGenome(child);
     }
 }

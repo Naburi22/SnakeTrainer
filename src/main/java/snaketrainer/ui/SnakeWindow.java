@@ -6,7 +6,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -31,6 +33,7 @@ import snaketrainer.agent.FeatureName;
 import snaketrainer.agent.SnakeAgent;
 import snaketrainer.agent.WeightVector;
 import snaketrainer.agent.WeightedAgent;
+import snaketrainer.evolution.MassEvolutionLogger;
 import snaketrainer.game.SnakeGame;
 import snaketrainer.model.Cell;
 import snaketrainer.model.Direction;
@@ -66,7 +69,9 @@ public class SnakeWindow extends JFrame {
 
     private final JTextField generationsField;
     private final JTextField agentsField;
+    private final JTextField massExecutionsField;
     private final JButton runButton;
+    private final JButton massRunButton;
 
     private Timer visualTimer, trainingAnimationTimer;
     private SnakeAgent currentAgent;
@@ -109,9 +114,12 @@ public class SnakeWindow extends JFrame {
 
         generationsField = new JTextField("10", INPUT_COLUMNS);
         agentsField = new JTextField("20", INPUT_COLUMNS);
+        massExecutionsField = new JTextField("5", INPUT_COLUMNS);
         generationsField.setMaximumSize(generationsField.getPreferredSize());
         agentsField.setMaximumSize(agentsField.getPreferredSize());
+        massExecutionsField.setMaximumSize(massExecutionsField.getPreferredSize());
         runButton = new JButton("Ejecutar");
+        massRunButton = new JButton("Ejecutar en masa");
         manualWeightsButton = new JButton("Probar pesos manuales");
         skipVisualGameButton = new JButton("Saltar partida");
         copyCurrentAgentButton = new JButton("Copiar agente actual");
@@ -151,6 +159,7 @@ public class SnakeWindow extends JFrame {
         add(rightPanelCards, BorderLayout.CENTER);
 
         runButton.addActionListener(event -> runTraining());
+        massRunButton.addActionListener(event -> runMassTraining());
         manualWeightsButton.addActionListener(event -> showManualWeightsPanel());
         backButton.addActionListener(event -> showNormalPanel());
         runManualAgentButton.addActionListener(event -> runManualAgent());
@@ -233,8 +242,9 @@ public class SnakeWindow extends JFrame {
         gbc.fill = GridBagConstraints.NONE;
         gbc.anchor = GridBagConstraints.WEST;
 
-        addLabeledField(inputPanel, gbc, "Nº de iteraciones/generaciones:", generationsField, 0, 0);
-        addLabeledField(inputPanel, gbc, "Nº de agentes por generación:", agentsField, 2, 0);
+        addLabeledField(inputPanel, gbc, "Iteraciones:", generationsField, 0, 0);
+        addLabeledField(inputPanel, gbc, "Agentes:", agentsField, 2, 0);
+        addLabeledField(inputPanel, gbc, "Ejecuciones en masa:", massExecutionsField, 4, 0);
 
         // =====================================================
         // 4. BOTONES FUERA DE LA CAJA DE PARÁMETROS
@@ -259,6 +269,12 @@ public class SnakeWindow extends JFrame {
         btnGbc.gridx = 3;
         btnGbc.gridy = 0;
         buttonsPanel.add(copyCurrentAgentButton, btnGbc);
+
+        btnGbc.gridx = 4;
+        btnGbc.gridy = 0;
+        btnGbc.gridwidth = 4;
+        buttonsPanel.add(massRunButton, btnGbc);
+        btnGbc.gridwidth = 1;
 
         // =====================================================
         // COMPOSICIÓN FINAL
@@ -338,7 +354,7 @@ public class SnakeWindow extends JFrame {
             visualTimer.stop();
         }
 
-        runButton.setEnabled(false);
+        setEvolutionControlsEnabled(false);
         statusLabel.setText("Estado: entrenando...");
         trainingProgressBar.setMinimum(0);
         trainingProgressBar.setMaximum(generations);
@@ -392,12 +408,176 @@ public class SnakeWindow extends JFrame {
                     );
                     statusLabel.setText("Estado: error");
                 } finally {
-                    runButton.setEnabled(true);
+                    setEvolutionControlsEnabled(true);
                 }
             }
         };
 
         worker.execute();
+    }
+
+    private void runMassTraining() {
+        int generations;
+        int agentsPerGeneration;
+        int executions;
+
+        try {
+            generations = Integer.parseInt(generationsField.getText().trim());
+            agentsPerGeneration = Integer.parseInt(agentsField.getText().trim());
+            executions = Integer.parseInt(massExecutionsField.getText().trim());
+
+            if (generations <= 0 || agentsPerGeneration <= 0 || executions <= 0) {
+                throw new IllegalArgumentException("Los valores deben ser enteros mayores que 0.");
+            }
+        } catch (NumberFormatException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Los campos de la ejecución en masa deben ser números enteros.",
+                    "Parámetros inválidos",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        } catch (IllegalArgumentException exception) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    exception.getMessage(),
+                    "Parámetros inválidos",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        if (visualTimer != null) {
+            visualTimer.stop();
+        }
+
+        int totalProgressUnits = generations * executions;
+
+        setEvolutionControlsEnabled(false);
+        statusLabel.setText("Estado: ejecución evolutiva en masa...");
+        trainingProgressBar.setMinimum(0);
+        trainingProgressBar.setMaximum(totalProgressUnits);
+        trainingProgressBar.setValue(0);
+        trainingProgressBar.setString("0 / " + executions + " ejecuciones");
+        trainingProgressBar.setVisible(true);
+        startTrainingAnimation();
+        generationsLabel.setText("Generaciones: " + generations);
+        agentsLabel.setText("Agentes/generación: " + agentsPerGeneration);
+        bestScoreLabel.setText("Mejor puntuación masa: calculando...");
+        bestAgentLabel.setText("Generación en la que apareció: calculando...");
+        bestStepsLabel.setText("Pasos del mejor agente: calculando...");
+        weightsArea.setText("Ejecutando " + executions + " entrenamientos evolutivos...");
+
+        SwingWorker<MassTrainingSummary, Void> worker = new SwingWorker<>() {
+            @Override
+            protected MassTrainingSummary doInBackground() {
+                SnakeTrainer trainer = new SnakeTrainer();
+                List<TrainingResult> results = new ArrayList<>();
+                MassEvolutionLogger logger = new MassEvolutionLogger("./logs/mass_evolution_log.md");
+
+                logger.startBatch(executions, generations, agentsPerGeneration);
+
+                for (int execution = 1; execution <= executions; execution++) {
+                    final int executionNumber = execution;
+
+                    TrainingResult result = trainer.train(
+                            generations,
+                            agentsPerGeneration,
+                            (generation, totalGenerations) -> {
+                                int progressValue = (executionNumber - 1) * generations + generation;
+
+                                SwingUtilities.invokeLater(() -> {
+                                    trainingProgressBar.setValue(progressValue);
+                                    trainingProgressBar.setString(
+                                            "Ejecución " + executionNumber + " / " + executions
+                                                    + " - generación " + generation + " / " + totalGenerations
+                                    );
+                                });
+                            },
+                            false
+                    );
+
+                    results.add(result);
+                    logger.logExecutionResult(executionNumber, result);
+                }
+
+                logger.finishBatch();
+
+                return new MassTrainingSummary(results);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    MassTrainingSummary summary = get();
+                    TrainingResult bestResult = summary.getBestResult();
+
+                    if (bestResult != null) {
+                        currentAgent = bestResult.getBestAgent();
+                        bestScoreLabel.setText("Mejor puntuación masa: " + bestResult.getBestScore());
+                        bestStepsLabel.setText("Pasos del mejor agente: " + bestResult.getBestSteps());
+                        bestAgentLabel.setText("Generación en la que apareció: " + bestResult.getBestGeneration());
+                        weightsArea.setText(
+                            bestResult.getBestWeights().toMultilineString(bestResult.getBestGenome())
+                        );
+                    }
+
+                    statusLabel.setText("Estado: ejecución en masa terminada");
+                    stopTrainingAnimation();
+                    trainingProgressBar.setVisible(false);
+                } catch (Exception exception) {
+                    stopTrainingAnimation();
+                    trainingProgressBar.setVisible(false);
+                    JOptionPane.showMessageDialog(
+                            SnakeWindow.this,
+                            "Error durante la ejecución en masa: " + exception.getMessage(),
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    statusLabel.setText("Estado: error");
+                } finally {
+                    setEvolutionControlsEnabled(true);
+                }
+            }
+        };
+
+        worker.execute();
+    }
+
+    private void setEvolutionControlsEnabled(boolean enabled) {
+        runButton.setEnabled(enabled);
+        massRunButton.setEnabled(enabled);
+        manualWeightsButton.setEnabled(enabled);
+        skipVisualGameButton.setEnabled(enabled);
+        copyCurrentAgentButton.setEnabled(enabled);
+    }
+
+    private static class MassTrainingSummary {
+        private final List<TrainingResult> results;
+
+        MassTrainingSummary(List<TrainingResult> results) {
+            this.results = results;
+        }
+
+        TrainingResult getBestResult() {
+            TrainingResult best = null;
+
+            for (TrainingResult result : results) {
+                if (best == null || isBetter(result, best)) {
+                    best = result;
+                }
+            }
+
+            return best;
+        }
+
+        private boolean isBetter(TrainingResult candidate, TrainingResult currentBest) {
+            if (candidate.getBestScore() != currentBest.getBestScore()) {
+                return candidate.getBestScore() > currentBest.getBestScore();
+            }
+
+            return candidate.getBestSteps() < currentBest.getBestSteps();
+        }
     }
 
     private void startVisualGame() {

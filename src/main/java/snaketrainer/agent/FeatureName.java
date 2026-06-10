@@ -1,27 +1,27 @@
 package snaketrainer.agent;
 
-// TODO: Ajustar niveles de discretización.
+// TODO: Ajustar niveles de discretización. (spoiler: NO).
 
 public enum FeatureName {
-    DISTANCIA_PARED("DistanciaPared", 7),
-    DISTANCIA_CUERPO("DistanciaCuerpo", 7),
-    LIBERTAD_LOCAL("LibertadLocal", 7),
-    ESPACIO_ACCESIBLE("EspacioAccesible", 9),
-    MEJORA_COMIDA("MejoraComida", 11),
-    COMIDA_EN_FRENTE("ComidaEnFrente", 5),
-    COMIDA_ALCANZABLE("ComidaAlcanzable", 5),
-    SEGUIR_RECTO("SeguirRecto", 7),
-    COLA_ALCANZABLE("ColaAlcanzable", 9),
+    DISTANCIA_PARED("DistanciaPared", 31),
+    DISTANCIA_CUERPO("DistanciaCuerpo", 31),
+    LIBERTAD_LOCAL("LibertadLocal", 31),
+    ESPACIO_ACCESIBLE("EspacioAccesible", 41),
+    MEJORA_COMIDA("MejoraComida", 101),
+    COMIDA_EN_FRENTE("ComidaEnFrente", 21),
+    COMIDA_ALCANZABLE("ComidaAlcanzable", 21),
+    SEGUIR_RECTO("SeguirRecto", 31),
+    COLA_ALCANZABLE("ColaAlcanzable", 41),
 
-    DISTANCIA_REAL_COMIDA("DistanciaRealComida", 11),
-    PROGRESO_REAL_COMIDA("ProgresoRealComida", 11),
-    AREA_SEGURA_RELATIVA("AreaSeguraRelativa", 9),
-    ESPACIO_ENCERRADO("EspacioEncerrado", 9),
-    DISTANCIA_REAL_COLA("DistanciaRealCola", 9),
-    PROGRESO_REAL_COLA("ProgresoRealCola", 9),
-    RIESGO_ENCIERRO("RiesgoEncierro", 9),
-    COMIDA_SEGURA("ComidaSegura", 5),
-    COME_MANZANA("ComeManzana", 5);
+    DISTANCIA_REAL_COMIDA("DistanciaRealComida", 101),
+    PROGRESO_REAL_COMIDA("ProgresoRealComida", 101),
+    AREA_SEGURA_RELATIVA("AreaSeguraRelativa", 41),
+    ESPACIO_ENCERRADO("EspacioEncerrado", 41),
+    DISTANCIA_REAL_COLA("DistanciaRealCola", 41),
+    PROGRESO_REAL_COLA("ProgresoRealCola", 41),
+    RIESGO_ENCIERRO("RiesgoEncierro", 41),
+    COMIDA_SEGURA("ComidaSegura", 21),
+    COME_MANZANA("ComeManzana", 21);
 
     private final String displayName;
     private final int discretizationLevels;

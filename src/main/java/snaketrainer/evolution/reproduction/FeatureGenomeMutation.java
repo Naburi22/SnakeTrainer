@@ -22,6 +22,6 @@ public class FeatureGenomeMutation {
             }
         }
 
-        return new FeatureGenome(enabled, random);
+        return new FeatureGenome(enabled);
     }
 }

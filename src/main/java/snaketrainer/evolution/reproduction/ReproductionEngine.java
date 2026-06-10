@@ -7,12 +7,14 @@ import snaketrainer.agent.FeatureGenome;
 import snaketrainer.agent.WeightVector;
 import snaketrainer.agent.WeightedAgent;
 import snaketrainer.evolution.EvolutionConfig;
+import snaketrainer.evolution.EvolutionParameters;
 import snaketrainer.evolution.Individual;
 import snaketrainer.evolution.Population;
 import snaketrainer.evolution.selection.SelectionStrategy;
 
 public class ReproductionEngine {
     private final EvolutionConfig config;
+    private final EvolutionParameters parameters;
     private final SelectionStrategy selectionStrategy;
     private final CrossoverStrategy crossoverStrategy;
     private final MutationStrategy mutationStrategy;
@@ -22,6 +24,7 @@ public class ReproductionEngine {
 
     public ReproductionEngine(
             EvolutionConfig config,
+            EvolutionParameters parameters,
             SelectionStrategy selectionStrategy,
             CrossoverStrategy crossoverStrategy,
             MutationStrategy mutationStrategy,
@@ -30,6 +33,7 @@ public class ReproductionEngine {
             Random random
     ) {
         this.config = config;
+        this.parameters = parameters;
         this.selectionStrategy = selectionStrategy;
         this.crossoverStrategy = crossoverStrategy;
         this.mutationStrategy = mutationStrategy;
@@ -50,26 +54,53 @@ public class ReproductionEngine {
         }
 
         while (newAgents.size() < config.getAgentsPerGeneration()) {
-            Individual parent1 = selectionStrategy.select(orderedIndividuals);
-            Individual parent2 = selectionStrategy.select(orderedIndividuals);
+            Individual firstParent = selectionStrategy.select(orderedIndividuals);
+            Individual secondParent = selectionStrategy.select(orderedIndividuals);
 
-            WeightVector childWeights = crossoverStrategy.crossover(
-                    parent1.getAgent().getWeights(),
-                    parent2.getAgent().getWeights()
-            );
+            Individual superiorParent = getSuperiorParent(firstParent, secondParent);
+            Individual inferiorParent = superiorParent == firstParent ? secondParent : firstParent;
 
-            childWeights = mutationStrategy.mutate(childWeights);
+            WeightedAgent childAgent = random.nextDouble() < parameters.getCrossoverRate()
+                    ? createCrossoverChild(superiorParent, inferiorParent)
+                    : copyOneParent(superiorParent, inferiorParent);
 
-            FeatureGenome childGenome = genomeCrossover.crossover(
-                    parent1.getAgent().getGenome(),
-                    parent2.getAgent().getGenome()
-            );
-
-            childGenome = genomeMutation.mutate(childGenome);
-
-            newAgents.add(new WeightedAgent(childWeights, childGenome, random));
+            newAgents.add(childAgent);
         }
 
         return new Population(newAgents);
+    }
+
+    private WeightedAgent createCrossoverChild(Individual superiorParent, Individual inferiorParent) {
+        WeightVector childWeights = crossoverStrategy.crossover(
+                superiorParent.getAgent().getWeights(),
+                inferiorParent.getAgent().getWeights()
+        );
+
+        childWeights = mutationStrategy.mutate(childWeights);
+
+        FeatureGenome childGenome = genomeCrossover.crossover(
+                superiorParent.getAgent().getGenome(),
+                inferiorParent.getAgent().getGenome()
+        );
+
+        childGenome = genomeMutation.mutate(childGenome);
+        childGenome.repairByWeightMagnitude(childWeights);
+
+        return new WeightedAgent(childWeights, childGenome, random);
+    }
+
+    private WeightedAgent copyOneParent(Individual superiorParent, Individual inferiorParent) {
+        WeightedAgent selectedParent = random.nextDouble() < parameters.getDirectCopySuperiorRate()
+                ? superiorParent.getAgent()
+                : inferiorParent.getAgent();
+
+        WeightVector copiedWeights = new WeightVector(selectedParent.getWeights().toArray());
+        FeatureGenome copiedGenome = FeatureGenome.copyOf(selectedParent.getGenome());
+
+        return new WeightedAgent(copiedWeights, copiedGenome, random);
+    }
+
+    private Individual getSuperiorParent(Individual firstParent, Individual secondParent) {
+        return firstParent.compareTo(secondParent) <= 0 ? firstParent : secondParent;
     }
 }

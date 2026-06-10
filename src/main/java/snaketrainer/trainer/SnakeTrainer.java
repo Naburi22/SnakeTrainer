@@ -13,8 +13,17 @@ public class SnakeTrainer {
             int agentsPerGeneration,
             EvolutionProgressListener progressListener
     ) {
+        return train(generations, agentsPerGeneration, progressListener, true);
+    }
+
+    public TrainingResult train(
+            int generations,
+            int agentsPerGeneration,
+            EvolutionProgressListener progressListener,
+            boolean detailedLogging
+    ) {
         EvolutionConfig config = new EvolutionConfig(generations, agentsPerGeneration);
-        EvolutionEngine engine = new EvolutionEngine(config, new java.util.Random(), progressListener);
+        EvolutionEngine engine = new EvolutionEngine(config, new java.util.Random(), progressListener, detailedLogging);
 
         GenerationResult result = engine.run();
         Individual best = result.getBestIndividual();

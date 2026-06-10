@@ -70,6 +70,40 @@ public class EvolutionLogger {
         }
     }
 
+
+
+    public void logLearningState(LearningState state) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write("**Función de aprendizaje:**");
+            writer.newLine();
+            writer.newLine();
+
+            writer.write("- Ventana de estancamiento: " + state.getStagnationWindow() + " generaciones");
+            writer.newLine();
+
+            writer.write("- Generaciones sin mejora: " + state.getGenerationsWithoutImprovement());
+            writer.newLine();
+
+            writer.write("- Diversidad media de genomas: " + String.format("%.4f", state.getGenomeDiversity()));
+            writer.newLine();
+
+            writer.write("- mutationRate actual: " + String.format("%.4f", state.getMutationRate()));
+            writer.newLine();
+
+            writer.write("- weightMutationPercentage actual: " + String.format("%.4f", state.getWeightMutationPercentage()));
+            writer.newLine();
+
+            writer.write("- featureMutationRate actual: " + String.format("%.4f", state.getFeatureMutationRate()));
+            writer.newLine();
+
+            writer.write("- Decisión: " + state.getDecision());
+            writer.newLine();
+            writer.newLine();
+        } catch (IOException exception) {
+            throw new RuntimeException("No se pudo escribir el estado de la función de aprendizaje.", exception);
+        }
+    }
+
     private void writeWeightsTable(BufferedWriter writer, WeightVector weights, FeatureGenome genome) throws IOException {
         writer.write("| Feature | Activa | Valor |");
         writer.newLine();
