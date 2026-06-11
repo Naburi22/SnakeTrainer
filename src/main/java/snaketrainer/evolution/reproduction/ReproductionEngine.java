@@ -17,9 +17,8 @@ public class ReproductionEngine {
     private final EvolutionParameters parameters;
     private final SelectionStrategy selectionStrategy;
     private final CrossoverStrategy crossoverStrategy;
-    private final MutationStrategy mutationStrategy;
     private final FeatureGenomeCrossover genomeCrossover;
-    private final FeatureGenomeMutation genomeMutation;
+    private final IndividualMutationOperator mutationOperator;
     private final Random random;
 
     public ReproductionEngine(
@@ -27,18 +26,16 @@ public class ReproductionEngine {
             EvolutionParameters parameters,
             SelectionStrategy selectionStrategy,
             CrossoverStrategy crossoverStrategy,
-            MutationStrategy mutationStrategy,
             FeatureGenomeCrossover genomeCrossover,
-            FeatureGenomeMutation genomeMutation,
+            IndividualMutationOperator mutationOperator,
             Random random
     ) {
         this.config = config;
         this.parameters = parameters;
         this.selectionStrategy = selectionStrategy;
         this.crossoverStrategy = crossoverStrategy;
-        this.mutationStrategy = mutationStrategy;
         this.genomeCrossover = genomeCrossover;
-        this.genomeMutation = genomeMutation;
+        this.mutationOperator = mutationOperator;
         this.random = random;
     }
 
@@ -76,17 +73,18 @@ public class ReproductionEngine {
                 inferiorParent.getAgent().getWeights()
         );
 
-        childWeights = mutationStrategy.mutate(childWeights);
-
         FeatureGenome childGenome = genomeCrossover.crossover(
                 superiorParent.getAgent().getGenome(),
                 inferiorParent.getAgent().getGenome()
         );
 
-        childGenome = genomeMutation.mutate(childGenome);
-        childGenome.repairByWeightMagnitude(childWeights);
+        MutationResult mutationResult = mutationOperator.mutate(childWeights, childGenome);
 
-        return new WeightedAgent(childWeights, childGenome, random);
+        return new WeightedAgent(
+                mutationResult.getWeights(),
+                mutationResult.getGenome(),
+                random
+        );
     }
 
     private WeightedAgent copyOneParent(Individual superiorParent, Individual inferiorParent) {
@@ -97,7 +95,13 @@ public class ReproductionEngine {
         WeightVector copiedWeights = new WeightVector(selectedParent.getWeights().toArray());
         FeatureGenome copiedGenome = FeatureGenome.copyOf(selectedParent.getGenome());
 
-        return new WeightedAgent(copiedWeights, copiedGenome, random);
+        MutationResult mutationResult = mutationOperator.mutate(copiedWeights, copiedGenome);
+
+        return new WeightedAgent(
+                mutationResult.getWeights(),
+                mutationResult.getGenome(),
+                random
+        );
     }
 
     private Individual getSuperiorParent(Individual firstParent, Individual secondParent) {

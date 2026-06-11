@@ -12,24 +12,25 @@ import snaketrainer.agent.FeatureName;
  * the same time.
  */
 public class LearningController {
-    private static final double MUTATION_RATE_MIN = 0.05;
-    private static final double MUTATION_RATE_MAX = 0.25;
+    private static final double INDIVIDUAL_MUTATION_RATE_MIN = 0.10;
+    private static final double INDIVIDUAL_MUTATION_RATE_MAX = 0.40;
 
     private static final double WEIGHT_MUTATION_PERCENTAGE_MIN = 0.05;
     private static final double WEIGHT_MUTATION_PERCENTAGE_MAX = 0.20;
 
-    private static final double FEATURE_MUTATION_RATE_MIN = 0.02;
-    private static final double FEATURE_MUTATION_RATE_MAX = 0.12;
+    private static final double GENOME_MUTATION_TYPE_RATE_MIN = 0.10;
+    private static final double GENOME_MUTATION_TYPE_RATE_MAX = 0.40;
 
-    private static final double IMPROVEMENT_COOLING_FACTOR = 0.95;
+    private static final double IMPROVEMENT_INDIVIDUAL_COOLING_FACTOR = 0.97;
+    private static final double IMPROVEMENT_WEIGHT_COOLING_FACTOR = 0.95;
+    private static final double IMPROVEMENT_GENOME_COOLING_FACTOR = 0.95;
     private static final double SOLUTION_CONSOLIDATION_FACTOR = 0.90;
 
-    private static final double STAGNATION_MUTATION_RATE_FACTOR = 1.20;
-    private static final double STAGNATION_FEATURE_MUTATION_FACTOR = 1.30;
+    private static final double STAGNATION_INDIVIDUAL_MUTATION_FACTOR = 1.10;
     private static final double STAGNATION_WEIGHT_MUTATION_FACTOR = 1.15;
 
     private static final double LOW_GENOME_DIVERSITY_THRESHOLD = 0.25;
-    private static final double LOW_DIVERSITY_FEATURE_MUTATION_FACTOR = 1.25;
+    private static final double LOW_DIVERSITY_GENOME_MUTATION_FACTOR = 1.25;
 
     private final EvolutionParameters parameters;
     private final int stagnationWindow;
@@ -89,7 +90,7 @@ public class LearningController {
             bestSoFar = currentBest;
             generationsWithoutImprovement = 0;
             coolDownAfterImprovement();
-            decision.append("Mejora global: enfriamiento suave de mutaciones.");
+            decision.append("Mejora global: enfriamiento suave de la mutación individual.");
         } else {
             generationsWithoutImprovement++;
             decision.append("Sin mejora global: contador de estancamiento = ")
@@ -98,13 +99,13 @@ public class LearningController {
 
             if (generationsWithoutImprovement % stagnationWindow == 0) {
                 increaseExplorationAfterStagnation();
-                decision.append(" Ventana de estancamiento alcanzada: aumento de exploración.");
+                decision.append(" Ventana de estancamiento alcanzada: aumento de exploración numérica.");
             }
         }
 
         if (genomeDiversity < LOW_GENOME_DIVERSITY_THRESHOLD) {
             increaseStructuralExploration();
-            decision.append(" Diversidad de genomas baja: aumento de mutación de features.");
+            decision.append(" Diversidad de genomas baja: aumento de probabilidad de mutación estructural.");
         }
 
         clampParameters();
@@ -112,28 +113,47 @@ public class LearningController {
     }
 
     private void coolDownAfterImprovement() {
-        parameters.setMutationRate(parameters.getMutationRate() * IMPROVEMENT_COOLING_FACTOR);
-        parameters.setFeatureMutationRate(parameters.getFeatureMutationRate() * IMPROVEMENT_COOLING_FACTOR);
-        parameters.setWeightMutationPercentage(parameters.getWeightMutationPercentage() * IMPROVEMENT_COOLING_FACTOR);
+        parameters.setIndividualMutationRate(
+                parameters.getIndividualMutationRate() * IMPROVEMENT_INDIVIDUAL_COOLING_FACTOR
+        );
+        parameters.setWeightMutationPercentage(
+                parameters.getWeightMutationPercentage() * IMPROVEMENT_WEIGHT_COOLING_FACTOR
+        );
+        parameters.setGenomeMutationTypeRate(
+                parameters.getGenomeMutationTypeRate() * IMPROVEMENT_GENOME_COOLING_FACTOR
+        );
     }
 
     private void increaseExplorationAfterStagnation() {
-        parameters.setMutationRate(parameters.getMutationRate() * STAGNATION_MUTATION_RATE_FACTOR);
-        parameters.setFeatureMutationRate(parameters.getFeatureMutationRate() * STAGNATION_FEATURE_MUTATION_FACTOR);
-        parameters.setWeightMutationPercentage(parameters.getWeightMutationPercentage() * STAGNATION_WEIGHT_MUTATION_FACTOR);
+        parameters.setIndividualMutationRate(
+                parameters.getIndividualMutationRate() * STAGNATION_INDIVIDUAL_MUTATION_FACTOR
+        );
+        parameters.setWeightMutationPercentage(
+                parameters.getWeightMutationPercentage() * STAGNATION_WEIGHT_MUTATION_FACTOR
+        );
     }
 
     private void increaseStructuralExploration() {
-        parameters.setFeatureMutationRate(parameters.getFeatureMutationRate() * LOW_DIVERSITY_FEATURE_MUTATION_FACTOR);
+        parameters.setGenomeMutationTypeRate(
+                parameters.getGenomeMutationTypeRate() * LOW_DIVERSITY_GENOME_MUTATION_FACTOR
+        );
     }
 
     private void clampParameters() {
-        parameters.setMutationRate(clamp(parameters.getMutationRate(), MUTATION_RATE_MIN, MUTATION_RATE_MAX));
-        parameters.setFeatureMutationRate(clamp(parameters.getFeatureMutationRate(), FEATURE_MUTATION_RATE_MIN, FEATURE_MUTATION_RATE_MAX));
+        parameters.setIndividualMutationRate(clamp(
+                parameters.getIndividualMutationRate(),
+                INDIVIDUAL_MUTATION_RATE_MIN,
+                INDIVIDUAL_MUTATION_RATE_MAX
+        ));
         parameters.setWeightMutationPercentage(clamp(
                 parameters.getWeightMutationPercentage(),
                 WEIGHT_MUTATION_PERCENTAGE_MIN,
                 WEIGHT_MUTATION_PERCENTAGE_MAX
+        ));
+        parameters.setGenomeMutationTypeRate(clamp(
+                parameters.getGenomeMutationTypeRate(),
+                GENOME_MUTATION_TYPE_RATE_MIN,
+                Math.min(GENOME_MUTATION_TYPE_RATE_MAX, 1.0 - parameters.getMixedMutationTypeRate())
         ));
     }
 
@@ -142,8 +162,8 @@ public class LearningController {
     }
 
     private void consolidateSolutionMode() {
-        parameters.setMutationRate(parameters.getMutationRate() * SOLUTION_CONSOLIDATION_FACTOR);
-        parameters.setFeatureMutationRate(parameters.getFeatureMutationRate() * SOLUTION_CONSOLIDATION_FACTOR);
+        parameters.setIndividualMutationRate(parameters.getIndividualMutationRate() * SOLUTION_CONSOLIDATION_FACTOR);
+        parameters.setGenomeMutationTypeRate(parameters.getGenomeMutationTypeRate() * SOLUTION_CONSOLIDATION_FACTOR);
         parameters.setWeightMutationPercentage(parameters.getWeightMutationPercentage() * SOLUTION_CONSOLIDATION_FACTOR);
     }
 
@@ -157,9 +177,11 @@ public class LearningController {
                 stagnationWindow,
                 generationsWithoutImprovement,
                 genomeDiversity,
-                parameters.getMutationRate(),
+                parameters.getIndividualMutationRate(),
                 parameters.getWeightMutationPercentage(),
-                parameters.getFeatureMutationRate(),
+                parameters.getWeightMutationTypeRate(),
+                parameters.getGenomeMutationTypeRate(),
+                parameters.getMixedMutationTypeRate(),
                 decision
         );
     }

@@ -38,10 +38,9 @@ public class WeightVector {
 
     public double dot(FeatureVector features) {
         double result = 0.0;
-        double[] featureValues = features.toArray();
 
         for (int i = 0; i < values.length; i++) {
-            result += values[i] * featureValues[i];
+            result += values[i] * features.get(i);
         }
 
         return result;
@@ -49,12 +48,10 @@ public class WeightVector {
 
     public double dot(FeatureVector features, FeatureGenome genome) {
         double result = 0.0;
-        double[] featureValues = features.toArray();
 
-        for (FeatureName featureName : FeatureName.values()) {
-            if (genome.isEnabled(featureName)) {
-                int i = featureName.ordinal();
-                result += values[i] * featureValues[i];
+        for (int i = 0; i < values.length; i++) {
+            if (genome.isEnabled(i)) {
+                result += values[i] * features.get(i);
             }
         }
 

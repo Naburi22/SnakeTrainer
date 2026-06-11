@@ -1,11 +1,6 @@
 package snaketrainer.analysis;
 
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Queue;
-import java.util.Set;
+import java.util.Arrays;
 import snaketrainer.agent.FeatureName;
 import snaketrainer.agent.FeatureVector;
 import snaketrainer.model.Cell;
@@ -13,53 +8,54 @@ import snaketrainer.model.Direction;
 import snaketrainer.model.Position;
 
 public final class FeatureExtractor {
+    private static final Direction[] DIRECTIONS = Direction.values();
+
     private FeatureExtractor() {
     }
 
-    public static FeatureVector extract(Cell[][] board, Direction currentDirection, Direction candidateDirection, int score) {
-        Position head = findCell(board, Cell.SNAKE_HEAD);
-        Position apple = findCell(board, Cell.APPLE);
-        Position tail = findCell(board, Cell.SNAKE_TAIL);
+    public static DecisionContext createDecisionContext(Cell[][] board, Direction currentDirection, int score) {
+        return new DecisionContext(board, currentDirection, score);
+    }
 
-        if (head == null) {
+    public static FeatureVector extract(Cell[][] board, Direction currentDirection, Direction candidateDirection, int score) {
+        return extract(createDecisionContext(board, currentDirection, score), candidateDirection);
+    }
+
+    public static FeatureVector extract(DecisionContext context, Direction candidateDirection) {
+        if (!context.hasHead()) {
             return new FeatureVector(new double[FeatureName.size()]);
         }
 
-        Position newHead = nextPosition(head, candidateDirection);
+        int newHeadId = context.nextId(context.headId, candidateDirection);
+        int newRow = context.rowOf(newHeadId);
+        int newCol = context.colOf(newHeadId);
 
-        int rows = board.length;
-        int cols = board[0].length;
-        int totalCells = rows * cols;
-        int maxDistance = rows + cols;
+        BfsResult candidateSearch = context.runBfs(newHeadId);
 
-        int reachableCells = countReachableCells(board, newHead);
-        int snakeLength = score;
-        int freeCells = countFreeCells(board);
+        int reachableCells = candidateSearch.reachableCells;
+        int newFoodDistance = candidateSearch.distanceToApple;
+        int newTailDistance = candidateSearch.distanceToTail;
 
-        int oldFoodDistance = bfsDistance(board, head, apple);
-        int newFoodDistance = bfsDistance(board, newHead, apple);
-        int oldTailDistance = bfsDistance(board, head, tail);
-        int newTailDistance = bfsDistance(board, newHead, tail);
+        double distanciaPared = distanceToNearestWall(newRow, newCol, context.rows, context.cols)
+                / (double) Math.max(context.rows, context.cols);
+        double distanciaCuerpo = context.distanceToNearestBody(newHeadId) / (double) context.maxDistance;
+        double libertadLocal = context.countLocalFreedom(newHeadId) / 4.0;
+        double espacioAccesible = reachableCells / (double) context.totalCells;
+        double mejoraComida = context.foodImprovement(newHeadId) / (double) context.maxDistance;
+        double comidaEnFrente = context.isFoodInFront(newHeadId, candidateDirection) ? 1.0 : 0.0;
+        double comidaAlcanzable = context.hasApple() && newFoodDistance >= 0 ? 1.0 : 0.0;
+        double seguirRecto = candidateDirection == context.currentDirection ? 1.0 : 0.0;
+        double colaAlcanzable = context.hasTail() && newTailDistance >= 0 ? 1.0 : 0.0;
 
-        double distanciaPared = distanceToNearestWall(newHead, rows, cols) / (double) Math.max(rows, cols);
-        double distanciaCuerpo = distanceToNearestBody(board, newHead, maxDistance) / (double) maxDistance;
-        double libertadLocal = countLocalFreedom(board, newHead) / 4.0;
-        double espacioAccesible = reachableCells / (double) totalCells;
-        double mejoraComida = foodImprovement(head, newHead, apple) / (double) maxDistance;
-        double comidaEnFrente = isFoodInFront(newHead, apple, candidateDirection) ? 1.0 : 0.0;
-        double comidaAlcanzable = apple != null && newFoodDistance >= 0 ? 1.0 : 0.0;
-        double seguirRecto = candidateDirection == currentDirection ? 1.0 : 0.0;
-        double colaAlcanzable = tail != null && newTailDistance >= 0 ? 1.0 : 0.0;
-
-        double distanciaRealComida = normalizeDistance(newFoodDistance, maxDistance);
-        double progresoRealComida = normalizeProgress(oldFoodDistance, newFoodDistance, maxDistance);
-        double areaSeguraRelativa = calculateSafeAreaRatio(reachableCells, snakeLength);
-        double espacioEncerrado = calculateTrappedSpaceRatio(freeCells, reachableCells);
-        double distanciaRealCola = normalizeDistance(newTailDistance, maxDistance);
-        double progresoRealCola = normalizeProgress(oldTailDistance, newTailDistance, maxDistance);
-        double riesgoEncierro = calculateTrapRisk(reachableCells, snakeLength);
+        double distanciaRealComida = normalizeDistance(newFoodDistance, context.maxDistance);
+        double progresoRealComida = normalizeProgress(context.oldFoodDistance, newFoodDistance, context.maxDistance);
+        double areaSeguraRelativa = calculateSafeAreaRatio(reachableCells, context.snakeLength);
+        double espacioEncerrado = calculateTrappedSpaceRatio(context.freeCells, reachableCells);
+        double distanciaRealCola = normalizeDistance(newTailDistance, context.maxDistance);
+        double progresoRealCola = normalizeProgress(context.oldTailDistance, newTailDistance, context.maxDistance);
+        double riesgoEncierro = calculateTrapRisk(reachableCells, context.snakeLength);
         double comidaSegura = comidaAlcanzable == 1.0 && colaAlcanzable == 1.0 ? 1.0 : 0.0;
-        double comeManzana = apple != null && newHead.equals(apple) ? 1.0 : 0.0;
+        double comeManzana = context.hasApple() && newHeadId == context.appleId ? 1.0 : 0.0;
 
         double[] values = new double[FeatureName.size()];
 
@@ -123,164 +119,17 @@ public final class FeatureExtractor {
         return cell != Cell.SNAKE_HEAD && cell != Cell.SNAKE_BODY;
     }
 
-    private static boolean isPassableForSearch(Cell[][] board, Position position) {
-        if (!isInside(board, position)) {
-            return false;
-        }
-
-        Cell cell = board[position.row()][position.col()];
-
-        return cell == Cell.EMPTY
-                || cell == Cell.APPLE
-                || cell == Cell.SNAKE_TAIL;
-    }
-
-    private static int distanceToNearestWall(Position position, int rows, int cols) {
-        if (position.row() < 0 || position.row() >= rows || position.col() < 0 || position.col() >= cols) {
+    private static int distanceToNearestWall(int row, int col, int rows, int cols) {
+        if (row < 0 || row >= rows || col < 0 || col >= cols) {
             return 0;
         }
 
-        int up = position.row();
-        int down = rows - 1 - position.row();
-        int left = position.col();
-        int right = cols - 1 - position.col();
+        int up = row;
+        int down = rows - 1 - row;
+        int left = col;
+        int right = cols - 1 - col;
 
         return Math.min(Math.min(up, down), Math.min(left, right));
-    }
-
-    private static int distanceToNearestBody(Cell[][] board, Position position, int defaultDistance) {
-        if (!isInside(board, position)) {
-            return 0;
-        }
-
-        int best = defaultDistance;
-
-        for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
-                if (board[row][col] == Cell.SNAKE_BODY || board[row][col] == Cell.SNAKE_HEAD) {
-                    int distance = manhattan(position, new Position(row, col));
-
-                    if (distance > 0) {
-                        best = Math.min(best, distance);
-                    }
-                }
-            }
-        }
-
-        return best;
-    }
-
-    private static int countLocalFreedom(Cell[][] board, Position position) {
-        int count = 0;
-
-        for (Direction direction : Direction.values()) {
-            Position next = nextPosition(position, direction);
-
-            if (isPassableForSearch(board, next)) {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
-    private static int countReachableCells(Cell[][] board, Position start) {
-        return bfsCount(board, start, null);
-    }
-
-    private static int bfsCount(Cell[][] board, Position start, Position target) {
-        if (!isInside(board, start)) {
-            return 0;
-        }
-
-        Queue<Position> queue = new ArrayDeque<>();
-        Set<Position> visited = new HashSet<>();
-
-        queue.add(start);
-        visited.add(start);
-
-        int count = 0;
-
-        while (!queue.isEmpty()) {
-            Position current = queue.poll();
-            count++;
-
-            if (target != null && current.equals(target)) {
-                return count;
-            }
-
-            for (Direction direction : Direction.values()) {
-                Position next = nextPosition(current, direction);
-
-                if (!isInside(board, next) || visited.contains(next)) {
-                    continue;
-                }
-
-                if (target != null && next.equals(target)) {
-                    visited.add(next);
-                    queue.add(next);
-                } else if (isPassableForSearch(board, next)) {
-                    visited.add(next);
-                    queue.add(next);
-                }
-            }
-        }
-
-        return target == null ? count : 0;
-    }
-
-    private static int bfsDistance(Cell[][] board, Position start, Position target) {
-        if (target == null || !isInside(board, start)) {
-            return -1;
-        }
-
-        Queue<Position> queue = new ArrayDeque<>();
-        Set<Position> visited = new HashSet<>();
-        Map<Position, Integer> distances = new HashMap<>();
-
-        queue.add(start);
-        visited.add(start);
-        distances.put(start, 0);
-
-        while (!queue.isEmpty()) {
-            Position current = queue.poll();
-
-            if (current.equals(target)) {
-                return distances.get(current);
-            }
-
-            for (Direction direction : Direction.values()) {
-                Position next = nextPosition(current, direction);
-
-                if (!isInside(board, next) || visited.contains(next)) {
-                    continue;
-                }
-
-                if (next.equals(target) || isPassableForSearch(board, next)) {
-                    visited.add(next);
-                    distances.put(next, distances.get(current) + 1);
-                    queue.add(next);
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    private static int countFreeCells(Cell[][] board) {
-        int count = 0;
-
-        for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
-                if (board[row][col] == Cell.EMPTY
-                        || board[row][col] == Cell.APPLE
-                        || board[row][col] == Cell.SNAKE_TAIL) {
-                    count++;
-                }
-            }
-        }
-
-        return count;
     }
 
     private static double normalizeDistance(int distance, int maxDistance) {
@@ -334,28 +183,273 @@ public final class FeatureExtractor {
         return 1.0 - Math.min(1.0, ratio);
     }
 
-    private static int foodImprovement(Position oldHead, Position newHead, Position apple) {
-        if (apple == null) {
-            return 0;
+    public static final class DecisionContext {
+        private final Cell[][] board;
+        private final Direction currentDirection;
+        private final int rows;
+        private final int cols;
+        private final int totalCells;
+        private final int maxDistance;
+        private final int snakeLength;
+
+        private final int headId;
+        private final int appleId;
+        private final int tailId;
+        private final int freeCells;
+        private final int[] bodyAndHeadIds;
+        private final int bodyAndHeadCount;
+        private final int oldFoodDistance;
+        private final int oldTailDistance;
+
+        private DecisionContext(Cell[][] board, Direction currentDirection, int score) {
+            this.board = board;
+            this.currentDirection = currentDirection;
+            this.rows = board.length;
+            this.cols = board[0].length;
+            this.totalCells = rows * cols;
+            this.maxDistance = rows + cols;
+            this.snakeLength = score;
+
+            int detectedHeadId = -1;
+            int detectedAppleId = -1;
+            int detectedTailId = -1;
+            int detectedFreeCells = 0;
+            int[] detectedBodyAndHeadIds = new int[totalCells];
+            int detectedBodyAndHeadCount = 0;
+
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
+                    int id = idOf(row, col);
+                    Cell cell = board[row][col];
+
+                    if (cell == Cell.SNAKE_HEAD) {
+                        detectedHeadId = id;
+                        detectedBodyAndHeadIds[detectedBodyAndHeadCount++] = id;
+                    } else if (cell == Cell.SNAKE_BODY) {
+                        detectedBodyAndHeadIds[detectedBodyAndHeadCount++] = id;
+                    } else if (cell == Cell.SNAKE_TAIL) {
+                        detectedTailId = id;
+                        detectedFreeCells++;
+                    } else if (cell == Cell.APPLE) {
+                        detectedAppleId = id;
+                        detectedFreeCells++;
+                    } else if (cell == Cell.EMPTY) {
+                        detectedFreeCells++;
+                    }
+                }
+            }
+
+            this.headId = detectedHeadId;
+            this.appleId = detectedAppleId;
+            this.tailId = detectedTailId;
+            this.freeCells = detectedFreeCells;
+            this.bodyAndHeadIds = detectedBodyAndHeadIds;
+            this.bodyAndHeadCount = detectedBodyAndHeadCount;
+
+            BfsResult oldSearch = hasHead() ? runBfs(headId) : BfsResult.empty();
+            this.oldFoodDistance = oldSearch.distanceToApple;
+            this.oldTailDistance = oldSearch.distanceToTail;
         }
 
-        return manhattan(oldHead, apple) - manhattan(newHead, apple);
-    }
-
-    private static boolean isFoodInFront(Position newHead, Position apple, Direction direction) {
-        if (apple == null) {
-            return false;
+        public boolean hasHead() {
+            return headId >= 0;
         }
 
-        return switch (direction) {
-            case UP -> apple.col() == newHead.col() && apple.row() < newHead.row();
-            case DOWN -> apple.col() == newHead.col() && apple.row() > newHead.row();
-            case LEFT -> apple.row() == newHead.row() && apple.col() < newHead.col();
-            case RIGHT -> apple.row() == newHead.row() && apple.col() > newHead.col();
-        };
+        public boolean isSafeImmediateMove(Direction direction) {
+            if (!hasHead()) {
+                return false;
+            }
+
+            int nextId = nextId(headId, direction);
+            if (nextId < 0) {
+                return false;
+            }
+
+            Cell cell = board[rowOf(nextId)][colOf(nextId)];
+            return cell != Cell.SNAKE_HEAD && cell != Cell.SNAKE_BODY;
+        }
+
+        private boolean hasApple() {
+            return appleId >= 0;
+        }
+
+        private boolean hasTail() {
+            return tailId >= 0;
+        }
+
+        private int idOf(int row, int col) {
+            return row * cols + col;
+        }
+
+        private int rowOf(int id) {
+            if (id < 0) {
+                return -1;
+            }
+            return id / cols;
+        }
+
+        private int colOf(int id) {
+            if (id < 0) {
+                return -1;
+            }
+            return id % cols;
+        }
+
+        private int nextId(int id, Direction direction) {
+            if (id < 0) {
+                return -1;
+            }
+
+            int row = rowOf(id);
+            int col = colOf(id);
+
+            return switch (direction) {
+                case UP -> row > 0 ? idOf(row - 1, col) : -1;
+                case DOWN -> row < rows - 1 ? idOf(row + 1, col) : -1;
+                case LEFT -> col > 0 ? idOf(row, col - 1) : -1;
+                case RIGHT -> col < cols - 1 ? idOf(row, col + 1) : -1;
+            };
+        }
+
+        private boolean isPassable(int id) {
+            if (id < 0) {
+                return false;
+            }
+
+            Cell cell = board[rowOf(id)][colOf(id)];
+            return cell == Cell.EMPTY || cell == Cell.APPLE || cell == Cell.SNAKE_TAIL;
+        }
+
+        private int countLocalFreedom(int id) {
+            int count = 0;
+
+            for (Direction direction : DIRECTIONS) {
+                if (isPassable(nextId(id, direction))) {
+                    count++;
+                }
+            }
+
+            return count;
+        }
+
+        private int distanceToNearestBody(int id) {
+            if (id < 0) {
+                return 0;
+            }
+
+            int row = rowOf(id);
+            int col = colOf(id);
+            int best = maxDistance;
+
+            for (int i = 0; i < bodyAndHeadCount; i++) {
+                int bodyId = bodyAndHeadIds[i];
+                int distance = Math.abs(row - rowOf(bodyId)) + Math.abs(col - colOf(bodyId));
+
+                if (distance > 0 && distance < best) {
+                    best = distance;
+                }
+            }
+
+            return best;
+        }
+
+        private int foodImprovement(int newHeadId) {
+            if (!hasApple() || newHeadId < 0) {
+                return 0;
+            }
+
+            return manhattan(headId, appleId) - manhattan(newHeadId, appleId);
+        }
+
+        private boolean isFoodInFront(int newHeadId, Direction direction) {
+            if (!hasApple() || newHeadId < 0) {
+                return false;
+            }
+
+            int newRow = rowOf(newHeadId);
+            int newCol = colOf(newHeadId);
+            int appleRow = rowOf(appleId);
+            int appleCol = colOf(appleId);
+
+            return switch (direction) {
+                case UP -> appleCol == newCol && appleRow < newRow;
+                case DOWN -> appleCol == newCol && appleRow > newRow;
+                case LEFT -> appleRow == newRow && appleCol < newCol;
+                case RIGHT -> appleRow == newRow && appleCol > newCol;
+            };
+        }
+
+        private int manhattan(int firstId, int secondId) {
+            if (firstId < 0 || secondId < 0) {
+                return 0;
+            }
+
+            return Math.abs(rowOf(firstId) - rowOf(secondId))
+                    + Math.abs(colOf(firstId) - colOf(secondId));
+        }
+
+        private BfsResult runBfs(int startId) {
+            if (startId < 0) {
+                return BfsResult.empty();
+            }
+
+            boolean[] visited = new boolean[totalCells];
+            int[] distances = new int[totalCells];
+            int[] queue = new int[totalCells];
+            Arrays.fill(distances, -1);
+
+            int head = 0;
+            int tail = 0;
+            visited[startId] = true;
+            distances[startId] = 0;
+            queue[tail++] = startId;
+
+            int reachableCells = 0;
+            int distanceToApple = startId == appleId ? 0 : -1;
+            int distanceToTail = startId == tailId ? 0 : -1;
+
+            while (head < tail) {
+                int currentId = queue[head++];
+                reachableCells++;
+
+                for (Direction direction : DIRECTIONS) {
+                    int nextId = nextId(currentId, direction);
+
+                    if (nextId < 0 || visited[nextId] || !isPassable(nextId)) {
+                        continue;
+                    }
+
+                    visited[nextId] = true;
+                    distances[nextId] = distances[currentId] + 1;
+                    queue[tail++] = nextId;
+
+                    if (nextId == appleId) {
+                        distanceToApple = distances[nextId];
+                    }
+
+                    if (nextId == tailId) {
+                        distanceToTail = distances[nextId];
+                    }
+                }
+            }
+
+            return new BfsResult(reachableCells, distanceToApple, distanceToTail);
+        }
     }
 
-    private static int manhattan(Position a, Position b) {
-        return Math.abs(a.row() - b.row()) + Math.abs(a.col() - b.col());
+    private static final class BfsResult {
+        private final int reachableCells;
+        private final int distanceToApple;
+        private final int distanceToTail;
+
+        private BfsResult(int reachableCells, int distanceToApple, int distanceToTail) {
+            this.reachableCells = reachableCells;
+            this.distanceToApple = distanceToApple;
+            this.distanceToTail = distanceToTail;
+        }
+
+        private static BfsResult empty() {
+            return new BfsResult(0, -1, -1);
+        }
     }
 }

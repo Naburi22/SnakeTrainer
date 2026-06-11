@@ -17,6 +17,10 @@ public class FeatureVector {
         return values[featureName.ordinal()];
     }
 
+    public double get(int index) {
+        return values[index];
+    }
+
     public double[] toArray() {
         return Arrays.copyOf(values, values.length);
     }

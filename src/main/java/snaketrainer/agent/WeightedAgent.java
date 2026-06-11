@@ -1,14 +1,14 @@
 package snaketrainer.agent;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import snaketrainer.analysis.FeatureExtractor;
 import snaketrainer.model.Cell;
 import snaketrainer.model.Direction;
-import snaketrainer.model.Position;
 
 public class WeightedAgent implements SnakeAgent {
+    private static final Direction[] DIRECTIONS = Direction.values();
+    private static final int MAX_SAFE_MOVES = 4;
+
     private final WeightVector weights;
     private final FeatureGenome genome;
     private final Random random;
@@ -33,23 +33,29 @@ public class WeightedAgent implements SnakeAgent {
 
     @Override
     public Direction decideMove(Cell[][] board, Direction currentDirection, int score) {
-        Position head = FeatureExtractor.findCell(board, Cell.SNAKE_HEAD);
+        FeatureExtractor.DecisionContext context = FeatureExtractor.createDecisionContext(
+                board,
+                currentDirection,
+                score
+        );
 
-        if (head == null) {
+        if (!context.hasHead()) {
             return currentDirection;
         }
 
-        List<Direction> safeMoves = getSafeMoves(board, head, currentDirection);
+        Direction[] safeMoves = new Direction[MAX_SAFE_MOVES];
+        int safeMoveCount = collectSafeMoves(context, currentDirection, safeMoves);
 
-        if (safeMoves.isEmpty()) {
+        if (safeMoveCount == 0) {
             return currentDirection;
         }
 
-        Direction bestDirection = safeMoves.get(0);
+        Direction bestDirection = safeMoves[0];
         double bestValue = Double.NEGATIVE_INFINITY;
 
-        for (Direction direction : safeMoves) {
-            FeatureVector features = FeatureExtractor.extract(board, currentDirection, direction, score);
+        for (int i = 0; i < safeMoveCount; i++) {
+            Direction direction = safeMoves[i];
+            FeatureVector features = FeatureExtractor.extract(context, direction);
             double value = weights.dot(features, genome);
 
             if (value > bestValue || value == bestValue && random.nextBoolean()) {
@@ -61,22 +67,24 @@ public class WeightedAgent implements SnakeAgent {
         return bestDirection;
     }
 
-    private List<Direction> getSafeMoves(Cell[][] board, Position head, Direction currentDirection) {
-        List<Direction> safeMoves = new ArrayList<>();
+    private int collectSafeMoves(
+            FeatureExtractor.DecisionContext context,
+            Direction currentDirection,
+            Direction[] safeMoves
+    ) {
+        int count = 0;
 
-        for (Direction direction : Direction.values()) {
+        for (Direction direction : DIRECTIONS) {
             if (direction.isOpposite(currentDirection)) {
                 continue;
             }
 
-            Position next = FeatureExtractor.nextPosition(head, direction);
-
-            if (FeatureExtractor.isSafeImmediateMove(board, next)) {
-                safeMoves.add(direction);
+            if (context.isSafeImmediateMove(direction)) {
+                safeMoves[count++] = direction;
             }
         }
 
-        return safeMoves;
+        return count;
     }
 
     @Override

@@ -87,13 +87,19 @@ public class EvolutionLogger {
             writer.write("- Diversidad media de genomas: " + String.format("%.4f", state.getGenomeDiversity()));
             writer.newLine();
 
-            writer.write("- mutationRate actual: " + String.format("%.4f", state.getMutationRate()));
+            writer.write("- individualMutationRate actual: " + String.format("%.4f", state.getIndividualMutationRate()));
             writer.newLine();
 
             writer.write("- weightMutationPercentage actual: " + String.format("%.4f", state.getWeightMutationPercentage()));
             writer.newLine();
 
-            writer.write("- featureMutationRate actual: " + String.format("%.4f", state.getFeatureMutationRate()));
+            writer.write("- weightMutationTypeRate actual: " + String.format("%.4f", state.getWeightMutationTypeRate()));
+            writer.newLine();
+
+            writer.write("- genomeMutationTypeRate actual: " + String.format("%.4f", state.getGenomeMutationTypeRate()));
+            writer.newLine();
+
+            writer.write("- mixedMutationTypeRate actual: " + String.format("%.4f", state.getMixedMutationTypeRate()));
             writer.newLine();
 
             writer.write("- Decisión: " + state.getDecision());

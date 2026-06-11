@@ -8,20 +8,24 @@ package snaketrainer.evolution;
 public class EvolutionParameters {
     private final int tournamentSize;
     private final double minimumMutationStep;
+    private final double mixedMutationTypeRate;
+    private final int mutatedWeightsPerMutation;
     private final double crossoverRate;
     private final double directCopySuperiorRate;
     private final double featureSuperiorInheritanceRate;
 
-    private double mutationRate;
+    private double individualMutationRate;
     private double weightMutationPercentage;
-    private double featureMutationRate;
+    private double genomeMutationTypeRate;
 
     public EvolutionParameters(EvolutionConfig config) {
         this.tournamentSize = config.getTournamentSize();
-        this.mutationRate = config.getMutationRate();
-        this.weightMutationPercentage = config.getMutationStrength();
+        this.individualMutationRate = config.getIndividualMutationRate();
+        this.weightMutationPercentage = config.getWeightMutationPercentage();
         this.minimumMutationStep = config.getMinimumMutationStep();
-        this.featureMutationRate = config.getFeatureMutationRate();
+        this.genomeMutationTypeRate = config.getGenomeMutationTypeRate();
+        this.mixedMutationTypeRate = config.getMixedMutationTypeRate();
+        this.mutatedWeightsPerMutation = config.getMutatedWeightsPerMutation();
         this.crossoverRate = config.getCrossoverRate();
         this.directCopySuperiorRate = config.getDirectCopySuperiorRate();
         this.featureSuperiorInheritanceRate = config.getFeatureSuperiorInheritanceRate();
@@ -31,12 +35,12 @@ public class EvolutionParameters {
         return tournamentSize;
     }
 
-    public double getMutationRate() {
-        return mutationRate;
+    public double getIndividualMutationRate() {
+        return individualMutationRate;
     }
 
-    public void setMutationRate(double mutationRate) {
-        this.mutationRate = mutationRate;
+    public void setIndividualMutationRate(double individualMutationRate) {
+        this.individualMutationRate = individualMutationRate;
     }
 
     public double getWeightMutationPercentage() {
@@ -51,12 +55,24 @@ public class EvolutionParameters {
         return minimumMutationStep;
     }
 
-    public double getFeatureMutationRate() {
-        return featureMutationRate;
+    public double getGenomeMutationTypeRate() {
+        return genomeMutationTypeRate;
     }
 
-    public void setFeatureMutationRate(double featureMutationRate) {
-        this.featureMutationRate = featureMutationRate;
+    public void setGenomeMutationTypeRate(double genomeMutationTypeRate) {
+        this.genomeMutationTypeRate = genomeMutationTypeRate;
+    }
+
+    public double getMixedMutationTypeRate() {
+        return mixedMutationTypeRate;
+    }
+
+    public double getWeightMutationTypeRate() {
+        return 1.0 - genomeMutationTypeRate - mixedMutationTypeRate;
+    }
+
+    public int getMutatedWeightsPerMutation() {
+        return mutatedWeightsPerMutation;
     }
 
     public double getCrossoverRate() {

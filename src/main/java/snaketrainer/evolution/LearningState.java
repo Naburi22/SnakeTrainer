@@ -9,9 +9,11 @@ public class LearningState {
     private final int stagnationWindow;
     private final int generationsWithoutImprovement;
     private final double genomeDiversity;
-    private final double mutationRate;
+    private final double individualMutationRate;
     private final double weightMutationPercentage;
-    private final double featureMutationRate;
+    private final double weightMutationTypeRate;
+    private final double genomeMutationTypeRate;
+    private final double mixedMutationTypeRate;
     private final String decision;
 
     public LearningState(
@@ -19,18 +21,22 @@ public class LearningState {
             int stagnationWindow,
             int generationsWithoutImprovement,
             double genomeDiversity,
-            double mutationRate,
+            double individualMutationRate,
             double weightMutationPercentage,
-            double featureMutationRate,
+            double weightMutationTypeRate,
+            double genomeMutationTypeRate,
+            double mixedMutationTypeRate,
             String decision
     ) {
         this.generation = generation;
         this.stagnationWindow = stagnationWindow;
         this.generationsWithoutImprovement = generationsWithoutImprovement;
         this.genomeDiversity = genomeDiversity;
-        this.mutationRate = mutationRate;
+        this.individualMutationRate = individualMutationRate;
         this.weightMutationPercentage = weightMutationPercentage;
-        this.featureMutationRate = featureMutationRate;
+        this.weightMutationTypeRate = weightMutationTypeRate;
+        this.genomeMutationTypeRate = genomeMutationTypeRate;
+        this.mixedMutationTypeRate = mixedMutationTypeRate;
         this.decision = decision;
     }
 
@@ -50,16 +56,24 @@ public class LearningState {
         return genomeDiversity;
     }
 
-    public double getMutationRate() {
-        return mutationRate;
+    public double getIndividualMutationRate() {
+        return individualMutationRate;
     }
 
     public double getWeightMutationPercentage() {
         return weightMutationPercentage;
     }
 
-    public double getFeatureMutationRate() {
-        return featureMutationRate;
+    public double getWeightMutationTypeRate() {
+        return weightMutationTypeRate;
+    }
+
+    public double getGenomeMutationTypeRate() {
+        return genomeMutationTypeRate;
+    }
+
+    public double getMixedMutationTypeRate() {
+        return mixedMutationTypeRate;
     }
 
     public String getDecision() {

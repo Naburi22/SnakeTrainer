@@ -1,10 +1,8 @@
 package snaketrainer.game;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Deque;
-import java.util.List;
 import java.util.Random;
 import snaketrainer.model.Cell;
 import snaketrainer.model.Direction;
@@ -16,6 +14,7 @@ public class SnakeGame {
     private final Random random;
 
     private final Deque<Position> snake;
+    private final boolean[][] occupied;
     private Position apple;
     private Direction direction;
     private boolean gameOver;
@@ -35,18 +34,23 @@ public class SnakeGame {
         this.cols = cols;
         this.random = random;
         this.snake = new ArrayDeque<>();
+        this.occupied = new boolean[rows][cols];
         reset();
     }
 
     public void reset() {
         snake.clear();
 
+        for (int row = 0; row < rows; row++) {
+            Arrays.fill(occupied[row], false);
+        }
+
         int startRow = rows / 2;
         int startCol = cols / 2;
 
-        snake.addFirst(new Position(startRow, startCol));
-        snake.addLast(new Position(startRow, startCol - 1));
-        snake.addLast(new Position(startRow, startCol - 2));
+        addInitialSnakePosition(new Position(startRow, startCol));
+        addInitialSnakePosition(new Position(startRow, startCol - 1));
+        addInitialSnakePosition(new Position(startRow, startCol - 2));
 
         apple = null;
         direction = Direction.RIGHT;
@@ -55,6 +59,11 @@ public class SnakeGame {
         steps = 0;
 
         spawnApple();
+    }
+
+    private void addInitialSnakePosition(Position position) {
+        snake.addLast(position);
+        occupied[position.row()][position.col()] = true;
     }
 
     public void step(Direction requestedDirection) {
@@ -70,12 +79,12 @@ public class SnakeGame {
         Position newHead = nextPosition(currentHead, direction);
         steps++;
 
-        boolean eatingApple = newHead.equals(apple);
-
         if (hitsWall(newHead)) {
             gameOver = true;
             return;
         }
+
+        boolean eatingApple = newHead.equals(apple);
 
         /*
          * Se permite avanzar sobre la cola si no se está comiendo manzana,
@@ -84,19 +93,28 @@ public class SnakeGame {
         Position tail = snake.peekLast();
         boolean movingIntoTail = newHead.equals(tail) && !eatingApple;
 
-        if (snake.contains(newHead) && !movingIntoTail) {
+        if (isOccupied(newHead) && !movingIntoTail) {
             gameOver = true;
             return;
         }
 
         snake.addFirst(newHead);
+        occupied[newHead.row()][newHead.col()] = true;
 
         if (eatingApple) {
             score++;
             spawnApple();
         } else {
-            snake.removeLast();
+            Position removedTail = snake.removeLast();
+
+            if (!removedTail.equals(newHead)) {
+                occupied[removedTail.row()][removedTail.col()] = false;
+            }
         }
+    }
+
+    private boolean isOccupied(Position position) {
+        return occupied[position.row()][position.col()];
     }
 
     private boolean hitsWall(Position position) {
@@ -116,23 +134,44 @@ public class SnakeGame {
     }
 
     private void spawnApple() {
-        List<Position> freePositions = new ArrayList<>();
+        int freeCells = countFreeCells();
 
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                Position candidate = new Position(row, col);
-                if (!snake.contains(candidate)) {
-                    freePositions.add(candidate);
-                }
-            }
-        }
-
-        if (freePositions.isEmpty()) {
+        if (freeCells == 0) {
             gameOver = true;
             return;
         }
 
-        apple = freePositions.get(random.nextInt(freePositions.size()));
+        int selectedFreeCell = random.nextInt(freeCells);
+        int currentFreeCell = 0;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (occupied[row][col]) {
+                    continue;
+                }
+
+                if (currentFreeCell == selectedFreeCell) {
+                    apple = new Position(row, col);
+                    return;
+                }
+
+                currentFreeCell++;
+            }
+        }
+    }
+
+    private int countFreeCells() {
+        int freeCells = 0;
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                if (!occupied[row][col]) {
+                    freeCells++;
+                }
+            }
+        }
+
+        return freeCells;
     }
 
     public Cell[][] getBoardMatrix() {

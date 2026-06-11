@@ -56,6 +56,10 @@ public class FeatureGenome {
         return enabled[featureName.ordinal()];
     }
 
+    public boolean isEnabled(int index) {
+        return enabled[index];
+    }
+
     public boolean[] toArray() {
         return enabled.clone();
     }

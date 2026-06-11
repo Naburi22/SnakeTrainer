@@ -13,9 +13,8 @@ import snaketrainer.evolution.evaluation.FitnessEvaluator;
 import snaketrainer.evolution.evaluation.FitnessResult;
 import snaketrainer.evolution.reproduction.ArithmeticCrossover;
 import snaketrainer.evolution.reproduction.FeatureGenomeCrossover;
-import snaketrainer.evolution.reproduction.FeatureGenomeMutation;
+import snaketrainer.evolution.reproduction.IndividualMutationOperator;
 import snaketrainer.evolution.reproduction.ReproductionEngine;
-import snaketrainer.evolution.reproduction.UniformMutation;
 import snaketrainer.evolution.selection.TournamentSelection;
 
 public class EvolutionEngine {
@@ -71,36 +70,41 @@ public class EvolutionEngine {
 
         Population population = Population.random(config.getAgentsPerGeneration(), random);
         LearningController learningController = new LearningController(config, BOARD_COLS * BOARD_ROWS);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
 
         GenerationResult bestGenerationResult = null;
 
-        for (int generation = 1; generation <= config.getGenerations(); generation++) {
-            if (progressListener != null) {
-                progressListener.onGenerationStarted(generation, config.getGenerations());
-            }
-            
-            List<Individual> individuals = evaluatePopulation(population);
-            Collections.sort(individuals);
+        try {
+            for (int generation = 1; generation <= config.getGenerations(); generation++) {
+                if (progressListener != null) {
+                    progressListener.onGenerationStarted(generation, config.getGenerations());
+                }
 
-            if (detailedLogging) {
-                logger.logGeneration(generation, individuals);
-            }
+                List<Individual> individuals = evaluatePopulation(population, executor);
+                Collections.sort(individuals);
 
-            GenerationResult currentResult = new GenerationResult(generation, individuals);
-            LearningState learningState = learningController.update(generation, individuals);
+                if (detailedLogging) {
+                    logger.logGeneration(generation, individuals);
+                }
 
-            if (detailedLogging) {
-                logger.logLearningState(learningState);
-            }
+                GenerationResult currentResult = new GenerationResult(generation, individuals);
+                LearningState learningState = learningController.update(generation, individuals);
 
-            if (bestGenerationResult == null
-                    || currentResult.getBestIndividual().compareTo(bestGenerationResult.getBestIndividual()) < 0) {
-                bestGenerationResult = currentResult;
-            }
+                if (detailedLogging) {
+                    logger.logLearningState(learningState);
+                }
 
-            if (generation < config.getGenerations()) {
-                population = createReproductionEngine(learningController.getParameters()).reproduce(individuals);
+                if (bestGenerationResult == null
+                        || currentResult.getBestIndividual().compareTo(bestGenerationResult.getBestIndividual()) < 0) {
+                    bestGenerationResult = currentResult;
+                }
+
+                if (generation < config.getGenerations()) {
+                    population = createReproductionEngine(learningController.getParameters()).reproduce(individuals);
+                }
             }
+        } finally {
+            executor.shutdown();
         }
 
         if (detailedLogging) {
@@ -114,9 +118,7 @@ public class EvolutionEngine {
         return bestGenerationResult;
     }
 
-    private List<Individual> evaluatePopulation(Population population) {
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
-
+    private List<Individual> evaluatePopulation(Population population, ExecutorService executor) {
         try {
             List<Callable<Individual>> tasks = new ArrayList<>();
 
@@ -134,8 +136,6 @@ public class EvolutionEngine {
             return individuals;
         } catch (Exception exception) {
             throw new RuntimeException("Error durante la evaluación concurrente de la población.", exception);
-        } finally {
-            executor.shutdown();
         }
     }
 
@@ -168,14 +168,8 @@ public class EvolutionEngine {
                 parameters,
                 new TournamentSelection(parameters.getTournamentSize(), random),
                 new ArithmeticCrossover(random),
-                new UniformMutation(
-                        parameters.getMutationRate(),
-                        parameters.getWeightMutationPercentage(),
-                        parameters.getMinimumMutationStep(),
-                        random
-                ),
                 new FeatureGenomeCrossover(parameters.getFeatureSuperiorInheritanceRate(), random),
-                new FeatureGenomeMutation(parameters.getFeatureMutationRate(), random),
+                new IndividualMutationOperator(parameters, random),
                 random
         );
     }
